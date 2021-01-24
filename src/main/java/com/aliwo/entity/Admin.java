@@ -38,7 +38,7 @@ public class Admin extends Model<Admin> {
     private String adminerNo;
 
     /**
-     * 用户名  sss
+     * 用户名
      */
     private String username;
 
