@@ -128,7 +128,7 @@ public class Admin extends Model<Admin> {
     private Integer status;
 
     /**
-     * 表字段逻辑处理注解（逻辑删除,默认0显示，1删除）
+     * 表字段逻辑处理注解（逻辑删除,默认0显示，1删除）87ee3b592c3a6f45829c2e96681dfb904f2f488f
      */
     @TableLogic
     private Integer deleted;
