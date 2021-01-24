@@ -30,9 +30,6 @@ public class AdminServiceImpl extends ServiceImpl<AdminDao, Admin> implements Ad
      */
     @Override
     public Admin adminLogin(String username, String password) {
-        QueryWrapper<Admin> wrapper = new QueryWrapper<>();
-        wrapper.eq("adminer_no", username);
-        wrapper.eq("password", password);
-        return adminDao.selectOne(wrapper);
+        return adminDao.adminLogin(username, password);
     }
 }

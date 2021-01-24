@@ -70,7 +70,7 @@ public class Admin extends Model<Admin> {
     /**
      * 联系电话
      */
-    private String telePhone;
+    private String telephone;
 
     /**
      * 电子邮件
@@ -95,7 +95,7 @@ public class Admin extends Model<Admin> {
     /**
      * 地址
      */
-    private String addrsss;
+    private String address;
 
     /**
      * 签名

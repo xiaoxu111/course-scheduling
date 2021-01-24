@@ -19,12 +19,10 @@ public interface AdminDao extends BaseMapper<Admin> {
      * @return Admin
      * 可以根据(一:)管理员编号和密码或者(二:)用户名和密码或者(三:)真实姓名和密码进行登录(三种登录方式)
      */
-    @Select(
-            "SELECT * FROM yc_admin WHERE adminer_no = #{account} AND password = #{password}"
-            + "   UNION" +
-            "           SELECT * FROM tb_admin WHERE username=#{account} AND password=#{password}"
-            + "   UNION" +
-            "           SELECT * FROM tb_admin WHERE realname=#{account} AND password=#{password}"
-    )
+    @Select("SELECT * FROM yc_admin WHERE adminer_no=#{account} AND password=#{password}" +
+            "        UNION" +
+            "        SELECT * FROM yc_admin WHERE username=#{account} AND password=#{password}" +
+            "        UNION" +
+            "        SELECT * FROM yc_admin WHERE realname=#{account} AND password=#{password}")
     Admin adminLogin(@Param("account") String account, @Param("password") String password);
 }
