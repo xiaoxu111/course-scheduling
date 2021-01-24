@@ -43,7 +43,7 @@ public class Admin extends Model<Admin> {
     private String username;
 
     /**
-     * 密码
+     * 密码  01ffda11f297fdbfd9ea6c94c2aa155df550f583
      */
     private String password;
 
