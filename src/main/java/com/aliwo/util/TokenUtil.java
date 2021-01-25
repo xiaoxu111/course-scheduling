@@ -9,7 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 /**
  * package_name:com.aliwo.util
  *
- * @author:徐亚远 Date:2021/1/24 15:45
+ * @author:xuyy19 Date:2021/1/24 15:45
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0

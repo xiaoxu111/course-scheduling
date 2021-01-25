@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 import org.apache.ibatis.annotations.Param;
 
 /**
- * @author:徐亚远 Date:2021/1/24 13:52
+ * @author:xuyy19 Date:2021/1/24 13:52
  * 项目名:course-scheduling
  * Description:管理员服务接口
  * Version: 1.0

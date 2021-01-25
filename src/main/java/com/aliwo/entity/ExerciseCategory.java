@@ -10,7 +10,7 @@ import java.time.LocalDateTime;
 /**
  * package_name:com.aliwo.entity
  *
- * @author:徐亚远 Date:2021/1/24 15:43
+ * @author:xuyy19 Date:2021/1/24 15:43
  * 项目名:course-scheduling-system
  * Description:TODO
  * Version: 1.0

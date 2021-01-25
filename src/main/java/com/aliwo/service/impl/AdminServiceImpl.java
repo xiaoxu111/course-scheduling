@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 /**
  * package_name:com.aliwo.service.impl
  *
- * @author:徐亚远 Date:2021/1/24 13:54
+ * @author:xuyy19 Date:2021/1/24 13:54
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0

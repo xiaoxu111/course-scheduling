@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * package_name:com.aliwo.controller
  *
- * @author:徐亚远 Date:2021/1/24 13:59
+ * @author:xuyy19 Date:2021/1/24 13:59
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0
@@ -41,8 +41,10 @@ public class AdminController {
     public com.aliwo.common.ServerResponse adminLogin(@RequestBody UserLoginRequest adminLoginRequest) {
         Map<String, Object> map = new HashMap();
         Admin admin = adminService.adminLogin(adminLoginRequest.getUsername(), adminLoginRequest.getPassword());
-        if (admin != null) {
+        if (null != admin) {
             String token = tokenService.getToken(admin);
+            // 密码隐藏起来
+            admin.setPassword("");
             map.put("admin", admin);
             map.put("token", token);
             return ServerResponse.ofSuccess(map);

@@ -5,7 +5,7 @@ import lombok.Data;
 /**
  * package_name:com.aliwo.entity.request
  *
- * @author:徐亚远 Date:2021/1/24 18:59
+ * @author:xuyy19 Date:2021/1/24 18:59
  * 项目名:course-scheduling-system
  * Description:TODO
  * Version: 1.0

@@ -16,7 +16,7 @@ import java.lang.reflect.Method;
 /**
  * package_name:com.aliwo.common
  *
- * @author:徐亚远 Date:2021/1/24 15:38
+ * @author:xuyy19 Date:2021/1/24 15:38
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0

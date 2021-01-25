@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 /**
  * package_name:com.aliwo.common
  *
- * @author:徐亚远 Date:2021/1/24 15:57
+ * @author:xuyy19 Date:2021/1/24 15:57
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0

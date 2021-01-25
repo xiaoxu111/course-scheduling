@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 import java.io.Serializable;
 
 /**
- * @author:徐亚远 Date:2021/1/24 15:44
+ * @author:xuyy19 Date:2021/1/24 15:44
  * 项目名:course-scheduling-system
  * Description:年级表
  * Version: 1.0
