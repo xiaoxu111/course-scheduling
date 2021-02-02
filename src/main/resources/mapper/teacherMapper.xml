@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--namespace  填写的是dao层所对应的接口全限定类名-->
+<mapper namespace="com.aliwo.dao.TeacherDao">
+    <resultMap id="BaseResultMap" type="com.aliwo.entity.Teacher">
+        <id column="id" property="id"/>
+        <result column="teacher_no" property="teacherNo"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="realname" property="realname"/>
+        <result column="job_title" property="jobTitle"/>
+        <result column="license" property="license"/>
+        <result column="teach_subject" property="teachSubject"/>
+        <result column="age" property="age"/>
+        <result column="telephone" property="telephone"/>
+        <result column="address" property="address"/>
+        <result column="avatar" property="avatar"/>
+        <result column="description" property="description"/>
+        <result column="power" property="power"/>
+        <result column="piority" property="piority"/>
+        <result column="status" property="status"/>
+        <result column="deleted" property="deleted"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+    </resultMap>
+
+    <select id="selectOne" resultMap="BaseResultMap" parameterType="com.aliwo.entity.Teacher">
+        select id, username, realname, age from yc_teacher
+        <where>
+            <if test="null != id">
+                id=#{teacher_no},
+            </if>
+            <if test="null != username">
+                username=#{username},
+            </if>
+            <if test="null != realname">
+                realname=#{realname},
+            </if>
+        </where>
+    </select>
+
+</mapper>

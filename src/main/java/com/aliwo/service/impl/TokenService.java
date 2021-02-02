@@ -1,6 +1,7 @@
 package com.aliwo.service.impl;
 
 import com.aliwo.entity.Admin;
+import com.aliwo.entity.Teacher;
 import com.aliwo.util.DateUtil;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -32,6 +33,22 @@ public class TokenService {
         String token = "";
         token = JWT.create().withAudience(admin.getId().toString()).withIssuedAt(start).withExpiresAt(end)
                 .sign(Algorithm.HMAC256(admin.getPassword()));
+        return token;
+    }
+
+    /**
+     * 验证讲师
+     *
+     * @param teacher
+     * @return
+     */
+    public String getToken(Teacher teacher) {
+        Date start = new Date();
+        long currentTime = System.currentTimeMillis() + 60 * 60 * 500;
+        Date end = new Date(currentTime);
+        String token = "";
+        token = JWT.create().withAudience(teacher.getId().toString()).withIssuedAt(start).withExpiresAt(end)
+                .sign(Algorithm.HMAC256(teacher.getPassword()));
         return token;
     }
 }

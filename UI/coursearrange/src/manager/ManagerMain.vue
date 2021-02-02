@@ -4,17 +4,17 @@
     <el-container>
       <el-header>
         <!-- 头 -->
-        <el-header style="text-align: right; font-size: 12px">
+        <el-header style="text-align: right; font-size: 12px; color: #669900">
           <!-- 系统标题 -->
           <el-dropdown @command="handleCommand">
-            <i class="el-icon-setting" style="margin-right: 15px"></i>
+            <i class="el-icon-setting" style="margin-right: 30px; color: red"></i>
             <el-dropdown-menu slot="dropdown">
               <el-dropdown-item command="center">个人中心</el-dropdown-item>
               <el-dropdown-item command="updatePassword">修改密码</el-dropdown-item>
               <el-dropdown-item command="exit">退出</el-dropdown-item>
             </el-dropdown-menu>
-          </el-dropdown>您好，
-          <span>{{name}}</span>
+          </el-dropdown><font size="2px">您好 ：</font>
+          <span><font size="3px">{{name}} ！</font></span>
         </el-header>
       </el-header>
       <el-container>

@@ -55,9 +55,9 @@ public class Teacher extends Model<Teacher> {
     private Integer userType;
 
     /**
-     * 职称
+     * 职称 不同 jobtitle
      */
-    private String jobtitle;
+    private String jobTitle;
 
     /**
      * 所属年级
@@ -70,9 +70,9 @@ public class Teacher extends Model<Teacher> {
     private String license;
 
     /**
-     * 教授科目
+     * 教授科目 不同 teach
      */
-    private String teach;
+    private String teachSubject;
 
     /**
      * 年龄
