@@ -8,7 +8,7 @@ import lombok.Getter;
  *
  * @author:xuyy19 Date:2021/1/24 15:02
  * 项目名:course-scheduling
- * Description:TODO
+ * Description:返回表示码
  * Version: 1.0
  **/
 

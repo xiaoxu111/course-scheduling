@@ -8,7 +8,14 @@
       </div>
     </div>
     <!--<h3 class="footer"><router-link to="/" style="text-decoration:none;">联系管理员</router-link></h3>-->
-    <h3 style="height: 60px">Copy Right © 2020-2021 xiaoxu111 版权所有</h3>
+    <div>
+      <h3 style="margin-top: 270px">Copy Right © 2020-2021 xiaoxu111 版权所有
+        <el-tooltip placement="top">
+          <div slot="content">QQ ： 1462638689<br/>微信 ：15225200721</div>
+          <el-button type="primary">联系管理员</el-button>
+        </el-tooltip>
+      </h3>
+    </div>
   </div>
 </template>
 
@@ -28,12 +35,6 @@ export default {
 </script>
 
 <style lang="less" scoped>
-  .footer {
-    height: 60px;
-    position: relative;
-    margin: auto;
-  }
-
   .wrapper {
     /*background-image: "@images/psb.jpg";*/
     height: 100%;

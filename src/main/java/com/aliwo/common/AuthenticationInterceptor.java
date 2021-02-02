@@ -26,6 +26,14 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
     private AdminService adminService;
 
+    /**
+     * @param request
+     * @param response
+     * @param handler
+     * @return boolean
+     * @throws Exception
+     * 业务处理器处理请求之前被调用
+     */
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 从 http 请求头中取出 token
@@ -66,11 +74,27 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         return true;
     }
 
+    /**
+     * @param request
+     * @param response
+     * @param handler
+     * @param modelAndView
+     * @throws Exception
+     * 在业务处理器处理请求完成之后,生成试图之前执行
+     */
     @Override
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable ModelAndView modelAndView) throws Exception {
 
     }
 
+    /**
+     * @param request
+     * @param response
+     * @param handler
+     * @param ex
+     * @throws Exception
+     * 在DispatcherServlet完全处理完请求之后被调用,可用于清除资源
+     */
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, @Nullable Exception ex) throws Exception {
 

@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
  *
  * @author:xuyy19 Date:2021/1/24 15:57
  * 项目名:course-scheduling
- * Description:TODO
+ * Description: 全局异常处理
  * Version: 1.0
  **/
 @ControllerAdvice

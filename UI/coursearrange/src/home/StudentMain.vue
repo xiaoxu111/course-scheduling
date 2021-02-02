@@ -120,7 +120,7 @@ export default {
       this.default_active = val;
       if(val=='/index'){
         // 网课页面
-        window.open('http://localhost:81/index.html')
+        window.open('http://localhost:8081/index.html')
         return;
       }
       this.$router.push(val);

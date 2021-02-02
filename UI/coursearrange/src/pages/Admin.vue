@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrapper">
-    
+
     <div class="login-box">
       <!-- 头像 -->
       <div class="login-avatar">
@@ -25,11 +25,12 @@
             <el-radio v-model="radio" label="2" @change="getType()">讲师</el-radio>
           </template>
         </el-form-item>
-        
+
         <!-- 按钮 -->
         <el-form-item class="button">
           <el-button type="primary" @click="login">登录</el-button>
           <el-button type="info" @click="resetLoginForm">重置</el-button>
+          <el-button type="primary" @click="homePage">首页</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -43,10 +44,10 @@ export default {
     return {
       // 类型选择，默认选择管理员登录
       radio: '1',
-      // 登录表单的对象
+      // 登录表单的对象,重置设置的默认值
       adminLoginForm: {
         username: '10011',
-        password: 'aizai2015'
+        password: 'xu2021'
       },
       adminLoginFormRules: {
         username: [
@@ -68,7 +69,11 @@ export default {
     getType() {
       // 调用这个方法直接获取到了类型
     },
-    
+    homePage() {
+        // 判断，返回指定页面
+        this.$router.push('http://localhost:8081')
+    },
+
     login() {
       this.$refs.loginFormRef.validate(valid => {
         // 表单预验证
@@ -182,6 +187,6 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
   }
-  
-  
+
+
 </style>

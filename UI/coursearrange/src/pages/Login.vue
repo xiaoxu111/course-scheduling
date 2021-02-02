@@ -1,6 +1,6 @@
 <template>
   <div class="login-wrapper">
-    
+
     <div class="login-box">
       <!-- 头像 -->
       <div class="login-avatar">
@@ -17,11 +17,12 @@
         <!-- 密码 -->
         <el-form-item prop="password">
           <el-input v-model="studentLoginForm.password" placeholder="请输入密码" @keyup.enter.native="login" prefix-icon="iconfont iconmima" type="password"></el-input>
-        </el-form-item>        
+        </el-form-item>
         <!-- 按钮 -->
         <el-form-item class="button">
           <el-button type="primary" @click="login">登录</el-button>
           <el-button type="info" @click="registerNo">注册账号</el-button>
+          <el-button type="primary" @click="homePage">首页</el-button>
         </el-form-item>
       </el-form>
     </div>
@@ -51,12 +52,16 @@ export default {
     }
   },
   methods: {
-    
+
     registerNo() {
       // 跳转到注册页面
       window.location.href="http://localhost:8081/#/student/register"
     },
-    
+    homePage() {
+      // 判断，返回指定页面
+      this.$router.push('http://localhost:8081')
+    },
+
     login() {
       // 表单预验证
       this.$refs.loginFormRef.validate(valid => {
@@ -146,7 +151,7 @@ export default {
     top: 50%;
     transform: translate(-50%, -50%);
   }
-  
-  
+
+
 
 </style>

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
  *
  * @author:xuyy19 Date:2021/1/24 15:01
  * 项目名:course-scheduling
- * Description:TODO
+ * Description:返回信息
  * Version: 1.0
  **/
 @Data

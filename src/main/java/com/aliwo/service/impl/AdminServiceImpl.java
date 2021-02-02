@@ -3,7 +3,6 @@ package com.aliwo.service.impl;
 import com.aliwo.dao.AdminDao;
 import com.aliwo.entity.Admin;
 import com.aliwo.service.AdminService;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

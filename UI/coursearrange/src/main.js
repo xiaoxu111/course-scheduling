@@ -9,6 +9,7 @@ import 'element-ui/lib/theme-chalk/index.css';
 
 // 引入图标
 import '@/assets/iconfonts/fonts/iconfont.css';
+//引入文字提示
 
 // 引入echarts
 import echarts from 'echarts'
@@ -18,7 +19,7 @@ import './assets/css/global.css';
 import { Button, Select, Form, Radio, Table, Container, Message, Pagination, Dialog, Autocomplete,
          Submenu, Menu, MenuItem, MenuItemGroup, Input, Option, FormItem, TableColumn, Row,
          Icon, Dropdown, DropdownMenu, DropdownItem, Header, Aside, Main, Footer, Popover, Upload,
-         MessageBox, Col, Cascader,Image,Link} from 'element-ui';
+         MessageBox, Col, Cascader,Image,Link,Tooltip} from 'element-ui';
 
 Vue.config.productionTip = false;
 Vue.prototype.$axios = axios;
@@ -60,7 +61,7 @@ Vue.use(MenuItemGroup);
 Vue.use(Input);
 Vue.use(Image);
 Vue.use(Link);
-
+Vue.use(Tooltip);
 
 new Vue({
   el: '#app',

@@ -21,9 +21,9 @@ public class CrosConfig {
             @Override
             // 重写父类提供的跨域请求处理的接口，解决跨域问题
             public void addCorsMappings(CorsRegistry registry) {
-                // 添加映射路径
+                // 添加映射路径 设置允许跨域的路径
                 registry.addMapping("/**")
-                        // 放行哪些原始域
+                        // 放行哪些原始域 设置允许跨域请求的域名
                         .allowedOrigins("*")
                         // 是否发送Cookie信息
                         .allowCredentials(true)

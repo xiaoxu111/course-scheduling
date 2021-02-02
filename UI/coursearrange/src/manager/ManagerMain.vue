@@ -158,7 +158,7 @@ export default {
     setInterval(() => {
       this.getTime();
     }, 1000);
-    
+
     let admin = window.localStorage.getItem('admin')
     if(admin != null){
       this.name = (JSON.parse(admin)).realname
@@ -186,7 +186,7 @@ export default {
         // 修改密码页面
         this.$router.push('/updatepass')
       }
-      
+
     },
 
     // 获取系统时间
