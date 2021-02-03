@@ -55,7 +55,7 @@ export default {
 
     registerNo() {
       // 跳转到注册页面
-      window.location.href="http://localhost:8081/#/student/register"
+      window.location.href="http://localhost:8081/#/student/regist"
     },
     homePage() {
       // 判断，返回指定页面

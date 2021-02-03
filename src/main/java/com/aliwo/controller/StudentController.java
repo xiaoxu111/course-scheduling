@@ -117,7 +117,7 @@ public class StudentController {
      *
      */
    @RequestMapping(value = "/createstudentno/{grade}", method = RequestMethod.POST)
-    public ServerResponse createStudentNo(@PathVariable("grade") StringUtils grade) {
+    public ServerResponse createStudentNo(@PathVariable("grade") String grade) {
        Random r = new Random();
        // 得到当前年份字符串2021
        String str1 = LocalDateTime.now().getYear()+"";

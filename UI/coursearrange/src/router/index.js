@@ -37,7 +37,7 @@ const router = new Router({
       path: '/',
       name: 'Home',
       component: Home,
-      meta: { 
+      meta: {
         noRequireAuth: true
       },
     },
@@ -45,15 +45,15 @@ const router = new Router({
       path: '/student/login',
       name: 'Login',
       component: Login,
-      meta: { 
+      meta: {
         noRequireAuth: true
       },
     },
     {
-      path: '/student/register',
+      path: '/student/regist',
       name: 'Register',
       component: Register,
-      meta: { 
+      meta: {
         noRequireAuth: true
       },
     },
@@ -61,7 +61,7 @@ const router = new Router({
       path: '/admin/login',
       name: 'AdminLogin',
       component: Admin,
-      meta: { 
+      meta: {
         noRequireAuth: true
       },
     },
@@ -69,11 +69,11 @@ const router = new Router({
       path: '/student',
       name: 'Student',
       component: StudentMain,
-      meta: { 
+      meta: {
         noRequireAuth: true
       },
       children: [
-        
+
         {
           path: '/emptyclassroom',
           name: 'EmptyClassroom',
