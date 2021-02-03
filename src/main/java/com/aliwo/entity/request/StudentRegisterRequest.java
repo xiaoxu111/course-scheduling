@@ -12,7 +12,7 @@ import lombok.Data;
 public class StudentRegisterRequest {
 
     /**
-     * 学号由系统给学生生成，学生通过完善个人信息进行填写其它字段
+     * 学号由系统给学生生成，学生通过完善个人信息进行填写其它字段  非空
      */
     private String studentNo;
 
@@ -22,12 +22,12 @@ public class StudentRegisterRequest {
     private String username;
 
     /**
-     * 密码
+     * 密码 非空
      */
     private String password;
 
     /**
-     * 真实姓名
+     * 真实姓名 非空
      */
     private String realname;
 
