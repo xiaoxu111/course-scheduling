@@ -4,22 +4,41 @@
 <!--namespace  填写的是dao层所对应的接口全限定类名-->
 <mapper namespace="com.aliwo.dao.StudentDao">
     <resultMap id="BaseResultMap" type="com.aliwo.entity.Student">
-        <id column="id" property="id" />
-        <result column="student_no" property="studentNo" />
-        <result column="username" property="username" />
-        <result column="password" property="password" />
-        <result column="realname" property="realname" />
-        <result column="grade" property="grade" />
-        <result column="class_no" property="classNo" />
-        <result column="age" property="age" />
-        <result column="address" property="address" />
-        <result column="telephone" property="telephone" />
-        <result column="avatar" property="avatar" />
-        <result column="description" property="description" />
-        <result column="deleted" property="deleted" />
-        <result column="status" property="status" />
-        <result column="create_time" property="createTime" />
-        <result column="update_time" property="updateTime" />
+        <id column="id" property="id"/>
+        <result column="student_no" property="studentNo"/>
+        <result column="username" property="username"/>
+        <result column="password" property="password"/>
+        <result column="realname" property="realname"/>
+        <result column="grade" property="grade"/>
+        <result column="class_no" property="classNo"/>
+        <result column="age" property="age"/>
+        <result column="address" property="address"/>
+        <result column="telephone" property="telephone"/>
+        <result column="avatar" property="avatar"/>
+        <result column="description" property="description"/>
+        <result column="email" property="email"/>
+        <result column="deleted" property="deleted"/>
+        <result column="status" property="status"/>
+        <result column="user_type" property="userType"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
+    <sql id="baseColumn">
+        id, student_no, username, password, realname, grade, class_no, age, address,
+         telephone, avatar, description, email, deleted, userType, status, create_time, update_time
+    </sql>
 
+    <select id="studentLogin" parameterType="string" resultType="com.aliwo.entity.Student">
+        select
+        <include refid="baseColumn"/>
+        from yc_student where student_no = #{account} and password=#{password}
+        union
+        select
+        <include refid="baseColumn"/>
+        from yc_student where username = #{account} and password=#{password}
+        union
+        select
+        <include refid="baseColumn"/>
+        from yc_student where realname = #{account} and password=#{password}
+    </select>
 </mapper>

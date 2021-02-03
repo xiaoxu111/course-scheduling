@@ -26,6 +26,6 @@ public interface TeacherService extends IService<Teacher> {
      * @return Teacher
      * 查询账户是否存在
      */
-    Teacher selectOne(Teacher teacher);
+    //Teacher selectOne(Teacher teacher);
 
 }

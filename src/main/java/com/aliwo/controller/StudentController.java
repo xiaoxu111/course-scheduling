@@ -1,7 +1,9 @@
 package com.aliwo.controller;
 
 import com.aliwo.common.ServerResponse;
+import com.aliwo.common.UserLoginToken;
 import com.aliwo.entity.Student;
+import com.aliwo.entity.request.PasswordVO;
 import com.aliwo.entity.request.StudentLoginRequest;
 import com.aliwo.entity.request.StudentRegisterRequest;
 import com.aliwo.service.StudentService;
@@ -139,4 +141,39 @@ public class StudentController {
            }
        } while(true);
    }
+
+    /**
+     * 根据学生id获取
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @UserLoginToken
+    public ServerResponse queryStudentById(@PathVariable("id")Integer id){
+        // 查询出来需要修改的学生实体
+        return ServerResponse.ofSuccess(studentService.getById(id));
+    }
+
+    /**
+     * 学生修改密码
+     * @param passwordVO
+     * @return
+     */
+    @RequestMapping(value = "/password", method = RequestMethod.POST)
+    public ServerResponse updatePass(@RequestBody PasswordVO passwordVO) {
+        QueryWrapper<Student> wrapper = new QueryWrapper();
+        wrapper.eq("id", passwordVO.getId());
+        wrapper.eq("password", passwordVO.getOldPass());
+        Student student = studentService.getOne(wrapper);
+        if (null == student) {
+            return ServerResponse.ofError("旧密码错误");
+        }
+        // 否则进入修改密码流程
+        student.setPassword(passwordVO.getNewPass());
+        boolean b = studentService.updateById(student);
+        if (b) {
+            return ServerResponse.ofSuccess("密码修改成功");
+        }
+        return ServerResponse.ofError("密码更新失败");
+    }
 }

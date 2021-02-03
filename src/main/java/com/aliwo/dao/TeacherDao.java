@@ -19,15 +19,15 @@ public interface TeacherDao extends BaseMapper<Teacher> {
      * @param password
      * @return Teacher
      * 可以根据(一:)教师编号和密码或者(二:)用户名和密码或者(三:)真实姓名和密码进行登录(三种登录方式)
+     * @Select("SELECT id, password, username, realname FROM yc_teacher WHERE teacher_no=#{account} AND " +
+     * "password=#{password}" +
+     * "        UNION" +
+     * "        SELECT id, password, username, realname  FROM yc_teacher WHERE username=#{account} AND " +
+     * "password=#{password}" +
+     * "        UNION" +
+     * "        SELECT id, password, username, realname  FROM yc_teacher WHERE realname=#{account} AND " +
+     * "password=#{password}")
      */
-    @Select("SELECT id, password, username, realname FROM yc_teacher WHERE teacher_no=#{account} AND " +
-            "password=#{password}" +
-            "        UNION" +
-            "        SELECT id, password, username, realname  FROM yc_teacher WHERE username=#{account} AND " +
-            "password=#{password}" +
-            "        UNION" +
-            "        SELECT id, password, username, realname  FROM yc_teacher WHERE realname=#{account} AND " +
-            "password=#{password}")
     Teacher teacherLogin(@Param("account") String accont, @Param("password") String password);
 
     /**
@@ -35,6 +35,6 @@ public interface TeacherDao extends BaseMapper<Teacher> {
      * @return Teacher
      * 查询账户是否存在
      */
-    Teacher selectOne(Teacher teacher);
+    //Teacher selectOne(Teacher teacher);
 
 }

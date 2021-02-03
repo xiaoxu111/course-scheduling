@@ -37,8 +37,8 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherDao, Teacher> impleme
      * @return Teacher
      * 查询账户是否存在
      */
-    @Override
+    /*@Override
     public Teacher selectOne(Teacher teacher) {
         return teacherDao.selectOne(teacher);
-    }
+    }*/
 }
