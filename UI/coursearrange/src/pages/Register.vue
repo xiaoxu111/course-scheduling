@@ -77,6 +77,17 @@
 export default {
   name: 'Register',
   data() {
+    // 校验手机号
+    var checkphone = (rule, value, callback) => {
+      // let phoneReg = /(^1[3|4|5|6|7|8|9]\d{9}$)|(^09\d{8}$)/;
+      if (value == "") {
+        callback(new Error("请输入手机号"));
+      } else if (!this.isCellPhone(value)) {//引入methods中封装的检查手机格式的方法
+        callback(new Error("请输入正确的手机号(11位数字)!"));
+      } else {
+        callback();
+      }
+    };
     var validatePass = (rule, value, callback) => {
       if (value === '') {
         callback(new Error('请输入密码'));
@@ -137,18 +148,27 @@ export default {
           { validator: validatePass2, trigger: 'blur' },
           { min: 6, max: 15, message: '长度在 6 到 15 个字符', trigger: 'blur' }
         ],
+        telephone: [{ required: true, validator: checkphone, trigger: "blur" }],
         studentNo: [
           { required: true, message: '请先给自己申请个学号', trigger: 'blur' },
         ],
         email: [
           { required: true, message: '请输入邮件', trigger: 'blur' },
+          { type: 'email', message: '请输入正确的邮箱地址', trigger: ['blur', 'change'] },
         ]
       }
     }
   },
 
   methods: {
-
+    // 检查手机号
+    isCellPhone(val) {
+      if (!/^1(3|4|5|6|7|8)\d{9}$/.test(val)) {
+        return false;
+      } else {
+        return true;
+      }
+    },
     // 得到对应选中的年级
     handleSelectChange(v){
       this.studentRegNewForm.options.map((k)=>{

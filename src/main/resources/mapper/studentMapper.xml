@@ -25,7 +25,7 @@
     </resultMap>
     <sql id="baseColumn">
         id, student_no, username, password, realname, grade, class_no, age, address,
-         telephone, avatar, description, email, deleted, userType, status, create_time, update_time
+         telephone, avatar, description, email, deleted, user_type, status, create_time, update_time
     </sql>
 
     <select id="studentLogin" parameterType="string" resultType="com.aliwo.entity.Student">
