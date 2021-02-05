@@ -2,9 +2,11 @@ package com.aliwo.controller;
 
 import com.aliwo.common.ServerResponse;
 import com.aliwo.entity.Admin;
+import com.aliwo.entity.request.PasswordVO;
 import com.aliwo.entity.request.UserLoginRequest;
 import com.aliwo.service.AdminService;
 import com.aliwo.service.impl.TokenService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -70,6 +72,31 @@ public class AdminController {
         }
         // 修改操作
         return adminService.updateById(admin) ? ServerResponse.ofSuccess("修改成功") : ServerResponse.ofError("修改失败");
+    }
+
+
+    /**
+     * 管理员修改密码,修改密码使用
+     *
+     * @param passwordVO
+     * @return
+     */
+    @RequestMapping(value = "/password", method = RequestMethod.POST)
+    public ServerResponse updateTeacherPass(@RequestBody PasswordVO passwordVO) {
+        QueryWrapper<Admin> wrapper = new QueryWrapper();
+        wrapper.eq("id", passwordVO.getId());
+        wrapper.eq("password", passwordVO.getOldPass());
+        Admin admin = adminService.getOne(wrapper);
+        if (null == admin) {
+            return ServerResponse.ofError("旧密码错误");
+        }
+        // 否则进入修改密码流程
+        admin.setPassword(passwordVO.getNewPass());
+        boolean b = adminService.updateById(admin);
+        if (b) {
+            return ServerResponse.ofSuccess("密码修改成功");
+        }
+        return ServerResponse.ofError("密码更新失败");
     }
 
 }

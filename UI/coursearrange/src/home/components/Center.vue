@@ -10,13 +10,13 @@
       <el-form-item label="年级">
         <el-input v-model="form.grade" disabled></el-input>
       </el-form-item>
-      <el-form-item label="年龄">
-        <el-input v-model="form.age" disabled></el-input>
-      </el-form-item>
       <el-form-item label="我的班级">
         <el-input v-model="form.classNo">
           <el-button slot="append" type="primary" @click="handleJoinClass()">加入班级</el-button>
         </el-input>
+      </el-form-item>
+      <el-form-item label="年龄" prop="age">
+        <el-input v-model="form.age" clearable></el-input>
       </el-form-item>
       <el-form-item label="居住地址" prop="address">
         <el-input v-model="form.address" clearable></el-input>

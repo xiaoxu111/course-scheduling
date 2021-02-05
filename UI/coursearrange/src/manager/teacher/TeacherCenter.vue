@@ -92,7 +92,7 @@
       },
       saveInfo() {
         this.$axios
-          .post("http://localhost:8080/admin/modify/", this.teacherForm)
+          .post("http://localhost:8080/teacher/modify/", this.teacherForm)
           .then(r => {
           // 弹出成功提示
           if (r.data.code == 0) {

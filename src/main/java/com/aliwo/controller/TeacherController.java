@@ -2,6 +2,7 @@ package com.aliwo.controller;
 
 import com.aliwo.common.ServerResponse;
 import com.aliwo.entity.Teacher;
+import com.aliwo.entity.request.PasswordVO;
 import com.aliwo.entity.request.UserLoginRequest;
 import com.aliwo.service.TeacherService;
 import com.aliwo.service.impl.TokenService;
@@ -56,7 +57,6 @@ public class TeacherController {
         String token = tokenService.getToken(teacher);
         if (null != teacher && Strings.isNotEmpty(token)) {
             // 允许登录
-            teacher.setPassword("");
             map.put("teacher", teacher);
             map.put("token", token);
             return ServerResponse.ofSuccess(map);
@@ -84,5 +84,30 @@ public class TeacherController {
         // 修改操作
         return teacherService.updateById(teacher) ? ServerResponse.ofSuccess("修改成功") : ServerResponse.ofError("修改失败");
     }
+
+    /**
+     * 讲师修改密码
+     *
+     * @param passwordVO
+     * @return
+     */
+    @RequestMapping(value = "/password", method = RequestMethod.POST)
+    public ServerResponse updateTeacherPass(@RequestBody PasswordVO passwordVO) {
+        QueryWrapper<Teacher> wrapper = new QueryWrapper();
+        wrapper.eq("id", passwordVO.getId());
+        wrapper.eq("password", passwordVO.getOldPass());
+        Teacher teacher = teacherService.getOne(wrapper);
+        if (null == teacher) {
+            return ServerResponse.ofError("旧密码错误");
+        }
+        // 否则进入修改密码流程
+        teacher.setPassword(passwordVO.getNewPass());
+        boolean b = teacherService.updateById(teacher);
+        if (b) {
+            return ServerResponse.ofSuccess("密码修改成功");
+        }
+        return ServerResponse.ofError("密码更新失败");
+    }
+
 
 }

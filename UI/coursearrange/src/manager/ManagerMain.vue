@@ -180,12 +180,12 @@ export default {
         localStorage.removeItem('teacher')
         // 判断，返回指定页面首页
         this.$router.push('/')
-      } else if (command == 'center' && null != JSON.parse(localStorage.getItem('admin'))
-                                     && '1' == JSON.parse(localStorage.getItem('admin')).userType ) {
+      } else if (command == 'center' && JSON.parse(localStorage.getItem('admin') != null)
+                                     && JSON.parse(localStorage.getItem('admin')).userType == '1') {
         // 跳转到管理员个人中心
         this.$router.push("/adminCenter");
-      } else if(command =='center' && null != JSON.parse(localStorage.getItem('teacher'))
-        && '2' == JSON.parse(localStorage.getItem('teacher')).userType){
+      } else if(command =='center' && JSON.parse(localStorage.getItem('teacher') != null)
+        && JSON.parse(localStorage.getItem('teacher')).userType == '2'){
         // 跳转到讲师个人中心
         this.$router.push("/teacherCenter");
       } else if (command == 'updatePassword') {

@@ -7,7 +7,7 @@ import lombok.Data;
  *
  * @author:xuyy19 Date:2021/1/24 19:41
  * 项目名:course-scheduling-system
- * Description:TODO
+ * Description:修改密码时封装VO
  * Version: 1.0
  **/
 @Data
