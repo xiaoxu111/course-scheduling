@@ -178,10 +178,16 @@ export default {
         localStorage.removeItem('token')
         localStorage.removeItem('admin')
         localStorage.removeItem('teacher')
-        // 判断，返回指定页面
+        // 判断，返回指定页面首页
         this.$router.push('/')
-      } else if (command == 'center') {
-        // 跳转到个人中心
+      } else if (command == 'center' && null != JSON.parse(localStorage.getItem('admin'))
+                                     && '1' == JSON.parse(localStorage.getItem('admin')).userType ) {
+        // 跳转到管理员个人中心
+        this.$router.push("/adminCenter");
+      } else if(command =='center' && null != JSON.parse(localStorage.getItem('teacher'))
+        && '2' == JSON.parse(localStorage.getItem('teacher')).userType){
+        // 跳转到讲师个人中心
+        this.$router.push("/teacherCenter");
       } else if (command == 'updatePassword') {
         // 修改密码页面
         this.$router.push('/updatepass')

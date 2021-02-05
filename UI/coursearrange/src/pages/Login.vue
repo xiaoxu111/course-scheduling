@@ -59,7 +59,7 @@ export default {
     },
     homePage() {
       // 判断，返回指定页面
-      this.$router.push('http://localhost:8081')
+      this.$router.push('/')
     },
 
     login() {

@@ -17,7 +17,12 @@ import TeachBuildingList from '@/manager/components/TeachBuildingList';
 import CourseTable from '@/manager/components/CourseTable';
 import StudentCourseTable from '@/home/components/CourseTable';
 import EmptyClassroom from '@/home/components/EmptyClassroom';
+// 学生个人中心
 import StudentCenter from '@/home/components/Center';
+// 管理员个人中心
+import  AdminCenter from '@/manager/adminer/AdminCenter';
+// 教师个人中心
+import  TeacherCenter from '@/manager/teacher/TeacherCenter';
 import StudentPassword from '@/home/components/Password';
 import CourseInfoList from '@/manager/components/CourseInfoList';
 import StudentList from '@/manager/components/StudentList';
@@ -111,6 +116,16 @@ const router = new Router({
       name: 'Admin',
       component: ManagerMain,
       children: [
+        {
+          path: '/adminCenter',
+          name: 'AdminCenter',
+          component: AdminCenter
+        },
+        {
+          path: '/teacherCenter',
+          name: 'TeacherCenter',
+          component: TeacherCenter
+        },
         {
           path: '/help',
           name: 'Help',

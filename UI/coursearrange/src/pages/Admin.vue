@@ -70,8 +70,8 @@ export default {
       // 调用这个方法直接获取到了类型
     },
     homePage() {
-        // 判断，返回指定页面
-        this.$router.push('http://localhost:8081')
+      // 判断，返回指定页面首页
+      this.$router.push('/')
     },
 
     login() {

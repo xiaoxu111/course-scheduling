@@ -106,7 +106,7 @@ export default {
         // 判断，返回指定页面
         this.$router.push("/student/login");
       } else if (command == "center") {
-        // 跳转到个人中心
+        // 跳转到学生个人中心
         this.$router.push("/center");
       }
     },

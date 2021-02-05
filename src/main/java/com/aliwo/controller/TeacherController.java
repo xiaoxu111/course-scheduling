@@ -6,6 +6,7 @@ import com.aliwo.entity.request.UserLoginRequest;
 import com.aliwo.service.TeacherService;
 import com.aliwo.service.impl.TokenService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -62,6 +63,26 @@ public class TeacherController {
         }
         // 否则一律视为密码错误
         return ServerResponse.ofError("密码错误");
+    }
+
+    /**
+     * 修改讲师信息 个人中心使用
+     *
+     * @param teacher
+     * @return ServerResponse
+     * token 验证现在不能用后续完善
+     */
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    //@UserLoginToken
+    public ServerResponse modifyTeacher(@RequestBody Teacher teacher) {
+        if (StringUtils.isEmpty(teacher.getTelephone())){
+            return ServerResponse.ofError("手机号必填!");
+        }
+        if (StringUtils.isEmpty(teacher.getEmail())){
+            return ServerResponse.ofError("邮箱必填");
+        }
+        // 修改操作
+        return teacherService.updateById(teacher) ? ServerResponse.ofSuccess("修改成功") : ServerResponse.ofError("修改失败");
     }
 
 }

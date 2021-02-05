@@ -13,20 +13,25 @@
         <result column="job_title" property="jobTitle"/>
         <result column="avatar" property="avatar"/>
         <result column="description" property="description"/>
+        <result column="age" property="age"/>
         <result column="remark" property="remark"/>
         <result column="piority" property="piority"/>
         <result column="address" property="address"/>
         <result column="teach_subject" property="teachSubject"/>
+        <result column="telephone" property="telephone"/>
+        <result column="email" property="email"/>
         <result column="power" property="power"/>
         <result column="status" property="status"/>
         <result column="deleted" property="deleted"/>
+        <result column="user_type" property="userType"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <sql id="baseColumn">
-        id, adminer_no, username,  password, realname, job_title, avatar, description,
-        remark, piority, address, teach_subject, power, status, deleted, create_time, update_time
+        id, adminer_no, username,  password, realname, job_title, avatar, description, age,
+        remark, piority, address, teach_subject, power, status, deleted, user_type
+        , telephone, email, create_time, update_time
     </sql>
     <select id="adminLogin" parameterType="string" resultType="com.aliwo.entity.Admin">
         select

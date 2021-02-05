@@ -1,6 +1,5 @@
 package com.aliwo.controller;
 
-import com.aliwo.common.GlobalExceptionHandler;
 import com.aliwo.common.ServerResponse;
 import com.aliwo.entity.Admin;
 import com.aliwo.entity.request.UserLoginRequest;
@@ -10,10 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -49,7 +45,6 @@ public class AdminController {
         String token = tokenService.getToken(admin);
         if (null != admin && !StringUtils.isEmpty(token)) {
             // 密码隐藏起来
-            admin.setPassword("");
             map.put("admin", admin);
             map.put("token", token);
             return ServerResponse.ofSuccess(map);
@@ -57,6 +52,24 @@ public class AdminController {
         LOG.error("用户名或密码错误");
         return ServerResponse.ofError("用户名或密码错误!");
     }
-
+    /**
+     * 修改管理员信息 个人中心使用
+     *
+     * @param admin
+     * @return ServerResponse
+     * token 验证现在不能用后续完善
+     */
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    //@UserLoginToken
+    public ServerResponse modifyAdminer(@RequestBody Admin admin) {
+        if (StringUtils.isEmpty(admin.getTelephone())){
+            return ServerResponse.ofError("手机号必填!");
+        }
+        if (StringUtils.isEmpty(admin.getEmail())){
+            return ServerResponse.ofError("邮箱必填");
+        }
+        // 修改操作
+        return adminService.updateById(admin) ? ServerResponse.ofSuccess("修改成功") : ServerResponse.ofError("修改失败");
+    }
 
 }

@@ -21,12 +21,16 @@
         <result column="piority" property="piority"/>
         <result column="status" property="status"/>
         <result column="deleted" property="deleted"/>
+        <result column="user_type" property="userType"/>
+        <result column="email" property="email"/>
+        <result column="grade_no" property="gradeNo"/>
         <result column="create_time" property="createTime"/>
         <result column="update_time" property="updateTime"/>
     </resultMap>
     <sql id="baseColumn">
         id, teacher_no, username, password, realname, job_title, license, teach_subject, age
-        , telephone, address, avatar, description, power, piority, status, deleted, create_time, update_time
+        , telephone, address, avatar, description, power, piority, status, deleted, user_type
+        , grade_no, email, create_time, update_time
 
     </sql>
     <select id="teacherLogin" parameterType="string" resultType="com.aliwo.entity.Teacher">
