@@ -1,6 +1,7 @@
 package com.aliwo.common;
 
 import com.aliwo.service.AdminService;
+import com.aliwo.service.StudentService;
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.exceptions.JWTDecodeException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,6 +26,9 @@ import java.lang.reflect.Method;
 public class AuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
     private AdminService adminService;
+
+    @Autowired
+    private StudentService studentService;
 
     /**
      * @param request

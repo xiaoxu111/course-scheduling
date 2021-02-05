@@ -190,13 +190,22 @@ export default {
       this.$axios.post('http://localhost:8080/student/createstudentno/' + this.studentRegNewForm.grade,{
       })
       .then(res => {
+        // 弹出申请学号成功的提示
         if (res.data.code == 0) {
           this.studentRegNewForm.studentNo = res.data.message
-          alert('申请学号成功，请牢记您的学号：' + this.studentRegNewForm.studentNo)
+          this.$message({
+          message: '申请学号成功，请牢记您的学号(登录使用！)：' +this.studentRegNewForm.studentNo,
+          type: 'success'
+        });
         }
+        if (res.data.code == 1) {
+          this.studentRegNewForm.studentNo = res.data.message
+          this.$message.error('申请学号失败，请联系管理员');
+      }
       })
       .catch(error => {
-          alert(res.data.message)
+        this.$message.error(res.data.message);
+          // alert(res.data.message)
       })
     },
     // 重置按钮
@@ -223,14 +232,20 @@ export default {
         .then(res => {
           // 注册成功
           if (res.data.code == 0) {
-            alert('注册成功，请用你的学号' + res.data.data.studentNo+'登录系统')
+            this.$message({
+             message: '注册成功，请用你的学号！：' + res.data.data.studentNo+'登录系统',
+             type: 'success'
+          });
+            // alert('注册成功，请用你的学号' + res.data.data.studentNo+'登录系统')
             this.$router.push('/student/login')
           } else {
-            alert(res.data.message)
+            this.$message.error(res.data.message);
+            // alert(res.data.message)
           }
         })
         .catch(error => {
-          alert('注册失败，请重试')
+        this.$message.error('注册失败，请重试!!');
+          // alert('注册失败，请重试')
         })
       })
     },

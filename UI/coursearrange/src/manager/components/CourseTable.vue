@@ -134,11 +134,11 @@ export default {
     // 查询班级编号，班级名
     queryClass() {
       this.$axios
-        .get("http://localhost:8080/class-grade/" + this.value2)
+        .get("http://localhost:8080/by-grade-for-class/" + this.value2)
         .then(res => {
           //alert(this.value2)
           let r = res.data.data;
-          this.classNo.splice(0,this.classNo.length); 
+          this.classNo.splice(0,this.classNo.length);
           this.value3 = ''
           r.map(v=>{
             this.classNo.push({
@@ -172,7 +172,7 @@ export default {
               index = index - 1;
             }
             else{
-              
+
               this.classTableData.courses[level].push(item.teacher.realname + "-" + item.courseInfo.courseName + "(" + item.classroomNo + ")");
             }
             if((times % 5) == 0){
@@ -206,7 +206,7 @@ export default {
         : character[num];
     },
 
-    
+
   }
 };
 </script>

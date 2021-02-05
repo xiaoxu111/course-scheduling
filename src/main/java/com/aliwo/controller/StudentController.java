@@ -15,10 +15,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.UnsupportedEncodingException;
 import java.time.LocalDateTime;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Random;
+import java.util.*;
 
 
 /**
@@ -44,7 +46,9 @@ public class StudentController {
      * 学生登录controller
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
-    public ServerResponse studentLogin(@RequestBody StudentLoginRequest studentLoginRequest) {
+    public ServerResponse studentLogin(@RequestBody StudentLoginRequest studentLoginRequest, HttpServletResponse
+            response, HttpServletRequest request, HttpSession session)
+            throws UnsupportedEncodingException {
         Map<String, Object> map = new HashMap<>();
         // 先判断是否有该学号，该学生
         QueryWrapper<Student> wrapper = new QueryWrapper<Student>().eq("student_no", studentLoginRequest.getUsername());
@@ -59,14 +63,14 @@ public class StudentController {
             return ServerResponse.ofError("该学生账号异常，请联系管理员");
         }
         // 调用登录
-        Student student = studentService.studentLogin(studentLoginRequest.getUsername(), studentLoginRequest
-                .getPassword());
+        Student student = studentService.studentLogin(studentLoginRequest.getUsername(), studentLoginRequest.getPassword());
         String token = tokenService.getToken(student);
         if (null != student && StringUtils.isNotEmpty(token)) {
             //允许登录,返回token
-            student.setPassword("");
+            //student.setPassword("");
             map.put("student", student);
             map.put("token", token);
+            response.setHeader("token",token );
             return ServerResponse.ofSuccess(map);
         }
         return ServerResponse.ofSuccess("密码错误！");
@@ -116,46 +120,47 @@ public class StudentController {
      * @param grade
      * @return ServerResponse
      * 给学生创建学号,注册学生的时候调用
-     *
      */
-   @RequestMapping(value = "/createstudentno/{grade}", method = RequestMethod.POST)
+    @RequestMapping(value = "/createstudentno/{grade}", method = RequestMethod.POST)
     public ServerResponse createStudentNo(@PathVariable("grade") String grade) {
-       Random r = new Random();
-       // 得到当前年份字符串2021
-       String str1 = LocalDateTime.now().getYear()+"";
-       LOG.info("当前的年份(com.aliwo.controller.StudentController.createStudentNo) str1："+str1);
-       // 得到10位学号,2021 02 7845
-       do {
-           // 随机四位数
-           String str2 = String.valueOf(r.nextInt(10000));
-           LOG.info("生成的四位随机数(com.aliwo.controller.StudentController.createStudentNo) str2："+str2);
-           // 拼接学号  2021##****  十位(三个部分):  年:4位  年级:两位  随机数4位
-           String str3 = str1 + grade + str2;
-           LOG.info("生成的10位数 年份四位，随机数四位，年级两位(com.aliwo.controller.StudentController.createStudentNo) str3："+str3);
-           // 查询学号是否已经存在的条件
-           QueryWrapper<Student> wrapper = new QueryWrapper<Student>().eq("student_no", str3);
-           Student student = studentService.getOne(wrapper);
-           // 如果查不到该学号，则学号可用，跳出循环
-           if (null == student) {
-               return ServerResponse.ofSuccess(str3);
-           }
-       } while(true);
-   }
+        Random r = new Random();
+        // 得到当前年份字符串2021
+        String str1 = LocalDateTime.now().getYear() + "";
+        LOG.info("当前的年份(com.aliwo.controller.StudentController.createStudentNo) str1：" + str1);
+        // 得到10位学号,2021 02 7845
+        do {
+            // 随机四位数
+            String str2 = String.valueOf(r.nextInt(10000));
+            LOG.info("生成的四位随机数(com.aliwo.controller.StudentController.createStudentNo) str2：" + str2);
+            // 拼接学号  2021##****  十位(三个部分):  年:4位  年级:两位  随机数4位
+            String str3 = str1 + grade + str2;
+            LOG.info("生成的10位数 年份四位，随机数四位，年级两位(com.aliwo.controller.StudentController.createStudentNo) str3：" + str3);
+            // 查询学号是否已经存在的条件
+            QueryWrapper<Student> wrapper = new QueryWrapper<Student>().eq("student_no", str3);
+            Student student = studentService.getOne(wrapper);
+            // 如果查不到该学号，则学号可用，跳出循环
+            if (null == student) {
+                return ServerResponse.ofSuccess(str3);
+            }
+        } while (true);
+    }
 
     /**
      * 根据学生id获取
+     *
      * @param id
      * @return
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     @UserLoginToken
-    public ServerResponse queryStudentById(@PathVariable("id")Integer id){
+    public ServerResponse queryStudentById(@PathVariable("id") Integer id) {
         // 查询出来需要修改的学生实体
         return ServerResponse.ofSuccess(studentService.getById(id));
     }
 
     /**
      * 学生修改密码
+     *
      * @param passwordVO
      * @return
      */
@@ -175,5 +180,53 @@ public class StudentController {
             return ServerResponse.ofSuccess("密码修改成功");
         }
         return ServerResponse.ofError("密码更新失败");
+    }
+
+    /**
+     * 学生加入班级，只有加入班级后才可以看到本班的课表，文档
+     *
+     * @param id      学生id
+     * @param classNo 班级编号
+     * @return
+     */
+    @RequestMapping(value = "/join/{id}/{classNo}", method = RequestMethod.POST)
+    public ServerResponse joinClass(@PathVariable("id") Integer id, @PathVariable("classNo") String classNo) {
+        if (StringUtils.isEmpty(Integer.toString(id))) {
+            return ServerResponse.ofError("没有查询到学生信息(id)!");
+        }
+        if (StringUtils.isEmpty(classNo)) {
+            return ServerResponse.ofError("没有查询到班级信息(classNo)!");
+        }
+        // TODO 学生加入年级，学生查看本班的文档(文档控制器中),查看自己所在的班级课表
+        Student student = studentService.getById(id);
+        if (null == student) {
+            return ServerResponse.ofError("查询学生信息错误 学生id是: id=" + id);
+        }
+        student.setClassNo(classNo);
+        boolean b = studentService.saveOrUpdate(student);
+        if (b) {
+            return ServerResponse.ofSuccess("加入班级成功");
+        }
+        return ServerResponse.ofError("加入班级失败");
+    }
+
+    /**
+     * 修改学生信息
+     *
+     * @param student
+     * @return ServerResponse
+     * token 验证现在不能用后续完善
+     */
+    @RequestMapping(value = "/modify", method = RequestMethod.POST)
+    //@UserLoginToken
+    public ServerResponse modifyStudent(@RequestBody Student student) {
+        if (StringUtils.isEmpty(student.getTelephone())){
+            return ServerResponse.ofError("手机号必填!");
+        }
+        if (StringUtils.isEmpty(student.getEmail())){
+            return ServerResponse.ofError("邮箱必填");
+        }
+        // 修改操作
+        return studentService.updateById(student) ? ServerResponse.ofSuccess("修改成功") : ServerResponse.ofError("修改失败");
     }
 }

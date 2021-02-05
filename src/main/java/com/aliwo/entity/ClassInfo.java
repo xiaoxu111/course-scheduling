@@ -51,7 +51,7 @@ public class ClassInfo extends Model<ClassInfo> {
     private Integer teacherId;
 
     /**
-     * 备注
+     * 直接用来做为年级编号的划分了 用于根据年级查询班级信息
      */
     private String remark;
 

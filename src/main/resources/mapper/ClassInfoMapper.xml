@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--namespace  填写的是dao层所对应的接口全限定类名-->
+<mapper namespace="com.aliwo.entity.ClassInfo">
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.aliwo.entity.ClassInfo">
+        <id column="id" property="id" />
+        <result column="class_no" property="classNo" />
+        <result column="class_name" property="className" />
+        <result column="num" property="num" />
+        <result column="teacher_id" property="teacherId" />
+        <result column="remark" property="remark" />
+        <result column="deleted" property="deleted" />
+        <result column="create_time" property="createTime" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+
+</mapper>

@@ -10,10 +10,19 @@
       <el-form-item label="年级">
         <el-input v-model="form.grade" disabled></el-input>
       </el-form-item>
+      <el-form-item label="年龄">
+        <el-input v-model="form.age" disabled></el-input>
+      </el-form-item>
       <el-form-item label="我的班级">
         <el-input v-model="form.classNo">
           <el-button slot="append" type="primary" @click="handleJoinClass()">加入班级</el-button>
         </el-input>
+      </el-form-item>
+      <el-form-item label="居住地址" prop="address">
+        <el-input v-model="form.address" clearable></el-input>
+      </el-form-item>
+      <el-form-item label="简介" prop="description">
+        <el-input v-model="form.description" clearable></el-input>
       </el-form-item>
       <el-form-item label="手机" prop="telephone">
         <el-input v-model="form.telephone" clearable></el-input>
@@ -106,6 +115,7 @@ export default {
             this.editFormData.classNo
         )
         .then(r => {
+          // 弹出成功提示
           if (r.data.code == 0) {
             this.$message({
               message: r.data.message,
@@ -114,6 +124,10 @@ export default {
             this.form.classNo = this.editFormData.classNo
             window.localStorage.setItem('student', JSON.stringify(this.form))
           }
+          // 弹出失败提示
+         if (r.data.code == 1) {
+           this.$message.error(r.data.message);
+      }
         });
         this.visibleForm = false;
     },
@@ -121,6 +135,7 @@ export default {
       this.$axios
         .post("http://localhost:8080/student/modify/", this.form)
         .then(r => {
+          // 弹出成功提示
           if (r.data.code == 0) {
             this.$message({
               message: r.data.message,
@@ -128,13 +143,18 @@ export default {
             });
             window.localStorage.setItem('student', JSON.stringify(this.form))
           }
+          // 弹出失败提示
+         if (r.data.code == 1) {
+            this.$message.error(r.data.message);
+            // window.localStorage.setItem('student', JSON.stringify(this.form))
+          }
         });
     },
     handleJoinClass() {
       let grade = this.form.studentNo.substring(4, 6);
       this.options = [];
       this.visibleForm = true;
-      this.$axios.get("http://localhost:8080/class-grade/" + grade).then(r => {
+      this.$axios.get("http://localhost:8080/by-grade-for-class/" + grade).then(r => {
         let data = r.data.data;
         data.map(v => {
           this.options.push({
@@ -154,8 +174,9 @@ export default {
 
 <style lang="less">
 .s-center {
+  margin-left: 330px;
   width: 500px;
-  text-align: left;
+  text-align: center;
   padding: 30px;
 }
 </style>

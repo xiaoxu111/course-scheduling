@@ -162,7 +162,7 @@ export default {
     // 查询班级信息
     queryClass() {
       this.$axios
-        .get("http://localhost:8080/class-grade/" + this.value1)
+        .get("http://localhost:8080/by-grade-for-class/" + this.value1)
         .then(res => {
           let ret = res.data.data
           this.classNo.splice(0, this.classNo.length)
@@ -175,7 +175,7 @@ export default {
           });
         })
         .catch(error => {
-          
+
         });
     },
 
