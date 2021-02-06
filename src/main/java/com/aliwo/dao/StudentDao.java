@@ -7,7 +7,7 @@ import org.apache.ibatis.annotations.Param;
 /**
  * package_name:com.aliwo.dao
  *
- * @author:徐亚远 Date:2021/2/2 14:18
+ * @author:xuyy19 Date:2021/2/2 14:18
  * 项目名:course-scheduling
  * Description:学生接口
  * Version: 1.0

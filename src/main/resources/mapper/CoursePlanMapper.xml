@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--namespace  填写的是dao层所对应的接口全限定类名-->
+<mapper namespace="com.aliwo.dao.CoursePlanDao">
+    <resultMap id="BaseRestMap" type="com.aliwo.entity.CoursePlan">
+        <id property="id" column="id"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createTime" column="create_time"/>
+        <result property="deleted" column="deleted"/>
+        <result property="classRoomNo" column="class_room_no"/>
+        <result property="gradeNo" column="grade_no"/>
+        <result property="classNo" column="class_no"/>
+        <result property="classTime" column="class_time"/>
+        <result property="courseNo" column="course_no"/>
+        <result property="semester" column="semester"/>
+        <result property="teacherNo" column="teacher_no"/>
+        <result property="weeksSum" column="weeks_sum"/>
+    </resultMap>
+
+</mapper>

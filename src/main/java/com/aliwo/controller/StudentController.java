@@ -26,7 +26,7 @@ import java.util.*;
 /**
  * package_name:com.aliwo.controller
  *
- * @author:徐亚远 Date:2021/2/2 14:26
+ * @author:xuyy19 Date:2021/2/2 14:26
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0

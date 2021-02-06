@@ -9,7 +9,7 @@ import java.util.Date;
 /**
  * package_name:com.aliwo.util
  *
- * @author:徐亚远 Date:2021/1/25 17:21
+ * @author:xuyy19 Date:2021/1/25 17:21
  * 项目名:course-scheduling
  * Description:日期工具类
  * Version: 1.0

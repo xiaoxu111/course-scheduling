@@ -70,7 +70,9 @@
         </el-main>
       </el-container>
       <!-- 显示系统时间 -->
-      <el-footer>{{time}}</el-footer>
+      <el-footer>
+        <h3 style="margin-top: 0px">Copy Right © 2020-2021 xiaoxu111 版权所有 {{time}}</h3>
+      </el-footer>
     </el-container>
   </div>
 </template>

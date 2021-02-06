@@ -8,7 +8,7 @@ import org.apache.ibatis.annotations.Select;
 /**
  * package_name:com.aliwo.dao
  *
- * @author:徐亚远 Date:2021/2/2 12:42
+ * @author:xuyy19 Date:2021/2/2 12:42
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0

@@ -33,49 +33,41 @@ public class CoursePlan extends Model<CoursePlan> {
     /**
      * 年级编号
      */
-    @TableField("grade_no")
     private String gradeNo;
 
     /**
      * 班级编号
      */
-    @TableField("class_no")
     private String classNo;
 
     /**
      * 课程编号
      */
-    @TableField("course_no")
     private String courseNo;
 
     /**
      * 讲师编号
      */
-    @TableField("teacher_no")
     private String teacherNo;
 
     /**
      * 教室编号
      */
-    @TableField("classroom_no")
-    private String classroomNo;
+    private String classRoomNo;
 
     /**
      * 上课时间
      */
-    @TableField("class_time")
     private String classTime;
 
     /**
      * 周数
      */
-    @TableField("weeks_sum")
     private Integer weeksSum;
 
     /**
      * 学期
      */
-    @TableField("semester")
     private String semester;
     /**
      * 逻辑删除(默认0显示，1删除)

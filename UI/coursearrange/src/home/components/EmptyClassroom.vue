@@ -20,8 +20,8 @@
     <el-table :data="classroomData" size="mini" :stripe="true" :highlight-current-row="true">
       <el-table-column label="序号" type="selection"></el-table-column>
       <!-- <el-table-column prop="id" label="ID"></el-table-column> -->
-      <el-table-column prop="classroomNo" label="教室编号"></el-table-column>
-      <el-table-column prop="classroomName" label="教室名"></el-table-column>
+      <el-table-column prop="classRoomNo" label="教室编号"></el-table-column>
+      <el-table-column prop="classRoomName" label="教室名"></el-table-column>
       <el-table-column prop="teachbuildNo" label="所属教学楼"></el-table-column>
       <el-table-column prop="capacity" label="容量"></el-table-column>
       <el-table-column prop="remark" label="备注"></el-table-column>
@@ -29,20 +29,22 @@
       <el-table-column prop="operation" label="操作">
         <template slot-scope="scope">
           <el-button type="success" size="mini" @click="order(scope.$index, scope.row)">预约</el-button>
+          <el-button type="success" size="mini" @click="orderDetail(scope.$index, scope.row)">预约详情</el-button>
         </template>
       </el-table-column>
     </el-table>
-    <!-- 分页 -->
-      <!-- <div class="footer-button">
+     <!--分页-->
+    <!-- 上一页，当前页，下一页 -->
+       <!--<div class="footer-button">
         <el-pagination
           @size-change="handleSizeChange"
           @current-change="handleCurrentChange"
           :current-page.sync="page"
           :page-size="pageSize"
           layout="total, prev, pager, next"
-          :total="total"
-        ></el-pagination>
-      </div> -->
+          :total="total">
+        </el-pagination>
+      </div>-->
   </div>
 </template>
 
@@ -60,7 +62,7 @@ export default {
       teachbuildNo: "",
       classroomData: [],
       pageSize: 10,
-      page: 0,
+      page: 1,
       total: 0
     };
   },
@@ -84,6 +86,12 @@ export default {
         this.$message({message: "预约成功", type: "success"})
       }, 1000)
     },
+    // 预约详情按钮
+    orderDetail(index, row) {
+      setTimeout(() => {
+        this.$message({message: "预约详情待开发！！", type: "success"})
+    }, 1000)
+    },
     selectTeachbuild() {
       this.teachbuildNo = this.teachbuild.value
       this.queryByNo(this.teachbuildNo)
@@ -91,13 +99,17 @@ export default {
 
     // 根据教学楼编号查询空教室
     queryByNo(teachbuildNo) {
-      this.$axios.get("http://localhost:8080/classroom/empty/" + teachbuildNo)
+      this.$axios.get("http://localhost:8080/classroom/empty/"+ teachbuildNo)
       .then(res => {
         console.log(res)
         if (res.data.code == 0) {
-          // let ret = res.data.data
-          this.classroomData = res.data.data
-          this.total = this.classroomData.length
+          let ret = res.data.data
+          this.classroomData = ret.records;
+          this.total = ret.total
+          this.$message({message: "查询出" + " 【 " + ret.total + " 条信息 ！！" + "】 ", type: "success"})
+        }
+        if (res.data.code == 1){
+          this.$message.error(res.data.message);
         }
       })
       .catch(error => {})
@@ -119,7 +131,7 @@ export default {
               });
             });
           } else {
-            alert(res.data.message);
+            this.$message.error(res.data.message);
           }
         })
         .catch(error => {});
