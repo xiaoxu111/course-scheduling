@@ -7,6 +7,8 @@ import com.aliwo.entity.request.UserLoginRequest;
 import com.aliwo.service.TeacherService;
 import com.aliwo.service.impl.TokenService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
@@ -109,5 +111,23 @@ public class TeacherController {
         return ServerResponse.ofError("密码更新失败");
     }
 
+    /**
+     * 分页查询讲师
+     * @param page
+     * @param limit
+     * @return ServerResponse
+     *  讲师管理，查询所有讲师分页
+     */
+    @RequestMapping(value = "/query/{page}",method = RequestMethod.GET)
+    public ServerResponse queryTeacher(@PathVariable(value = "page") Integer page, @RequestParam(defaultValue = "10") Integer limit) {
+        Page<Teacher> pages = new Page<>(page, limit);
+        // 根据讲师编号降序排列
+        QueryWrapper<Teacher> wrapper = new QueryWrapper<Teacher>().orderByDesc("teacher_no");
+        IPage<Teacher> iPage = teacherService.page(pages, wrapper);
+        if (iPage == null || 0 == iPage.getTotal()) {
+            return ServerResponse.ofError("没有查询讲师信息！！！");
+        }
+        return ServerResponse.ofSuccess(iPage);
+    }
 
 }

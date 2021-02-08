@@ -9,7 +9,10 @@ import com.aliwo.entity.request.StudentRegisterRequest;
 import com.aliwo.service.StudentService;
 import com.aliwo.service.impl.TokenService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -228,5 +231,23 @@ public class StudentController {
         }
         // 修改操作
         return studentService.updateById(student) ? ServerResponse.ofSuccess("修改成功") : ServerResponse.ofError("修改失败");
+    }
+
+    /**
+     * 获取所有学生，带分页  学生管理 获取所有学生
+     * @param page
+     * @param limit
+     * @return
+     */
+    @RequestMapping(value = "/students/{page}", method = RequestMethod.GET)
+    public ServerResponse queryStudent(@PathVariable("page") Integer page, @RequestParam(defaultValue = "10") Integer limit) {
+        Page<Student> pages = new Page<>(page, limit);
+        QueryWrapper<Student> wrapper = new QueryWrapper<Student>().orderByDesc("student_no");
+        IPage<Student> iPage = studentService.page(pages, wrapper);
+        if (null ==iPage || 0 == iPage.getTotal()) {
+            return ServerResponse.ofError("没有查询到学生信息！！！");
+        }
+        return ServerResponse.ofSuccess(iPage);
+
     }
 }

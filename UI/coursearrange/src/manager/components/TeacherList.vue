@@ -13,8 +13,8 @@
       <el-table-column prop="teacherNo" label="编号" fixed width="100"></el-table-column>
       <el-table-column prop="username" label="用户名" fixed width="100"></el-table-column>
       <el-table-column prop="realname" label="姓名" fixed width="100"></el-table-column>
-      <el-table-column prop="jobtitle" label="职称" fixed width="100"></el-table-column>
-      <el-table-column prop="teach" label="学科" fixed width="80"></el-table-column>
+      <el-table-column prop="jobTitle" label="职称" fixed width="100"></el-table-column>
+      <el-table-column prop="teachSubject" label="学科" fixed width="80"></el-table-column>
       <el-table-column prop="age" label="年龄" fixed width="50"></el-table-column>
       <el-table-column prop="telephone" label="电话" fixed width="100"></el-table-column>
       <el-table-column prop="email" label="邮件" fixed width="150"></el-table-column>

@@ -1,15 +1,21 @@
 package com.aliwo.controller;
 
 import com.aliwo.common.ServerResponse;
+import com.aliwo.dao.ClassInfoDao;
 import com.aliwo.entity.ClassInfo;
+import com.aliwo.entity.response.ClassInfoVo;
 import com.aliwo.service.ClassInfoService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * package_name:com.aliwo.controller
@@ -24,6 +30,9 @@ public class ClassInfoController {
     @Autowired
     private ClassInfoService classInfoService;
 
+    @Autowired
+    private ClassInfoDao classInfoDao;
+
     /**
      * 根据年级查询所有班级 个人中心加入班级的时候调用
      * @param grade
@@ -36,4 +45,34 @@ public class ClassInfoController {
         List<ClassInfo> classInfoList = classInfoService.list(wrapper);
         return ServerResponse.ofSuccess(classInfoList);
     }
+
+
+    /**
+     * @param page
+     * @param limit
+     * @param gradeNo
+     * @return ServerResponse
+     * 查询班级信息带详细信息,  班级管理功能 所有班级
+     */
+    @GetMapping("/queryclassinfo/{page}")
+    public ServerResponse queryClassInfos(@PathVariable("page") Integer page, @RequestParam(defaultValue = "10") Integer limit,
+                                          @RequestParam(defaultValue = "") String gradeNo) {
+        Map<String, Object> map = new HashMap();
+        List<ClassInfoVo> classInfoVOS = null;
+        if (StringUtils.isEmpty(gradeNo)) {
+            // 分页查询所有班级信息
+            classInfoVOS = classInfoDao.queryClassInfos(page, limit);
+            int total = classInfoDao.count2();
+            map.put("records", classInfoVOS);
+            map.put("total", total);
+            return ServerResponse.ofSuccess(0,"查询所有班级信息成功 ！！！",map);
+        } else {
+            classInfoVOS = classInfoDao.queryClassInfoByGradeNo(page, limit, gradeNo);
+            int total = classInfoDao.count1(gradeNo);
+            map.put("records", classInfoVOS);
+            map.put("total", total);
+            return ServerResponse.ofSuccess(0,"根据年级查询所有班级信息成功 ！！！",map);
+        }
+    }
+
 }
