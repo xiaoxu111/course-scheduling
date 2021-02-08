@@ -30,11 +30,5 @@ public interface TeacherDao extends BaseMapper<Teacher> {
      */
     Teacher teacherLogin(@Param("account") String accont, @Param("password") String password);
 
-    /**
-     * @param teacher
-     * @return Teacher
-     * 查询账户是否存在
-     */
-    //Teacher selectOne(Teacher teacher);
 
 }

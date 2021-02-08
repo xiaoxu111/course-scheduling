@@ -21,11 +21,4 @@ public interface TeacherService extends IService<Teacher> {
      */
     Teacher teacherLogin(String username, String password);
 
-    /**
-     * @param teacher
-     * @return Teacher
-     * 查询账户是否存在
-     */
-    //Teacher selectOne(Teacher teacher);
-
 }

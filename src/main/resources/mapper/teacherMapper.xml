@@ -48,20 +48,4 @@
     </select>
 
 
-
-    <!--<select id="selectOne" resultMap="BaseResultMap" parameterType="com.aliwo.entity.Teacher">
-        select id, username, realname, age from yc_teacher
-        <where>
-            <if test="null != id">
-                id=#{teacher_no},
-            </if>
-            <if test="null != username">
-                username=#{username},
-            </if>
-            <if test="null != realname">
-                realname=#{realname},
-            </if>
-        </where>
-    </select>-->
-
 </mapper>

@@ -32,13 +32,4 @@ public class TeacherServiceImpl extends ServiceImpl<TeacherDao, Teacher> impleme
         return teacherDao.teacherLogin(username, password);
     }
 
-    /**
-     * @param teacher
-     * @return Teacher
-     * 查询账户是否存在
-     */
-    /*@Override
-    public Teacher selectOne(Teacher teacher) {
-        return teacherDao.selectOne(teacher);
-    }*/
 }

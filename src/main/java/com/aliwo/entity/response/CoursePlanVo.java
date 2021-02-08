@@ -2,6 +2,7 @@ package com.aliwo.entity.response;
 
 import com.aliwo.entity.CourseInfo;
 import com.aliwo.entity.CoursePlan;
+import com.aliwo.entity.Teacher;
 import lombok.Data;
 
 /**
@@ -16,7 +17,7 @@ public class CoursePlanVo extends CoursePlan {
     /**
      * 教师名
      */
-    private String teacher;
+    private Teacher teacher;
 
     /**
      * 课程信息表

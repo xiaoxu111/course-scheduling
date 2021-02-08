@@ -122,7 +122,7 @@ export default {
                   "-" +
                   item.courseInfo.courseName +
                   "(" +
-                  item.classroomNo +
+                  item.classRoomNo +
                   ")"
               );
             }
@@ -147,13 +147,8 @@ export default {
         "三",
         "四",
         "五"
-        // "六",
-        // "七",
-        // "八",
       ];
-      return identifier === "week" && (num === 0 || num === 7)
-        ? "日"
-        : character[num];
+      return identifier === "week" && (num === 0 || num === 7) ? "日" : character[num];
     }
   }
 };
