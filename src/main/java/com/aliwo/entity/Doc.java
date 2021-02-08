@@ -6,6 +6,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.Date;
 
 /**
  * @author:xuyy19 Date:2021/1/24 15:38
@@ -60,7 +61,7 @@ public class Doc extends Model<Doc> {
     /**
      * 来自的用户类型 1:管理员。2：讲师
      */
-    private Integer fromUserType;
+    private String fromUserType;
 
     /**
      * 备注
@@ -86,7 +87,7 @@ public class Doc extends Model<Doc> {
      * 创建时间,插入时自动填充
      */
     @TableField(fill = FieldFill.INSERT)
-    private LocalDateTime createTime;
+    private Date createTime;
 
     /**
      * 更新时间,插入和更新时自动填充

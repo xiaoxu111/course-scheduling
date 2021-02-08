@@ -2,13 +2,8 @@
   <div>
     <div class="top-button">
       <!-- 按照班级查询 -->
-      <!-- <el-select>
-
-      </el-select> -->
-      
       <el-button type="primary" @click="addDocs()">新增</el-button>
     </div>
-
     <!-- 表格 -->
     <div class="table">
       <el-table :data="docData" size="mini" :stripe="true">
@@ -21,7 +16,7 @@
         <el-table-column prop="createTime" label="上传时间"></el-table-column>
         <el-table-column prop="operation" label="操作" width="150px">
         <template slot-scope="scope">
-          <!-- <el-button type="text" size="small" @click="previewById(scope.$index, scope.row)">预览</el-button> -->
+           <!--<el-button type="text" size="small" @click="previewById(scope.$index, scope.row)">预览</el-button>-->
           <el-button type="primary" size="small" @click="downloadById(scope.$index, scope.row)">下载</el-button>
           <el-button type="danger" size="small" @click="deleteById(scope.$index, scope.row)">删除</el-button>
         </template>
@@ -123,10 +118,10 @@ export default {
 
     addDocs() {
       this.visible = true
-      
+
     },
 
-    
+
 
     // 获得上传的用户类型
     getUserType() {
@@ -172,7 +167,7 @@ export default {
         }
       })
       .catch(error => {
-        
+
       })
     },
 
@@ -184,13 +179,13 @@ export default {
           let ret = res.data.data
           this.docData = ret.records
           this.total = ret.total
-          
+
         } else {
           this.$message.error(res.data.message)
         }
       })
       .catch(error => {
-        
+
       })
     },
 
@@ -231,11 +226,11 @@ export default {
 
     },
 
-    uploadSuccess(response, file, fileList) {      
+    uploadSuccess(response, file, fileList) {
       this.importBtnDisabled = false
       this.addDocData.docName = response.data.name
       this.addDocData.docUrl = response.data.url
-      
+
     }
   }
 };

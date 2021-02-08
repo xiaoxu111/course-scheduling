@@ -32,7 +32,7 @@ public class TeachBuildInfoController {
     private ClassRoomService classRoomService;
 
     /**
-     * 查询所有教学楼
+     * 查询所有教学楼,如果教学楼下没有教室信息则不显示该教学楼,否则显示教学楼信息
      *
      * @return
      */
@@ -40,7 +40,7 @@ public class TeachBuildInfoController {
     public ServerResponse queryallTeachbuilding() {
         List<TeachbuildInfo> list = teachBuildInfoService.list();
         if (list == null || list.size() ==0 ){
-            return ServerResponse.ofError("查询所有服务失败，请检查!");
+            return ServerResponse.ofError("查询教学楼服务失败，请检查！！！");
         }
         // 首先查询该教学楼下面的所有教室
         for (int i=0; i<list.size(); i++) {
@@ -54,6 +54,6 @@ public class TeachBuildInfoController {
                i--;
             }
         }
-        return ServerResponse.ofSuccess(list);
+        return ServerResponse.ofSuccess(0,"请先选择要教学楼信息 ！！！",list);
     }
 }

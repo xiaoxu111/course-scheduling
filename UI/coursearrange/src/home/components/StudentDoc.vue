@@ -7,11 +7,13 @@
       <el-table-column prop="docName" label="文件名"></el-table-column>
       <el-table-column prop="description" label="简介"></el-table-column>
       <el-table-column prop="fromUserName" label="发布者"></el-table-column>
+      <el-table-column prop="fromUserType" label="发布者类型"></el-table-column>
+      <el-table-column prop="clicks" label="下载次数"></el-table-column>
       <el-table-column prop="createTime" label="上传时间"></el-table-column>
 
       <el-table-column prop="operation" label="操作">
         <template slot-scope="scope">
-          <!-- <el-button type="text" size="small" @click="previewById(scope.$index, scope.row)">预览</el-button> -->
+           <!--<el-button type="text" size="small" @click="previewById(scope.$index, scope.row)">预览</el-button>-->
           <el-button type="text" size="small" @click="downloadById(scope.$index, scope.row)">下载</el-button>
         </template>
       </el-table-column>
@@ -50,10 +52,28 @@ export default {
   methods: {
     // 下载
     downloadById(index, row) {
-      console.log(row.docUrl);
-      window.location.href = row.docUrl;
+      console.log("点击下载之前"+row.clicks);
+      row.clicks = row.clicks+1;
+      console.log("点击下载之后"+row.clicks);
+      // 点击下载之后查询一下所有文档信息，会修改点击次数
+      var id = row.id;
+      this.$axios.get("http://localhost:8080/alterclick/" + id)
+        .then(res => {
+        console.log("res:"+res);
+      if (res.data.code == 0) {
+        let ret = res.data;
+        console.log("ret:"+ret);
+        this.$message({message: ret.message, type: "success"})
+        console.log("res2:"+res);
+        this.total = ret.total;
+        window.location.href = row.docUrl;
+        this.allDocs();
+      } else {
+        this.$message.error(res.data.message);
+      }
+    })
+    .catch(error => {});
     },
-
     handleSizeChange(v) {
       this.page = v;
       this.allDocs();
@@ -81,6 +101,7 @@ export default {
             if (res.data.code == 0) {
               let ret = res.data.data;
               this.docData = ret.records;
+              // this.$message({message: "查看文档成功！！！", type: "success"})
               this.total = ret.total;
             } else {
               this.$message.error(res.data.message);
