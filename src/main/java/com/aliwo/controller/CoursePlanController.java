@@ -45,7 +45,7 @@ public class CoursePlanController {
         List<CoursePlan> coursePlanList = coursePlanService.list(wrapper);
 
         if (coursePlanList == null || coursePlanList.size() ==0) {
-            return ServerResponse.ofError("排课计划为空！！！");
+            return ServerResponse.ofError("没有查到排课信息！！！");
         }
 
         List<CoursePlanVo> coursePlanVos = new LinkedList<>();
@@ -55,7 +55,7 @@ public class CoursePlanController {
             coursePlanVo.setTeacher(teacherService.getOne(new QueryWrapper<Teacher>().eq("teacher_no",v.getTeacherNo())));
             coursePlanVos.add(coursePlanVo);
         });
-        return ServerResponse.ofSuccess(coursePlanVos);
+        return ServerResponse.ofSuccess(0,"查询排课信息成功！！！", coursePlanVos);
     }
 
 

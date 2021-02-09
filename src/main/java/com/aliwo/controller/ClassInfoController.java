@@ -3,9 +3,13 @@ package com.aliwo.controller;
 import com.aliwo.common.ServerResponse;
 import com.aliwo.dao.ClassInfoDao;
 import com.aliwo.entity.ClassInfo;
+import com.aliwo.entity.Student;
 import com.aliwo.entity.response.ClassInfoVo;
 import com.aliwo.service.ClassInfoService;
+import com.aliwo.service.StudentService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +37,9 @@ public class ClassInfoController {
     @Autowired
     private ClassInfoDao classInfoDao;
 
+    @Autowired
+    private StudentService studentService;
+
     /**
      * 根据年级查询所有班级 个人中心加入班级的时候调用
      * @param grade
@@ -41,6 +48,22 @@ public class ClassInfoController {
     @GetMapping("/by-grade-for-class/{grade}")
     public ServerResponse queryClass(@PathVariable("grade") String grade) {
         // remark 对应yc_class_info表中的remark字段,记录的是年级信息
+        /*if (StringUtils.isNotEmpty(grade)){
+            switch (grade){
+                case "高一":
+                    grade="01";
+                    break;
+                case "高二":
+                    grade="02";
+                    break;
+                case "高三":
+                    grade="03";
+                    break;
+                default:
+                    grade="04";
+                    break;
+            }
+        }*/
         QueryWrapper<ClassInfo> wrapper = new QueryWrapper<ClassInfo>().eq("remark", grade);
         List<ClassInfo> classInfoList = classInfoService.list(wrapper);
         return ServerResponse.ofSuccess(classInfoList);
@@ -67,11 +90,40 @@ public class ClassInfoController {
             map.put("total", total);
             return ServerResponse.ofSuccess(0,"查询所有班级信息成功 ！！！",map);
         } else {
+            // 班级管理 所有班级 根据年级查询班级信息 例如： 高二  查询出来的都是高二年级所在的班级信息
             classInfoVOS = classInfoDao.queryClassInfoByGradeNo(page, limit, gradeNo);
             int total = classInfoDao.count1(gradeNo);
             map.put("records", classInfoVOS);
             map.put("total", total);
             return ServerResponse.ofSuccess(0,"根据年级查询所有班级信息成功 ！！！",map);
+        }
+    }
+
+
+    /**
+     * 根据班级查询学生分页 学生管理所有学生 年级-班级  例如：高一  20年高三三班
+     *
+     * @param page
+     * @param classNo
+     * @param limit
+     * @return
+     */
+    @GetMapping("/student-class/{page}/{classNo}")
+    public ServerResponse queryStudentByClass(@PathVariable("page") Integer page,
+                                              @PathVariable("classNo") String classNo,
+                                              @RequestParam(defaultValue = "10") Integer limit) {
+        if (StringUtils.isEmpty(classNo)) {
+            return ServerResponse.ofError("根据年级查询学生服务错误！！！");
+        }
+        QueryWrapper<Student> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("student_no");
+        wrapper.like(!StringUtils.isEmpty(classNo), "class_no", classNo);
+        Page<Student> pages = new Page<>(page, limit);
+        IPage<Student> iPage = studentService.page(pages, wrapper);
+        if (null == iPage || 0 == iPage.getTotal()) {
+            return ServerResponse.ofError("没有查询到学生信息");
+        } else {
+            return ServerResponse.ofSuccess(0, "查询成功 ！！！", iPage);
         }
     }
 

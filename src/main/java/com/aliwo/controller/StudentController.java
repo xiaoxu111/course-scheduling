@@ -250,4 +250,118 @@ public class StudentController {
         return ServerResponse.ofSuccess(iPage);
 
     }
+
+
+    /**
+     * 学生管理 所有学生选项,管理员根据ID删除学生
+     * @return
+     */
+    @DeleteMapping("/delete/{id}")
+    public ServerResponse deleteTeacher(@PathVariable Integer id) {
+        if(StringUtils.isEmpty(id.toString())) {
+            return ServerResponse.ofError("删除服务失败(id:) ！！！" + id);
+        }
+        boolean b = studentService.removeById(id);
+        if(b) {
+            return ServerResponse.ofSuccess("删除成功！");
+        }
+        return ServerResponse.ofError("删除失败！");
+    }
+
+
+    /**
+     * 学生管理 所有学生选项,编辑学生信息
+     *
+     * @param student
+     * @return
+     */
+    @PostMapping("/modify/{id}")
+    public ServerResponse modifyTeacher(@PathVariable("id") Integer id, @RequestBody Student student) {
+        if ( null == student) {
+            return ServerResponse.ofError("更新失败！！！");
+        }
+        if (StringUtils.isEmpty(student.getStudentNo())){
+            return ServerResponse.ofError("请填写学号 非空!!!");
+        }
+        if (StringUtils.isEmpty(student.getUsername())){
+            return ServerResponse.ofError("请填写昵称 非空!!!");
+        }
+        if (StringUtils.isEmpty(student.getRealname())){
+            return ServerResponse.ofError("请填写姓名 非空!!!");
+        }
+        if (StringUtils.isEmpty(student.getStudentNo())){
+            return ServerResponse.ofError("请填写学号 非空!!!");
+        }
+        if (StringUtils.isEmpty(student.getGrade())){
+            return ServerResponse.ofError("请填写年级 非空!!!");
+        }
+        if (StringUtils.isEmpty(student.getClassNo())){
+            return ServerResponse.ofError("请填写班级 非空!!!");
+        }
+        if (StringUtils.isEmpty(student.getGrade())){
+            return ServerResponse.ofError("请填写年级 非空!!!");
+        }
+        if (StringUtils.isEmpty(student.getTelephone())){
+            return ServerResponse.ofError("请填写手机号 非空!!!");
+        }
+        if (StringUtils.isEmpty(student.getEmail())){
+            return ServerResponse.ofError("请填写邮箱 非空!!!");
+        }
+        if (StringUtils.isEmpty(student.getAddress())){
+            return ServerResponse.ofError("请填写地址 非空!!!");
+        }
+        if (student.getAge() == null){
+            return ServerResponse.ofError("请填写年龄 非空!!!");
+        }
+        if (student.getAge() < 0){
+            return ServerResponse.ofError("年龄不合法 请填写在 0~150岁之间!!!");
+        }
+        if (student.getAge() > 150){
+            return ServerResponse.ofError("年龄不合法 请填写在 0~150岁之间!!!");
+        }
+        /*if (StringUtils.isNotEmpty(student.getGrade())){
+            switch (student.getGrade()) {
+                case "01":
+                    student.setGrade("高一");
+                    break;
+                case "02":
+                    student.setGrade("高二");
+                    break;
+                case "03":
+                    student.setGrade("高三");
+                    break;
+                default:
+                    student.setGrade("高四");
+                    break;
+            }
+        }*/
+        QueryWrapper<Student> wrapper = new QueryWrapper<Student>().eq("id", id);
+        boolean b = studentService.update(student, wrapper);
+        if (b) {
+            return ServerResponse.ofSuccess("更新成功");
+        } else {
+            return ServerResponse.ofError("更新失败");
+        }
+    }
+
+
+    /**
+     * 根据姓名关键字搜学生
+     *
+     * @return
+     */
+    @GetMapping("/search/{keyword}")
+    public ServerResponse searchTeacher(@PathVariable("keyword") String keyword, @RequestParam(defaultValue = "1")
+            Integer page,
+                                        @RequestParam(defaultValue = "10") Integer limit) {
+        QueryWrapper<Student> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("update_time");
+        wrapper.like(!StringUtils.isEmpty(keyword), "realname", keyword);
+        Page<Student> pages = new Page<>(page, limit);
+        IPage<Student> iPage = studentService.page(pages, wrapper);
+        if (null != iPage && 0 != iPage.getTotal()) {
+            return ServerResponse.ofSuccess(0,"查询成功！！！",iPage);
+        }
+        return ServerResponse.ofError("查询不到数据！！！");
+    }
 }

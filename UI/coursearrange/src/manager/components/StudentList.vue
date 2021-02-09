@@ -2,7 +2,7 @@
   <div>
     <!-- 功能 -->
     <div class="header-menu">
-      <el-input placeholder="搜索学生" v-model="keyword" @clear="inputListener" clearable>
+      <el-input placeholder="搜索学生姓名" v-model="keyword" @clear="inputListener" clearable>
         <el-button slot="append" type="primary" icon="el-icon-search" @click="searchStudent">搜索</el-button>
       </el-input>
       <el-select v-model="value1" placeholder="年级" @change="queryClass" @clear="gradeListener" clearable>
@@ -56,11 +56,26 @@
         <el-form-item label="姓名" prop="realname">
           <el-input v-model="editFormData.realname" autocomplete="off"></el-input>
         </el-form-item>
+        <!--<template>
+          <el-select  v-model="value1" placeholder="年级" @change="queryClass" @clear="gradeListener" clearable>
+            <el-option v-for="item in grade" :key="item.value" :label="item.label" :value="item.value"></el-option>
+          </el-select>
+        </template>
+        <template>
+          <el-select v-model="value2" placeholder="班级" @change="queryStudentByClass" @clear="classListener" clearable>
+            <el-option
+              v-for="item in classNo"
+              :key="item.value"
+              :label="item.label"
+              :value="item.value"
+            ></el-option>
+          </el-select>
+        </template>-->
         <el-form-item label="年级" prop="grade">
-          <el-input v-model="editFormData.grade" autocomplete="off"></el-input>
+          <el-input v-model="editFormData.grade" autocomplete="off" disabled></el-input>
         </el-form-item>
         <el-form-item label="班级" prop="classNo">
-          <el-input v-model="editFormData.classNo" autocomplete="off"></el-input>
+          <el-input v-model="editFormData.classNo" autocomplete="off" disabled></el-input>
         </el-form-item>
         <el-form-item label="手机" prop="telephone">
           <el-input v-model="editFormData.telephone" autocomplete="off"></el-input>
@@ -191,6 +206,12 @@ export default {
             let ret = res.data.data
             this.studentData = ret.records
             this.total = ret.total
+            this.$message({
+              message:  res.data.message,
+              type: 'success'
+            });
+          } else {
+            this.$message.error(res.data.message)
           }
         })
         .catch(error => {
@@ -233,10 +254,14 @@ export default {
       this.$axios
         .get("http://localhost:8080/student/search/" + this.keyword)
         .then(res => {
-          let ret = res.data.data
-          this.studentData = ret.records
-          this.total = ret.total
-          this.$message({ message: "查询成功", type: "success" })
+        if(res.data.code == 0){
+        let ret = res.data.data
+        this.studentData = ret.records
+        this.total = ret.total
+        this.$message({ message: res.data.message, type: "success" })
+      }else{
+        this.$message.error(res.data.message)
+      }
         })
         .catch(error => {
           this.$message.error("查询失败")
@@ -278,12 +303,20 @@ export default {
       this.$axios
         .post("http://localhost:8080/student/modify/" + this.editFormData.id, modifyData)
         .then(res => {
-          this.$message({ message: "更新成功", type: "success" })
-          this.allStudent()
-          this.visibleForm = false
+          if(res.data.code ==0){
+        this.$message({ message: res.data.message , type: "success" })
+        this.allStudent()
+        this.visibleForm = false
+      }else{
+        this.$message.error(res.data.message)
+        this.allStudent()
+        // this.visibleForm = false
+      }
         })
         .catch(error => {
           this.$message.error("更新失败")
+         this.allStudent()
+         // this.visibleForm = false
         });
     },
 

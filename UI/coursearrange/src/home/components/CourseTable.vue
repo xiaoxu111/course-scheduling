@@ -107,28 +107,34 @@ export default {
         .get("http://localhost:8080/courseplan/" + this.value3)
         .then(res => {
           console.log(res);
-          let courseData = res.data.data;
-          let level = 0;
-          let times = 0;
-          for (let index = 0; index < courseData.length; index++) {
-            times = times + 1;
-            const item = courseData[index];
-            if (parseInt(item.classTime) != times) {
-              this.classTableData.courses[level].push("");
-              index = index - 1;
-            } else {
-              this.classTableData.courses[level].push(
-                item.teacher.realname +
+          if (res.data.code == 0){
+            let courseData = res.data.data;
+            let level = 0;
+            let times = 0;
+            for (let index = 0; index < courseData.length; index++) {
+              times = times + 1;
+              const item = courseData[index];
+              if (parseInt(item.classTime) != times) {
+                this.classTableData.courses[level].push("");
+                index = index - 1;
+              } else {
+                this.classTableData.courses[level].push(
+                  item.teacher.realname +
                   "-" +
                   item.courseInfo.courseName +
                   "(" +
                   item.classRoomNo +
                   ")"
-              );
+                );
+              }
+              if (times % 5 == 0) {
+                level = level + 1;
+              }
             }
-            if (times % 5 == 0) {
-              level = level + 1;
-            }
+            this.$message({ message: res.data.message , type: "success" })
+          }else {
+            this.$message.error(res.data.message)
+
           }
         });
     },
