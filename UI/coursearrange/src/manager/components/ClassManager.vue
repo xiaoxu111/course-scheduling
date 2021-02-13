@@ -59,7 +59,7 @@
           <el-form-item label="班级名称" prop="className">
             <el-input v-model="addClassData.className" autocomplete="off"></el-input>
           </el-form-item>
-          <el-form-item label="学生人数" prop="num">
+          <el-form-item label="分配人数" prop="num">
             <el-input v-model="addClassData.num" autocomplete="off"></el-input>
           </el-form-item>
         </el-form>
@@ -178,11 +178,11 @@ export default {
           this.visible = false
           this.addClassData = []
         } else {
-          alert(res.data.message)
+        this.$message.error(res.data.message)
         }
       })
       .catch(error => {
-        this.$message.error("添加班级失败")
+        this.$message.error(res.data.message)
       })
     },
 

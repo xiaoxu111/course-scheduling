@@ -5,6 +5,7 @@ import com.aliwo.dao.ClassInfoDao;
 import com.aliwo.entity.ClassInfo;
 import com.aliwo.entity.Student;
 import com.aliwo.entity.Teacher;
+import com.aliwo.entity.request.ClassAddVO;
 import com.aliwo.entity.response.ClassInfoVo;
 import com.aliwo.service.ClassInfoService;
 import com.aliwo.service.StudentService;
@@ -213,6 +214,40 @@ public class ClassInfoController {
         return ServerResponse.ofError("删除失败！");
     }
 
-
+    /**
+     * 添加班级
+     *
+     * @param classAddVO
+     * @return ServerResponse
+     */
+    @RequestMapping(value = "/addclassinfo", method = RequestMethod.POST)
+    public ServerResponse addClass(@RequestBody ClassAddVO classAddVO) {
+        if (null == classAddVO){
+            return ServerResponse.ofError("添加班级服务失败！！！");
+        }
+        if (classAddVO.getId()==null){
+            return ServerResponse.ofError("班级id非空！！！");
+        }
+        if (Strings.isEmpty(classAddVO.getGradeNo())){
+            return ServerResponse.ofError("年级编号非空！！！");
+        }
+        if (Strings.isEmpty(classAddVO.getClassNo())){
+            return ServerResponse.ofError("班级编号非空！！！");
+        }
+        if (Strings.isEmpty(classAddVO.getClassName())){
+            return ServerResponse.ofError("班级名称非空！！！");
+        }
+        ClassInfo c = new ClassInfo();
+        c.setRemark(classAddVO.getGradeNo());
+        c.setClassNo(classAddVO.getClassNo());
+        c.setClassName(classAddVO.getClassName());
+        c.setTeacherId(classAddVO.getId());
+        c.setNum(classAddVO.getNum());
+        boolean b = classInfoService.save(c);
+        if (b) {
+            return ServerResponse.ofSuccess("添加班级成功");
+        }
+        return ServerResponse.ofError("添加班级失败");
+    }
 
 }
