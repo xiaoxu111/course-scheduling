@@ -130,4 +130,14 @@ public class TeacherController {
         return ServerResponse.ofSuccess(iPage);
     }
 
+    /**
+     * 查询所有讲师
+     *
+     * @return
+     */
+    @GetMapping("/all")
+    public ServerResponse getAllTeacher() {
+        return ServerResponse.ofSuccess(teacherService.list());
+    }
+
 }

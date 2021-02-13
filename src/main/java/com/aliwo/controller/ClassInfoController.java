@@ -4,18 +4,18 @@ import com.aliwo.common.ServerResponse;
 import com.aliwo.dao.ClassInfoDao;
 import com.aliwo.entity.ClassInfo;
 import com.aliwo.entity.Student;
+import com.aliwo.entity.Teacher;
 import com.aliwo.entity.response.ClassInfoVo;
 import com.aliwo.service.ClassInfoService;
 import com.aliwo.service.StudentService;
+import com.aliwo.service.TeacherService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
 import java.util.List;
@@ -40,6 +40,8 @@ public class ClassInfoController {
     @Autowired
     private StudentService studentService;
 
+ @Autowired
+    private TeacherService teacherService;
     /**
      * 根据年级查询所有班级 个人中心加入班级的时候调用
      * @param grade
@@ -125,6 +127,68 @@ public class ClassInfoController {
         } else {
             return ServerResponse.ofSuccess(0, "查询成功 ！！！", iPage);
         }
+    }
+
+
+    /**
+     * 班级管理 所有班级选项,编辑班级信息
+     *
+     * @param classInfoVO
+     * @param id
+     * @return
+     */
+    @PostMapping("/modifyClass/{id}")
+    public ServerResponse modifyClass(@PathVariable("id") Integer id, @RequestBody ClassInfoVo classInfoVO) {
+
+        if (null == classInfoVO) {
+            return ServerResponse.ofError("更新班级服务错误！！！");
+        }
+        if (Strings.isEmpty(classInfoVO.getClassNo())) {
+            return ServerResponse.ofError("请填写班级编号！！！");
+        }
+        if (Strings.isEmpty(classInfoVO.getClassName())) {
+            return ServerResponse.ofError("请填写班级名称！！！");
+        }
+        if (Strings.isEmpty(classInfoVO.getRealname())) {
+            return ServerResponse.ofError("请填写班主任姓名！！！");
+        }
+        QueryWrapper<ClassInfo> wrapper = new QueryWrapper<ClassInfo>().eq("id", id);
+        ClassInfo classInfo = classInfoService.getOne(wrapper);
+        if (null == classInfo) {
+            return ServerResponse.ofError("没有查到班级信息根据班级id ！！！");
+        }
+        // 设置年级
+        switch (classInfoVO.getGradeName()) {
+            case "高一":
+                classInfo.setRemark("01");
+                break;
+            case "高二":
+                classInfo.setRemark("02");
+                break;
+            case "高三":
+                classInfo.setRemark("03");
+                break;
+                default:
+                    break;
+        }
+        // 设置班级编号
+        classInfo.setClassNo(classInfoVO.getClassNo());
+        // 设置班级名称
+        classInfo.setClassName(classInfoVO.getClassName());
+        // 设置班级人数
+        classInfo.setNum(classInfoVO.getNum());
+        Boolean flag = classInfoService.updateById(classInfo);
+        if (!flag){
+            return ServerResponse.ofError("更新班级信息失败");
+        }
+        // 讲师id
+        Integer teacherId = classInfo.getTeacherId();
+        if (teacherId ==null) {
+            return ServerResponse.ofError("更新失败！！！");
+        }
+        Teacher teacher = teacherService.getById(teacherId);
+
+        return ServerResponse.ofSuccess("修改成功");
     }
 
 }

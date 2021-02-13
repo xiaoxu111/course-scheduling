@@ -173,7 +173,7 @@ export default {
             }
             else{
 
-              this.classTableData.courses[level].push(item.teacher.realname + "-" + item.courseInfo.courseName + "(" + item.classroomNo + ")");
+              this.classTableData.courses[level].push(item.teacher.realname + "-" + item.courseInfo.courseName + "(" + item.classRoomNo + ")");
             }
             if((times % 5) == 0){
               level = level + 1;

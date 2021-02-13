@@ -276,7 +276,7 @@ public class StudentController {
      * @return
      */
     @PostMapping("/modify/{id}")
-    public ServerResponse modifyTeacher(@PathVariable("id") Integer id, @RequestBody Student student) {
+    public ServerResponse modifyStudent(@PathVariable("id") Integer id, @RequestBody Student student) {
         if ( null == student) {
             return ServerResponse.ofError("更新失败！！！");
         }

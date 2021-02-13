@@ -133,10 +133,12 @@ export default {
             }
             this.$message({ message: res.data.message , type: "success" })
           }else {
-            this.$message.error(res.data.message)
-
+            this.$message.error("失败")
           }
-        });
+        })
+      .catch(error => {
+        this.$message.error("失败")
+          });
     },
 
     /**

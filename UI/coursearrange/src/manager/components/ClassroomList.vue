@@ -7,7 +7,7 @@
     <el-table :data="classroomData" size="mini" :stripe="true" :highlight-current-row="true">
       <el-table-column label="序号" type="selection"></el-table-column>
       <!-- <el-table-column prop="id" label="ID"></el-table-column> -->
-      <el-table-column prop="classroomNo" label="教室编号"></el-table-column>
+      <el-table-column prop="classRoomNo" label="教室编号"></el-table-column>
       <el-table-column prop="classroomName" label="教室名"></el-table-column>
       <el-table-column prop="teachbuildNo" label="所属教学楼"></el-table-column>
       <el-table-column prop="capacity" label="容量"></el-table-column>
@@ -24,8 +24,8 @@
     <!-- 弹出表单编辑教室 -->
     <el-dialog title="" :visible.sync="visibleForm">
       <el-form :model="editFormData" label-position="left" label-width="80px" :rules="editFormRules">
-        <el-form-item label="编号" prop="classroomNo">
-          <el-input v-model="editFormData.classroomNo" autocomplete="off"></el-input>
+        <el-form-item label="编号" prop="classRoomNo">
+          <el-input v-model="editFormData.classRoomNo" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="名称" prop="classroomName">
           <el-input v-model="editFormData.classroomName" autocomplete="off"></el-input>
@@ -73,7 +73,7 @@ export default {
       editFormData: [],
       visibleForm: false,
       editFormRules: {
-        classroomNo: [
+        classRoomNo: [
            { required: true, message: '请输入教室编号', trigger: 'blur' },
         ],
         classroomName: [
@@ -110,8 +110,8 @@ export default {
       } else {
         alert('添加')
         this.addClassroom(this.editFormData)
-      } 
-      
+      }
+
     },
 
     deleteById(index, row) {
@@ -146,7 +146,7 @@ export default {
           } else {
             this.$message.error(res.data.message)
           }
-          
+
         })
         .catch(error => {
           this.$message.error("更新失败")

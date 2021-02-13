@@ -24,7 +24,7 @@
       <el-table-column prop="classRoomName" label="教室名"></el-table-column>
       <el-table-column prop="teachbuildNo" label="所属教学楼"></el-table-column>
       <el-table-column prop="capacity" label="容量"></el-table-column>
-      <el-table-column prop="remark" label="备注"></el-table-column>
+      <!--<el-table-column prop="remark" label="备注"></el-table-column>-->
 
       <el-table-column prop="operation" label="操作">
         <template slot-scope="scope">

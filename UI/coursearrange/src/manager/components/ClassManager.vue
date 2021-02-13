@@ -69,6 +69,37 @@
         </div>
       </el-dialog>
 
+
+      <!-- 弹出表单编辑学生 -->
+      <el-dialog title="编辑班级" :visible.sync="visibleEdit">
+        <el-form
+          :model="editFormData"
+          label-position="left"
+          label-width="80px"
+          :rules="editFormRules"
+        >
+          <el-form-item label="年级">
+            <el-input v-model="editFormData.gradeName" autocomplete="off" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="班级编号" prop="classNo">
+            <el-input v-model="editFormData.classNo" autocomplete="off" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="班级名称" prop="className">
+            <el-input v-model="editFormData.className" autocomplete="off" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="班主任" prop="realname">
+            <el-input v-model="editFormData.realname" autocomplete="off" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="学生人数" prop="num">
+            <el-input v-model="editFormData.num" autocomplete="off" ></el-input>
+          </el-form-item>
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="visibleEdit = false">取 消</el-button>
+          <el-button type="primary" @click="commitupdate()">提 交</el-button>
+        </div>
+      </el-dialog>
+
       <!-- 上一页，当前页，下一页 -->
       <div class="footer-button">
         <el-pagination
@@ -123,7 +154,14 @@ export default {
           value: "",
           label: ""
         }
-      ]
+      ],
+      editFormRules: {
+        gradeName: [{ required: true, message: "请输入年级", trigger: "blur" }],
+        classNo: [{ required: true, message: "请输入班级编号", trigger: "blur" }],
+        className: [{ required: true, message: "请输入班级名称", trigger: "blur" }],
+        realname: [{ required: true, message: "请输入班主任", trigger: "blur" }],
+        num: [{ required: true, message: "请输入班级容量", trigger: "blur" }],
+      }
     };
   },
   mounted() {
@@ -146,6 +184,37 @@ export default {
       .catch(error => {
         this.$message.error("添加班级失败")
       })
+    },
+
+    /***
+     * 编辑班级信息提交
+     */
+    commitupdate() {
+      this.modifyClass(this.editFormData)
+    },
+
+    /**
+     * 更新学生
+     */
+    modifyClass(modifyData) {
+      this.$axios
+        .post("http://localhost:8080/modifyClass/" + this.editFormData.id, modifyData)
+        .then(res => {
+        if(res.data.code ==0){
+        this.$message({ message: res.data.message , type: "success" })
+        this.allClassInfo()
+        this.visibleEdit = false
+      }else{
+        this.$message.error(res.data.message)
+        this.allClassInfo()
+        this.visibleEdit = false
+      }
+    })
+    .catch(error => {
+        this.$message.error("更新失败")
+      this.allClassInfo()
+      // this.visibleForm = false
+    });
     },
 
     addClass() {
@@ -224,7 +293,11 @@ export default {
     // 根据id删除
     deleteById(index, row) {},
 
-    editById(index, row) {}
+    editById(index, row) {
+      let modifyId = row.id
+      this.editFormData = row
+      this.visibleEdit = true
+    }
   }
 };
 </script>
