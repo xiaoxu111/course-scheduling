@@ -191,4 +191,28 @@ public class ClassInfoController {
         return ServerResponse.ofSuccess("修改成功");
     }
 
+
+    /**
+     * 班级管理 所有班级,管理员根据班级ID删除班级信息
+     *
+     * @return ServerResponse
+     */
+    @RequestMapping(value = "/deleteclass/{id}", method = RequestMethod.DELETE)
+    public ServerResponse deleteClassById(@PathVariable Integer id) {
+        if (StringUtils.isEmpty(id.toString())) {
+            return ServerResponse.ofError("删除服务失败(id:) ！！！" + id);
+        }
+        ClassInfo classInfo = classInfoService.getById(id);
+        if (classInfo != null && classInfo.getNum() != 0) {
+            return ServerResponse.ofError("所在班级已经分配学生不能删除该班级！！！");
+        }
+        boolean b = classInfoService.removeById(id);
+        if (b) {
+            return ServerResponse.ofSuccess("删除成功！");
+        }
+        return ServerResponse.ofError("删除失败！");
+    }
+
+
+
 }

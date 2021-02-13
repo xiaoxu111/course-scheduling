@@ -290,8 +290,29 @@ export default {
       this.allClassInfo();
     },
 
-    // 根据id删除
-    deleteById(index, row) {},
+    // 根据班级id删除班级信息
+    deleteById(index, row) {
+      this.deleteClassById(row.id)
+    },
+    // 根据班级id删除班级信息
+    deleteClassById(id) {
+      this.$axios
+        .delete("http://localhost:8080/deleteclass/" + id)
+        .then(res => {
+          //删除成功
+          if(res.data.code == 0){
+        this.$message({ message: res.data.message, type: "success" })
+        this.allClassInfo()
+      }
+      // 删除失败
+      if (res.data.code == 1) {
+        this.$message.error(res.data.message)
+      }
+    })
+    .catch(error => {
+        this.$message.error(res.data.message)
+    });
+    },
 
     editById(index, row) {
       let modifyId = row.id

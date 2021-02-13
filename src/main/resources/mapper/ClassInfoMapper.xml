@@ -20,12 +20,14 @@
         SELECT tci.id, tgi.grade_name, tci.class_no, tci.class_name, t.realname, tci.num
             FROM yc_class_info tci join yc_teacher t on tci.teacher_id = t.id
             join yc_grade_info tgi on tci.remark = tgi.grade_no
+            where tci.deleted=0 and t.deleted=0
             limit ${page},${limit}
     </select>
     
     <select id="count2" resultType="integer">
       SELECT count(tci.id) FROM yc_class_info tci join yc_teacher t on tci.teacher_id = t.id
       join yc_grade_info tgi on tci.remark = tgi.grade_no
+      where  tci.deleted=0 and t.deleted=0
     </select>
 
 
@@ -33,7 +35,7 @@
         SELECT tci.id,tgi.grade_name,tci.class_no,tci.class_name,t.realname,tci.num
         FROM yc_class_info tci join yc_teacher t on tci.teacher_id = t.id
         join yc_grade_info tgi on tci.remark = tgi.grade_no
-        where tgi.grade_no = ${gradeNo}
+        where tgi.grade_no = ${gradeNo} and tci.deleted=0 and t.deleted=0
         limit ${page}, ${limit}
     </select>
 
@@ -42,6 +44,7 @@
       SELECT count(tci.id) FROM yc_class_info tci join yc_teacher t on tci.teacher_id = t.id
       join yc_grade_info tgi on tci.remark = tgi.grade_no
       where tgi.grade_no = ${gradeNo}
+       and tci.deleted=0 and t.deleted=0
     </select>
 
 
