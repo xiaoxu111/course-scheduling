@@ -63,11 +63,11 @@
         <el-form-item label="姓名" prop="realname">
           <el-input v-model="editFormData.realname" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="职称" prop="jobtitle">
-          <el-input v-model="editFormData.jobtitle" autocomplete="off"></el-input>
+        <el-form-item label="职称" prop="jobTitle">
+          <el-input v-model="editFormData.jobTitle" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="科目" prop="teach">
-          <el-input v-model="editFormData.teach" autocomplete="off"></el-input>
+        <el-form-item label="科目" prop="teachSubject">
+          <el-input v-model="editFormData.teachSubject" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="手机" prop="telephone">
           <el-input v-model="editFormData.telephone" autocomplete="off"></el-input>
@@ -96,20 +96,20 @@
         label-width="80px"
         :rules="addTeacherRules"
       >
-        <el-form-item label="编号" prop="teacherNo">
-          <el-input v-model="addTeacherForm.teacherNo" autocomplete="off" disabled></el-input>
-        </el-form-item>
+        <!--<el-form-item label="编号" prop="teacherNo">-->
+          <!--<el-input v-model="addTeacherForm.teacherNo" autocomplete="off" disabled></el-input>-->
+        <!--</el-form-item>-->
         <el-form-item label="昵称" prop="username">
           <el-input v-model="addTeacherForm.username" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="姓名" prop="realname">
           <el-input v-model="addTeacherForm.realname" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="职称" prop="jobtitle">
-          <el-input v-model="addTeacherForm.jobtitle" autocomplete="off"></el-input>
+        <el-form-item label="职称" prop="jobTitle">
+          <el-input v-model="addTeacherForm.jobTitle" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="科目" prop="teach">
-          <el-input v-model="addTeacherForm.teach" autocomplete="off"></el-input>
+        <el-form-item label="科目" prop="teachSubject">
+          <el-input v-model="addTeacherForm.teachSubject" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="手机" prop="telephone">
           <el-input v-model="addTeacherForm.telephone" autocomplete="off"></el-input>
@@ -216,11 +216,14 @@ export default {
           if (res.data.code == 0) {
             this.allTeacher();
             this.visibleAddForm = false;
-            this.$message({ message: "添加讲师成功", type: "success" });
+            this.$message({ message: res.data.message, type: "success" });
+          }
+          if (res.data.code ==1){
+            this.$message.error(res.data.message);
           }
         })
         .catch(error => {
-          this.$message.error("添加讲师失败");
+          this.$message.error(res.data.message);
         });
     },
 
@@ -302,8 +305,13 @@ export default {
       this.$axios
         .delete("http://localhost:8080/teacher/delete/" + id)
         .then(res => {
-          this.allTeacher();
-          this.$message({ message: "删除成功", type: "success" });
+          if(res.data.code == 0){
+        this.allTeacher();
+        this.$message({ message: res.data.message, type: "success" });
+      }
+      if (res.data.code == 1){
+            this.$message.error(res.data.message);
+      }
         })
         .catch(error => {
           this.$message.error("删除失败");

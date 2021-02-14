@@ -1,9 +1,12 @@
 package com.aliwo.controller;
 
 import com.aliwo.common.ServerResponse;
+import com.aliwo.entity.ClassInfo;
 import com.aliwo.entity.Teacher;
 import com.aliwo.entity.request.PasswordVO;
+import com.aliwo.entity.request.TeacherAddRequest;
 import com.aliwo.entity.request.UserLoginRequest;
+import com.aliwo.service.ClassInfoService;
 import com.aliwo.service.TeacherService;
 import com.aliwo.service.impl.TokenService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -17,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -36,6 +40,9 @@ public class TeacherController {
 
     @Autowired
     private TokenService tokenService;
+
+    @Autowired
+    private ClassInfoService classInfoService;
 
     /**
      * @param userLoginRequest
@@ -138,6 +145,103 @@ public class TeacherController {
     @GetMapping("/all")
     public ServerResponse getAllTeacher() {
         return ServerResponse.ofSuccess(teacherService.list());
+    }
+
+    /**
+     * @param t
+     * @return ServerResponse
+     * 管理员添加讲师信息
+     */
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ServerResponse teacherAdd(@RequestBody TeacherAddRequest t) {
+        Teacher teacher = new Teacher();
+        // 查询出最后一个讲师编号 讲师编号自动生成默认按照编号降序取第一个+1
+        QueryWrapper<Teacher> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("teacher_no");
+        Page<Teacher> page = new Page<>(0,1);
+        IPage<Teacher> iPage = teacherService.page(page,wrapper );
+        List<Teacher> teacherList =  iPage.getRecords();
+        if (teacherList == null || teacherList.size()>1){
+            return ServerResponse.ofError("查询最后一个讲师错误");
+        }
+        if (Strings.isEmpty(teacherList.get(0).getTeacherNo())) {
+            return ServerResponse.ofError("讲师编号非空!!!");
+        }
+        teacher.setTeacherNo(String.valueOf(Integer.parseInt(teacherList.get(0).getTeacherNo())+1));
+        if (Strings.isEmpty(t.getUsername())){
+            return ServerResponse.ofError("用户名非空！！！");
+        }
+        teacher.setUsername(t.getUsername());
+        if (Strings.isEmpty(t.getEmail())){
+            return ServerResponse.ofError("用户名非空！！！");
+        }
+        teacher.setEmail(t.getEmail());
+        // 每一个新增的讲师密码默认是123456
+        teacher.setPassword("123456");
+        if (Strings.isEmpty(t.getRealname())){
+            return ServerResponse.ofError("真实姓名非空！！！");
+        }
+        teacher.setRealname(t.getRealname());
+        if (Strings.isEmpty(t.getJobTitle())){
+            return ServerResponse.ofError("职称非空！！！");
+        }
+        teacher.setJobTitle(t.getJobTitle());
+        if (Strings.isEmpty(t.getTeachSubject())){
+            return ServerResponse.ofError("教授科目非空！！！");
+        }
+        teacher.setTeachSubject(t.getTeachSubject());
+        if (Strings.isEmpty("手机号非空"));
+        teacher.setTelephone(t.getTelephone());
+        if (Strings.isEmpty(t.getAddress())){
+            return ServerResponse.ofError("地址非空！！！");
+        }
+        teacher.setAddress(t.getAddress());
+        if (t.getAge()<0 || t.getAge()>200){
+            return ServerResponse.ofError("请填写年龄在0-200之间");
+        }
+        teacher.setAge(t.getAge());
+        Boolean flag = teacherService.save(teacher);
+        if (!flag){
+            return ServerResponse.ofError("添加讲师服务失败，请检查！！！");
+        }
+        return ServerResponse.ofSuccess("添加讲师成功！！！");
+    }
+
+
+    /**
+     * @param id
+     * @return ServerResponse
+     * 管理员删除讲师信息
+     */
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public ServerResponse teacherDelete(@PathVariable(value = "id") Integer id) {
+        // 传来讲师id
+        if (null == id){
+            return ServerResponse.ofError("删除讲师服务失败 id错误！！！");
+        }
+        // 根据讲师id查询讲师信息
+        Teacher teacher = teacherService.getById(id);
+        if (null == teacher) {
+            return ServerResponse.ofError("没有查询到该讲师信息，删除服务失败！！！");
+        }
+        Integer teacherId = teacher.getId();
+        Map<String,Object> map = new HashMap<>();
+        map.put("teacher_id",teacherId );
+        // 查询该讲师所教的班级信息,如果该班级已经分配学生则删除讲师信息失败,一个讲师可以教多个班级
+        List<ClassInfo> classInfos = (List<ClassInfo>) classInfoService.listByMap(map);
+        if (null != classInfos && classInfos.size() != 0) {
+            for (ClassInfo classInfo : classInfos) {
+                if (0 != classInfo.getNum()) {
+                    return ServerResponse.ofError("该讲师" + "【" + teacher.getRealname() + "】" + "已经分配了学生删除失败！！！");
+                }
+            }
+        }
+        QueryWrapper<Teacher> wrapper1 = new QueryWrapper<>();
+        Boolean flag = teacherService.removeById(id);
+        if (!flag) {
+            return ServerResponse.ofError("删除失败！！！");
+        }
+        return ServerResponse.ofSuccess("删除成功");
     }
 
 }

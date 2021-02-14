@@ -32,14 +32,14 @@ public class TeacherAddRequest {
     private String realname;
 
     /**
-     * 支撑
+     * 职称
      */
-    private String jobtitle;
+    private String jobTitle;
 
     /**
-     *
+     * 教授科目
      */
-    private String teach;
+    private String teachSubject;
 
     /**
      * 电话
