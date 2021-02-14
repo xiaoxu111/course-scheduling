@@ -244,4 +244,23 @@ public class TeacherController {
         return ServerResponse.ofSuccess("删除成功");
     }
 
+
+    /**
+     * 根据姓名关键字搜索讲师
+     * @return
+     */
+    @RequestMapping(value = "/search/{page}/{keyword}", method = RequestMethod.GET)
+    public ServerResponse searchTeacher(@PathVariable("keyword") String keyword, @PathVariable("page") Integer page,
+                                        @RequestParam(defaultValue = "10") Integer limit) {
+        QueryWrapper<Teacher> wrapper = new QueryWrapper<>();
+        wrapper.orderByDesc("update_time");
+        wrapper.like(!StringUtils.isEmpty(keyword), "realname", keyword);
+        Page<Teacher> pages = new Page<>(page, limit);
+        IPage<Teacher> iPage = teacherService.page(pages, wrapper);
+        if (page != null) {
+            return ServerResponse.ofSuccess(iPage);
+        }
+        return ServerResponse.ofError("查询失败!");
+    }
+
 }

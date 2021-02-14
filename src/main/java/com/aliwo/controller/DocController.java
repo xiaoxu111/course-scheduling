@@ -20,7 +20,7 @@ import java.util.List;
 /**
  * package_name:com.aliwo.controller
  *
- * @author:徐亚远 Date:2021/2/8 10:24
+ * @author:xuyy19 Date:2021/2/8 10:24
  * 项目名:course-scheduling
  * Description:学生文档Controller
  * Version: 1.0
