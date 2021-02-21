@@ -7,6 +7,8 @@ import com.aliwo.service.ClassRoomService;
 import com.aliwo.service.CoursePlanService;
 import com.aliwo.util.NoForNameUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -150,5 +152,22 @@ public class ClassRoomController {
             }
         }
         return newSet;
+    }
+
+
+    /**
+     * 带分页显示教室列表
+     * @return
+     */
+    @RequestMapping(value = "/{page}", method = RequestMethod.GET)
+    public ServerResponse queryClassroom(@PathVariable("page")Integer page,
+                                         @RequestParam(defaultValue = "10")Integer limit) {
+        Page<ClassRoom> pages = new Page<>(page, limit);
+        QueryWrapper<ClassRoom> wrapper = new QueryWrapper<ClassRoom>().orderByAsc("class_room_no");
+
+        IPage<ClassRoom> ipage = classRoomService.page(pages, wrapper);
+
+        return ServerResponse.ofSuccess(ipage);
+
     }
 }

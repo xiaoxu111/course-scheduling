@@ -6,10 +6,10 @@ import com.aliwo.entity.TeachbuildInfo;
 import com.aliwo.service.ClassRoomService;
 import com.aliwo.service.TeachBuildInfoService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -55,5 +55,21 @@ public class TeachBuildInfoController {
             }
         }
         return ServerResponse.ofSuccess(0,"请先选择要教学楼信息 ！！！",list);
+    }
+
+    /**
+     * 分页查询所有教学楼
+     * @return
+     */
+    @RequestMapping(value = "/list/{page}", method = RequestMethod.GET)
+    public ServerResponse queryTeachbuilding(@PathVariable("page") Integer page,
+                                             @RequestParam(defaultValue = "10") Integer limit) {
+        Page<TeachbuildInfo> pages = new Page<>(page, limit);
+        QueryWrapper<TeachbuildInfo> wrapper = new QueryWrapper<TeachbuildInfo>().orderByDesc("update_time");
+        IPage<TeachbuildInfo> ipage = teachBuildInfoService.page(pages, wrapper);
+        if (ipage != null) {
+            return ServerResponse.ofSuccess(ipage);
+        }
+        return ServerResponse.ofError("查询失败");
     }
 }
