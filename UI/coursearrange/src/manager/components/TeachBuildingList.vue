@@ -20,17 +20,56 @@
       </el-table-column>
     </el-table>
 
+    <!-- 弹出表单添加教学楼 -->
+    <el-dialog title="添加教学楼" :visible.sync="visibleFormAdd">
+      <el-form :model="addFormData" label-position="left" label-width="80px" :rules="editFormRules">
+      <el-form-item label="编号">
+        <el-input v-model="addFormData.teachBuildNo" autocomplete="off" ></el-input>
+      </el-form-item>
+      <el-form-item label="名称" prop="teachBuildName">
+        <el-input v-model="addFormData.teachBuildName" autocomplete="off" ></el-input>
+      </el-form-item>
+      <el-form-item label="所在区域" prop="teachBuildLocation">
+        <el-input v-model="addFormData.teachBuildLocation" autocomplete="off" ></el-input>
+      </el-form-item>
+    </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="visibleFormAdd = false">取 消</el-button>
+        <el-button type="primary" @click="commit()">提 交</el-button>
+      </div>
+    </el-dialog>
+
     <!-- 弹出表单编辑教学楼 -->
-    <el-dialog title="" :visible.sync="visibleForm">
+    <el-dialog title="编辑教学楼信息" :visible.sync="visibleForm">
       <el-form :model="editFormData" label-position="left" label-width="80px" :rules="editFormRules">
         <el-form-item label="编号">
-          <el-input v-model="editFormData.teachBuildNo" autocomplete="off"></el-input>
+          <el-input v-model="editFormData.teachBuildNo" autocomplete="off" disabled></el-input>
         </el-form-item>
         <el-form-item label="名称" prop="teachBuildName">
-          <el-input v-model="editFormData.teachBuildName" autocomplete="off"></el-input>
+          <!--<el-input v-model="editFormData.teachBuildName" autocomplete="off"></el-input>-->
+          <template>
+            <el-select v-model="editFormData.teachBuildName" placeholder="名称" clearable="true">
+              <el-option
+                v-for="item in teachBuildNames"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </template>
         </el-form-item>
         <el-form-item label="所在区域" prop="teachBuildLocation">
-          <el-input v-model="editFormData.teachBuildLocation" autocomplete="off"></el-input>
+          <!--<el-input v-model="editFormData.teachBuildLocation" autocomplete="off"></el-input>-->
+          <template>
+            <el-select v-model="editFormData.teachBuildLocation" placeholder="所在区域" clearable="true">
+              <el-option
+                v-for="item in teachBuildLocations"
+                :key="item.value"
+                :label="item.label"
+                :value="item.value"
+              ></el-option>
+            </el-select>
+          </template>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -65,6 +104,112 @@ export default {
       type: 1, // 编辑
       editFormData: [],
       visibleForm: false,
+      addFormData: [],
+      visibleFormAdd: false,
+      teachBuildLocations: [
+        {
+          value: "东校区",
+          label: "东校区"
+        },
+        {
+          value: "1校区",
+          label: "1校区"
+        },
+        {
+          value: "2校区",
+          label: "2校区"
+        },
+        {
+          value: "花江校区",
+          label: "花江校区"
+        },
+        {
+          value: "东南校区",
+          label: "东南校区"
+        },
+        {
+          value: "西南校区",
+          label: "西南校区"
+        },
+        {
+          value: "南校区",
+          label: "南校区"
+        },
+        {
+          value: "北校区",
+          label: "北校区"
+        }
+      ],
+      teachBuildNames: [
+        {
+          value: "第1教学楼",
+          label: "第1教学楼"
+        },
+        {
+          value: "2号教学楼",
+          label: "2号教学楼"
+        },
+        {
+          value: "3号教学楼",
+          label: "3号教学楼"
+        },
+        {
+          value: "南校区",
+          label: "南校区"
+        },
+        {
+          value: "4号教学楼",
+          label: "4号教学楼"
+        },
+        {
+          value: "5号教学楼",
+          label: "5号教学楼"
+        },
+        {
+          value: "音乐楼",
+          label: "音乐楼"
+        },
+        {
+          value: "美术楼",
+          label: "美术楼"
+        },
+        {
+          value: "实验楼1",
+          label: "实验楼1"
+        },
+        {
+          value: "实验楼2",
+          label: "实验楼2"
+        },
+        {
+          value: "逸夫楼1",
+          label: "逸夫楼1"
+        },
+        {
+          value: "逸夫楼2",
+          label: "逸夫楼2"
+        },
+        {
+          value: "体育楼",
+          label: "体育楼"
+        },
+        {
+          value: "南校区",
+          label: "南校区"
+        },
+        {
+          value: "化生楼",
+          label: "化生楼"
+        },
+        {
+          value: "14号教学楼",
+          label: "14号教学楼"
+        },
+        {
+          value: "测试楼",
+          label: "测试楼"
+        }
+      ],
       editFormRules: {
         teachBuildNo: [
            { required: true, message: '请输入教学楼编号', trigger: 'blur' },
@@ -86,40 +231,38 @@ export default {
   methods: {
 
     addTeachbuild() {
-      this.visibleForm = true
+      this.visibleFormAdd = true
       this.type = 2
-      this.editFormData = {}
+      this.addFormData = {}
     },
 
     /**
      * 提交更新
      */
     commit() {
-      alert(this.type)
+      console.info("【编辑：1   添加：2】："+this.type);
       if (this.type == 1) {
         // 编辑
-        alert(this.type)
+        console.info("【编辑：1 】："+this.type);
         this.modifyTeachBuild(this.editFormData)
       } else {
-        alert(this.type)
+        console.info("【添加：2】："+this.type);
         // type = 2 添加
-        this.newteachbuild(this.editFormData)
+        this.newteachbuild(this.addFormData)
       }
-      
+
     },
 
     // 添加教学楼
     newteachbuild(modifyData) {
-      alert('添加')
-      console.log(modifyData);
-      
+      console.log("添加操作："+modifyData);
       this.$axios
         .post("http://localhost:8080/teachbuildinfo/add", modifyData)
         .then(res => {
           if (res.data.code == 0) {
-            this.$message({ message: "添加成功", type: "success" })
+            this.$message({ message: res.data.message, type: "success" })
             this.allTeachBuilding()
-            this.visibleForm = false
+            this.visibleFormAdd = false
           } else {
             this.$message.error(res.data.message)
           }

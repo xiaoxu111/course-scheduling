@@ -8,7 +8,7 @@
       <el-table-column label="序号" type="selection"></el-table-column>
       <!-- <el-table-column prop="id" label="ID"></el-table-column> -->
       <el-table-column prop="classRoomNo" label="教室编号"></el-table-column>
-      <el-table-column prop="classroomName" label="教室名"></el-table-column>
+      <el-table-column prop="classRoomName" label="教室名"></el-table-column>
       <el-table-column prop="teachbuildNo" label="所属教学楼"></el-table-column>
       <el-table-column prop="capacity" label="容量"></el-table-column>
       <el-table-column prop="remark" label="备注"></el-table-column>
@@ -27,8 +27,8 @@
         <el-form-item label="编号" prop="classRoomNo">
           <el-input v-model="editFormData.classRoomNo" autocomplete="off"></el-input>
         </el-form-item>
-        <el-form-item label="名称" prop="classroomName">
-          <el-input v-model="editFormData.classroomName" autocomplete="off"></el-input>
+        <el-form-item label="名称" prop="classRoomName">
+          <el-input v-model="editFormData.classRoomName" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="所在楼栋" prop="teachbuildNo">
           <el-input v-model="editFormData.teachbuildNo" autocomplete="off"></el-input>
