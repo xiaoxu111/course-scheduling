@@ -13,12 +13,12 @@ public class ClassroomAddRequest {
     /**
      * 教室编号
      */
-    private String classroomNo;
+    private String classRoomNo;
 
     /**
      * 教室名称
      */
-    private String classroomName;
+    private String classRoomName;
 
     /**
      * 所属教学楼

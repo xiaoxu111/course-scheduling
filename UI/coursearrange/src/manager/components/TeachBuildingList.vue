@@ -1,8 +1,13 @@
 <template>
   <div>
     <!-- 添加教学楼 -->
-    <div class="add-button">
+    <!--<div class="add-button">
       <el-button type="primary" @click="addTeachbuild">添加</el-button>
+    </div>-->
+    <div class="header-menu">
+      <el-input placeholder="请输入教学楼名" v-model="keyword" @clear="inputListener" clearable>
+        <el-button slot="append" type="primary" icon="el-icon-search"  @click="searchClassRoom">搜索教学楼</el-button>
+      </el-input>
     </div>
     <!-- 教学楼列表 -->
     <el-table :data="teachBuildData" size="mini" :stripe="true" :highlight-current-row="true">
@@ -12,21 +17,22 @@
       <el-table-column prop="teachBuildName" label="教学楼名称"></el-table-column>
       <el-table-column prop="teachBuildLocation" label="所属区域"></el-table-column>
 
-      <el-table-column prop="operation" label="操作">
+      <el-table-column prop="operation" label="操作" width="240px">
         <template slot-scope="scope">
           <el-button type="danger" size="mini" @click="deleteById(scope.$index, scope.row)">删除</el-button>
           <el-button type="primary" size="mini" @click="editById(scope.$index, scope.row)">编辑</el-button>
+          <el-button type="primary" size="mini" @click="addTeachbuild">添加</el-button>
         </template>
       </el-table-column>
     </el-table>
 
     <!-- 弹出表单添加教学楼 -->
     <el-dialog title="添加教学楼" :visible.sync="visibleFormAdd">
-      <el-form :model="addFormData" label-position="left" label-width="80px" :rules="editFormRules">
+      <el-form :model="addFormData" label-position="left" label-width="100px" :rules="editFormRules">
       <el-form-item label="编号">
         <el-input v-model="addFormData.teachBuildNo" autocomplete="off" ></el-input>
       </el-form-item>
-      <el-form-item label="名称" prop="teachBuildName">
+      <el-form-item label="教学楼名称" prop="teachBuildName">
         <el-input v-model="addFormData.teachBuildName" autocomplete="off" ></el-input>
       </el-form-item>
       <el-form-item label="所在区域" prop="teachBuildLocation">
@@ -358,5 +364,12 @@ export default {
 .add-button {
   margin-bottom: 5px;
   text-align: left;
+}
+.header-menu {
+  width: 600px;
+  margin-bottom: 5px;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 5px;
 }
 </style>

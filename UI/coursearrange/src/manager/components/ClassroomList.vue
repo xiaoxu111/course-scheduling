@@ -1,8 +1,14 @@
 <template>
   <div>
-    <div class="add-button">
+    <!--<div class="add-button">
       <el-button type="primary" @click="addRoom()">添加</el-button>
+    </div>-->
+    <div class="header-menu">
+      <el-input placeholder="请输入教室名" v-model="keyword" @clear="inputListener" clearable>
+        <el-button slot="append" type="primary" icon="el-icon-search"  @click="searchClassRoom">搜索教室</el-button>
+      </el-input>
     </div>
+
     <!-- 数据显示 -->
     <el-table :data="classroomData" size="mini" :stripe="true" :highlight-current-row="true">
       <el-table-column label="序号" type="selection"></el-table-column>
@@ -13,21 +19,48 @@
       <el-table-column prop="capacity" label="容量"></el-table-column>
       <el-table-column prop="remark" label="备注"></el-table-column>
 
-      <el-table-column prop="operation" label="操作">
+      <el-table-column prop="operation" label="操作" width="240px" >
         <template slot-scope="scope">
-          <el-button type="danger" size="mini" @click="deleteById(scope.$index, scope.row)">删除</el-button>
-          <el-button type="primary" size="mini" @click="editById(scope.$index, scope.row)">编辑</el-button>
+          <el-button  type="primary" size="mini" @click="addRoom()">添加</el-button>
+          <el-button type="danger" size="mini " @click="deleteById(scope.$index, scope.row)">删除</el-button>
+          <el-button type="primary" size="mini " @click="editById(scope.$index, scope.row)">编辑</el-button>
         </template>
       </el-table-column>
     </el-table>
 
-    <!-- 弹出表单编辑教室 -->
-    <el-dialog title="" :visible.sync="visibleForm">
-      <el-form :model="editFormData" label-position="left" label-width="80px" :rules="editFormRules">
-        <el-form-item label="编号" prop="classRoomNo">
-          <el-input v-model="editFormData.classRoomNo" autocomplete="off"></el-input>
+
+    <!-- 弹出表单添加教室 -->
+    <el-dialog title="添加教室" :visible.sync="visibleAddForm">
+      <el-form :model="addFormData" label-position="left" label-width="80px" :rules="editFormRules">
+        <el-form-item label="教室编号" prop="classRoomNo">
+          <el-input v-model="addFormData.classRoomNo" autocomplete="off" ></el-input>
         </el-form-item>
-        <el-form-item label="名称" prop="classRoomName">
+        <el-form-item label="教室名" prop="classRoomName">
+          <el-input v-model="addFormData.classRoomName" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="所在楼栋" prop="teachbuildNo">
+          <el-input v-model="addFormData.teachbuildNo" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="容量" prop="capacity">
+          <el-input v-model="addFormData.capacity" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label=" 备注" prop="remark">
+          <el-input v-model="addFormData.remark" autocomplete="off"></el-input>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="visibleAddForm = false">取 消</el-button>
+        <el-button type="primary" @click="commit()">提 交</el-button>
+      </div>
+    </el-dialog>
+
+    <!-- 弹出表单编辑教室 -->
+    <el-dialog title="编辑教室" :visible.sync="visibleForm">
+      <el-form :model="editFormData" label-position="left" label-width="80px" :rules="editFormRules">
+        <el-form-item label="教室编号" prop="classRoomNo">
+          <el-input v-model="editFormData.classRoomNo" autocomplete="off" ></el-input>
+        </el-form-item>
+        <el-form-item label="教室名" prop="classRoomName">
           <el-input v-model="editFormData.classRoomName" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="所在楼栋" prop="teachbuildNo">
@@ -72,11 +105,13 @@ export default {
       type: 1,
       editFormData: [],
       visibleForm: false,
+      addFormData: [],
+      visibleAddForm: false,
       editFormRules: {
         classRoomNo: [
            { required: true, message: '请输入教室编号', trigger: 'blur' },
         ],
-        classroomName: [
+        classRoomName: [
            { required: true, message: '请输入教室名称', trigger: 'blur' },
         ],
         teachbuildNo: [
@@ -97,10 +132,9 @@ export default {
     this.allClassroom()
   },
   methods: {
-
     addRoom() {
-      this.editFormData = {}
-      this.visibleForm = true
+      this.addFormData = {}
+      this.visibleAddForm = true
       this.type = 2
     },
 
@@ -108,8 +142,8 @@ export default {
       if (this.type === 1) {
         this.modifyClassroom(this.editFormData)
       } else {
-        alert('添加')
-        this.addClassroom(this.editFormData)
+        console.info("添加")
+        this.addClassroom(this.addFormData)
       }
 
     },
@@ -142,7 +176,7 @@ export default {
           if (res.data.code == 0) {
             this.$message({ message: "添加成功", type: "success" })
             this.allClassroom()
-            this.visibleForm = false
+            this.visibleAddForm = false
           } else {
             this.$message.error(res.data.message)
           }
@@ -158,7 +192,7 @@ export default {
      */
     modifyClassroom(modifyData) {
       this.$axios
-        .post("http://localhost:8080/modify", modifyData)
+        .post("http://localhost:8080/classroom/modify", modifyData)
         .then(res => {
           if (res.data.code == 0) {
             this.$message({ message: "更新成功", type: "success" })
@@ -215,6 +249,14 @@ export default {
 <style lang="less" scoped>
 .footer-button {
   margin-top: 10px;
+}
+
+.header-menu {
+  width: 600px;
+  margin-bottom: 5px;
+  padding: 0;
+  text-align: left;
+  margin-bottom: 5px;
 }
 
 .add-button {

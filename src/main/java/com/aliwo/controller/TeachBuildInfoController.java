@@ -3,6 +3,7 @@ package com.aliwo.controller;
 import com.aliwo.common.ServerResponse;
 import com.aliwo.entity.ClassRoom;
 import com.aliwo.entity.TeachbuildInfo;
+import com.aliwo.entity.request.TeachbuildAddRequest;
 import com.aliwo.service.ClassRoomService;
 import com.aliwo.service.TeachBuildInfoService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -72,4 +73,52 @@ public class TeachBuildInfoController {
         }
         return ServerResponse.ofError("查询失败");
     }
+
+    /**
+     * 更新教学楼
+     * @param t
+     * @return
+     */
+    @RequestMapping(value = "/modify/{id}", method = RequestMethod.POST)
+    public ServerResponse modifyTeacher(@PathVariable("id") Integer id, @RequestBody TeachbuildInfo t) {
+        boolean b = teachBuildInfoService.update(t, new QueryWrapper<TeachbuildInfo>().eq("id", id));
+        if (b) {
+            return ServerResponse.ofSuccess("更新成功");
+        }
+        return ServerResponse.ofError("更新失败");
+    }
+
+    /**
+     * 根据id删除教学楼
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public ServerResponse deleteTeachbuilding(@PathVariable("id") Integer id) {
+        boolean b = teachBuildInfoService.removeById(id);
+        if (b) {
+            return ServerResponse.ofSuccess("删除成功");
+        }
+        return ServerResponse.ofError("删除失败");
+    }
+
+    /**
+     * 添加教学楼
+     * @param t
+     * @return
+     */
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ServerResponse addTeachbuilding(@RequestBody TeachbuildAddRequest t) {
+        TeachbuildInfo t1 = new TeachbuildInfo();
+        t1.setTeachBuildNo(t.getTeachBuildNo());
+        t1.setTeachBuildName(t.getTeachBuildName());
+        t1.setTeachBuildLocation(t.getTeachBuildLocation());
+        boolean b = teachBuildInfoService.save(t1);
+        if (b) {
+            return ServerResponse.ofSuccess("添加成功");
+        }
+        return ServerResponse.ofError("添加失败");
+    }
+
+
 }

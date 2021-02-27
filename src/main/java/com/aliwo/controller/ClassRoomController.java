@@ -3,8 +3,11 @@ package com.aliwo.controller;
 import com.aliwo.common.ServerResponse;
 import com.aliwo.entity.ClassRoom;
 import com.aliwo.entity.CoursePlan;
+import com.aliwo.entity.TeachbuildInfo;
+import com.aliwo.entity.request.ClassroomAddRequest;
 import com.aliwo.service.ClassRoomService;
 import com.aliwo.service.CoursePlanService;
+import com.aliwo.service.TeachBuildInfoService;
 import com.aliwo.util.NoForNameUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -32,6 +35,9 @@ public class ClassRoomController {
     private ClassRoomService classRoomService;
     @Autowired
     private CoursePlanService coursePlanService;
+
+    @Autowired
+    private TeachBuildInfoService teachbuildInfoService;
 
     /**
      * @param teachbuildNo
@@ -168,6 +174,58 @@ public class ClassRoomController {
         IPage<ClassRoom> ipage = classRoomService.page(pages, wrapper);
 
         return ServerResponse.ofSuccess(ipage);
+    }
 
+
+    /**
+     * 更新教室
+     * @param classroom
+     * @return
+     */
+    @PostMapping("/modify")
+    public ServerResponse modifyClassroom(@RequestBody ClassRoom classroom) {
+
+        return classRoomService.updateById(classroom) ? ServerResponse.ofSuccess("更新成功") : ServerResponse.ofError("更新失败");
+    }
+
+    /**
+     * 删除教室
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
+    public ServerResponse deleteClassroomById(@PathVariable("id") Integer id) {
+        boolean b = classRoomService.removeById(id);
+        if (b) {
+            return ServerResponse.ofSuccess("删除成功");
+        }
+        return ServerResponse.ofError("删除失败");
+    }
+
+
+    /**
+     * 添加教室
+     *
+     * @param car
+     * @return
+     */
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ServerResponse addClassroom(@RequestBody ClassroomAddRequest car) {
+        ClassRoom c = new ClassRoom();
+        TeachbuildInfo teachbuildInfo = teachbuildInfoService.getOne(new QueryWrapper<TeachbuildInfo>().eq
+                ("teach_build_no", car.getTeachbuildNo()));
+        if (teachbuildInfo == null) {
+            return ServerResponse.ofError("教学楼编号不存在，请重新选择");
+        }
+        c.setCapacity(car.getCapacity());
+        c.setClassRoomNo(car.getClassRoomNo());
+        c.setTeachbuildNo(car.getTeachbuildNo());
+        c.setClassRoomName(car.getClassRoomName());
+        c.setRemark(car.getRemark());
+        boolean b = classRoomService.save(c);
+        if (b) {
+            return ServerResponse.ofSuccess("添加成功");
+        }
+        return ServerResponse.ofError("添加失败");
     }
 }

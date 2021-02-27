@@ -1,10 +1,7 @@
 package com.aliwo.entity;
 
 import cn.afterturn.easypoi.excel.annotation.ExcelIgnore;
-import com.baomidou.mybatisplus.annotation.FieldFill;
-import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableLogic;
-import com.baomidou.mybatisplus.annotation.TableName;
+import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import lombok.Data;
 
@@ -25,6 +22,7 @@ public class ClassRoom extends Model<ClassRoom> {
     /**
      * 教室id
      */
+    @TableId(value = "id", type = IdType.AUTO)
     private Integer id;
 
     /**
