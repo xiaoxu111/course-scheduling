@@ -33,7 +33,7 @@ public class LocationInfo extends Model<LocationInfo> {
     /**
      * 教学楼编号,放教学楼表中编号
      */
-    private String teachbuildNo;
+    private String teachBuildNo;
 
     /**
      * 年级编号,放年级表中的id

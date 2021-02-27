@@ -1,25 +1,26 @@
 <template>
   <div>
-    <div class="button">
+    <!--<div class="button">
       <el-button type="primary" @click="addTeachArea()">新增安排</el-button>
-    </div>
+    </div>-->
     <div class="wrapper">
       <el-table :data="locationData" size="mini" :stripe="true" :highlight-current-row="true">
         <el-table-column label="序号" type="selection"></el-table-column>
         <el-table-column prop="gradeNo" label="年级编号"></el-table-column>
         <el-table-column prop="gradeName" label="年级"></el-table-column>
-        <el-table-column prop="teachbuildNo" label="教学楼编号"></el-table-column>
+        <el-table-column prop="teachBuildNo" label="教学楼编号"></el-table-column>
         <el-table-column prop="teachBuildName" label="教学楼名称"></el-table-column>
 
-        <el-table-column prop="operation" label="操作" width="150px">
+        <el-table-column prop="operation" label="操作" width="240px">
           <template slot-scope="scope">
-            <!-- <el-popconfirm
+            <el-button type="primary" size="mini" @click="addTeachArea()">新增安排</el-button>
+            <el-button type="primary" size="mini" @click="editById(scope.$index, scope.row)">编辑</el-button>
+      <!--      <el-popconfirm
               title="确定删除吗？"
               @onConfirm="deleteById"
-            > -->
+            >-->
             <el-button type="danger" size="mini" slot="reference" @click="deleteById(scope.$index, scope.row)">删除</el-button>
-            <!-- </el-popconfirm> -->
-            <!-- <el-button type="primary" size="mini" @click="editById(scope.$index, scope.row)">编辑</el-button> -->
+            <!--</el-popconfirm>-->
           </template>
         </el-table-column>
       </el-table>

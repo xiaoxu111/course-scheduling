@@ -15,7 +15,7 @@ public class LocationVO extends LocationInfo {
     /**
      * 教学楼名
      */
-    private String teachbuildName;
+    private String teachBuildName;
 
     /**
      * 年级名
