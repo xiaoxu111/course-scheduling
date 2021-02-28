@@ -11,7 +11,7 @@
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 28/02/2021 20:07:17
+ Date: 28/02/2021 20:14:22
 */
 
 SET NAMES utf8mb4;
@@ -689,6 +689,37 @@ INSERT INTO `yc_location_info` VALUES (17, '03', '03', 0, '2020-06-01 23:39:52',
 INSERT INTO `yc_location_info` VALUES (18, '04', '01', 1, '2021-02-28 04:24:56', NULL);
 INSERT INTO `yc_location_info` VALUES (19, '05', '01', 1, '2021-02-28 04:27:43', NULL);
 INSERT INTO `yc_location_info` VALUES (20, '08', '01', 1, '2021-02-28 04:31:49', NULL);
+
+-- ----------------------------
+-- Table structure for yc_online_category
+-- ----------------------------
+DROP TABLE IF EXISTS `yc_online_category`;
+CREATE TABLE `yc_online_category`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
+  `category_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类别编号，01-99',
+  `category_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '网课类别',
+  `parent_id` int(11) NULL DEFAULT 0 COMMENT '父级id，默认0为一级分类',
+  `piority` int(3) NULL DEFAULT NULL COMMENT '优先级',
+  `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '网课类别表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of yc_online_category
+-- ----------------------------
+INSERT INTO `yc_online_category` VALUES (1, '01', '语文', 0, NULL, '语文类别', 0, NULL, NULL);
+INSERT INTO `yc_online_category` VALUES (2, '02', '数学', 0, NULL, NULL, 0, '2020-06-07 23:13:36', NULL);
+INSERT INTO `yc_online_category` VALUES (3, '03', '英语', 0, NULL, NULL, 0, '2020-06-08 09:17:43', NULL);
+INSERT INTO `yc_online_category` VALUES (4, '04', '物理', 0, NULL, NULL, 0, '2020-06-08 09:23:37', NULL);
+INSERT INTO `yc_online_category` VALUES (5, '05', '化学', 0, NULL, NULL, 0, '2020-06-08 09:23:44', NULL);
+INSERT INTO `yc_online_category` VALUES (6, '07', '生物', 0, NULL, NULL, 0, '2020-06-08 09:24:04', NULL);
+INSERT INTO `yc_online_category` VALUES (9, '08', '高一语文', 1, NULL, NULL, 0, '2020-06-08 09:47:34', NULL);
+INSERT INTO `yc_online_category` VALUES (10, '09', '高一数学', 2, NULL, NULL, 0, '2020-06-08 09:47:49', NULL);
+INSERT INTO `yc_online_category` VALUES (11, '10', '高二语文', 1, NULL, NULL, 0, '2020-06-08 09:48:20', NULL);
+INSERT INTO `yc_online_category` VALUES (12, '10', '高一英语', 3, NULL, NULL, 0, '2020-06-10 22:06:47', NULL);
 
 -- ----------------------------
 -- Table structure for yc_student
