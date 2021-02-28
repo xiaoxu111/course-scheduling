@@ -38,90 +38,77 @@ public class ClassTask extends Model<ClassTask> {
      * 学期
      */
     @Excel(name = "学期")
-    @TableField("semester")
     private String semester;
 
     /**
      * 年级编号
      */
     @Excel(name = "年级")
-    @TableField("grade_no")
     private String gradeNo;
 
     /**
      * 班级编号
      */
-    @TableField("class_no")
     @Excel(name = "班级")
     private String classNo;
 
     /**
      * 课程编号
      */
-    @TableField("course_no")
     @Excel(name = "课程编号")
     private String courseNo;
 
     /**
      * 课程名称
      */
-    @TableField("course_name")
     @Excel(name = "课程名")
     private String courseName;
 
     /**
      * 讲师编号
      */
-    @TableField("teacher_no")
     @Excel(name = "讲师编号")
     private String teacherNo;
 
     /**
      * 讲师名字
      */
-    @TableField("realname")
     @Excel(name = "讲师姓名")
     private String realname;
 
     /**
      * 课程属性
      */
-    @TableField("courseAttr")
     @Excel(name = "课程属性")
     private String courseAttr;
 
     /**
      * 学生人数
      */
-    @TableField("studentNum")
     @Excel(name = "学生人数")
     private Integer studentNum;
 
     /**
      * 周数
      */
-    @TableField("weeks_sum")
     @Excel(name = "周数")
     private Integer weeksSum;
 
     /**
      * 周学时，偶数
      */
-    @TableField("weeks_number")
     @Excel(name = "周学时")
     private Integer weeksNumber;
 
     /**
      * 是否固定上课时间
      */
-    @TableField("isFix")
     @Excel(name = "是否固定上课时间")
     private String isFix;
 
     /**
      * 2位为一个时间编号
      */
-    @TableField("class_time")
     @Excel(name = "上课时间")
     private String classTime;
 

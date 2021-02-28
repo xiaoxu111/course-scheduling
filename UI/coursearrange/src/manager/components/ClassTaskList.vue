@@ -12,7 +12,7 @@
         >
           <el-option v-for="(item,index) in semesterData" :key="index" :value="item"></el-option>
         </el-select>
-        
+
         <!-- 添加课程计划 -->
         <div>
           <el-upload
@@ -29,8 +29,7 @@
             :limit="1"
           >
             <el-button style="margin-left: 10px;" slot="trigger" size="small" type="primary">从Excel导入<i class="el-icon-upload2 el-icon--right"></i></el-button>
-            <el-button style="margin-left: 10px;" size="small" type="success" :loading="loading" @click="submitUpload">上传到服务器<i class="el-icon-upload el-icon--right"></i></el-button>
-            <el-button class="add-button" size="small" type="primary" @click="addClassTask()">手动添加</el-button>
+            <!--<el-button style="margin-left: 10px;" size="small" type="success" :loading="loading" @click="submitUpload">上传到服务器<i class="el-icon-upload el-icon&#45;&#45;right"></i></el-button>-->
             <!-- 下载模板 <a class="atag" href="http://localhost:8080/download">-->
             <el-button class="add-button" size="small" type="primary" @click="downloadTemplate()">
               下载模板
@@ -62,12 +61,15 @@
       <!-- 是否固定时间 -->
       <el-table-column prop="isFix" label="固定" ></el-table-column>
       <!-- 只有固定上课时间才会有固定的时间在时间这个列中 -->
-      <el-table-column prop="classTime" label="时间" ></el-table-column>
+      <!--<el-table-column prop="classTime" label="时间" ></el-table-column>-->
+      <!--<el-table-column prop="createTime" label="添加时间" ></el-table-column>-->
+      <!--<el-table-column prop="updateTime" label="修改时间" ></el-table-column>-->
 
-      <el-table-column prop="operation" label="操作" width="150px">
+      <el-table-column prop="operation" label="操作" width="260px">
         <template slot-scope="scope">
-          <el-button type="danger" size="mini" @click="deleteById(scope.$index, scope.row)">删除</el-button>
+          <el-button class="add-button" size="small" type="primary" @click="addClassTask()">手动添加</el-button>
           <el-button type="primary" size="mini" @click="editById(scope.$index, scope.row)">编辑</el-button>
+          <el-button type="danger" size="mini" @click="deleteById(scope.$index, scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -267,7 +269,7 @@ export default {
     handleSelectChange(val) {
       // 这里的V就是选择的学期了
       this.semester = val
-      
+
     },
 
     deleteById(index, row) {
@@ -275,7 +277,7 @@ export default {
     },
 
     editById(index, row) {
-      
+
     },
 
     handleSizeChange() {},

@@ -10,7 +10,7 @@
         <result property="createTime" column="create_time"/>
         <result property="deleted" column="deleted"/>
         <result property="courseNo" column="course_no"/>
-        <result property="courseAttr" column="courseAttr"/>
+        <result property="courseAttr" column="course_attr"/>
         <result property="courseName" column="course_name"/>
         <result property="piority" column="piority"/>
         <result property="publisher" column="publisher"/>

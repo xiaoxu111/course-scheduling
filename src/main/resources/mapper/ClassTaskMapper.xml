@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--namespace  填写的是dao层所对应的接口全限定类名-->
+<mapper namespace="com.aliwo.dao.ClassTaskDao">
+    <resultMap id="BaseResultMap" type="com.aliwo.entity.ClassTask">
+        <id property="id" column="id"/>
+        <result property="semester" column="semester"/>
+        <result property="gradeNo" column="grade_no"/>
+        <result property="classNo" column="class_no"/>
+        <result property="courseNo" column="course_no"/>
+        <result property="courseName" column="course_name"/>
+        <result property="teacherNo" column="teacher_no"/>
+        <result property="realname" column="realname"/>
+        <result property="courseAttr" column="course_attr"/>
+        <result property="studentNum" column="student_num"/>
+        <result property="weeksSum" column="weeks_sum"/>
+        <result property="weeksNumber" column="weeks_number"/>
+        <result property="isFix" column="is_fix"/>
+        <result property="classTime" column="class_time"/>
+        <result property="deleted" column="deleted"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+</mapper>
