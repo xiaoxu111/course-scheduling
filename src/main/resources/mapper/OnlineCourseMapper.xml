@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--namespace  填写的是dao层所对应的接口全限定类名-->
+<mapper namespace="com.aliwo.dao.OnlineCourseDao">
+    <resultMap id="BaseResultMap" type="com.aliwo.entity.OnlineCourse">
+        <id property="id" column="id"/>
+        <result property="onlineNo" column="online_no"/>
+        <result property="onlineName" column="online_name"/>
+        <result property="description" column="description"/>
+        <result property="cover" column="cover"/>
+        <result property="onlineCategoryId" column="online_category_id"/>
+        <result property="onlineCategoryName" column="online_category_name"/>
+        <result property="piority" column="piority"/>
+        <result property="fromUserType" column="from_user_type"/>
+        <result property="fromUserId" column="from_user_id"/>
+        <result property="fromUserName" column="from_user_name"/>
+        <result property="clicks" column="clicks"/>
+        <result property="deleted" column="deleted"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+</mapper>

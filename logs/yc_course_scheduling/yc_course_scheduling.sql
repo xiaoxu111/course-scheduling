@@ -11,7 +11,7 @@
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 28/02/2021 20:14:22
+ Date: 28/02/2021 21:15:49
 */
 
 SET NAMES utf8mb4;
@@ -720,6 +720,36 @@ INSERT INTO `yc_online_category` VALUES (9, '08', '高一语文', 1, NULL, NULL,
 INSERT INTO `yc_online_category` VALUES (10, '09', '高一数学', 2, NULL, NULL, 0, '2020-06-08 09:47:49', NULL);
 INSERT INTO `yc_online_category` VALUES (11, '10', '高二语文', 1, NULL, NULL, 0, '2020-06-08 09:48:20', NULL);
 INSERT INTO `yc_online_category` VALUES (12, '10', '高一英语', 3, NULL, NULL, 0, '2020-06-10 22:06:47', NULL);
+
+-- ----------------------------
+-- Table structure for yc_online_course
+-- ----------------------------
+DROP TABLE IF EXISTS `yc_online_course`;
+CREATE TABLE `yc_online_course`  (
+  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
+  `online_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '网课编号，100000，6位数',
+  `online_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '网课课程名',
+  `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程介绍',
+  `cover` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '封面图片地址',
+  `online_category_id` int(11) NULL DEFAULT NULL COMMENT '网课类型id',
+  `online_category_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类别名称',
+  `piority` int(3) NULL DEFAULT NULL COMMENT '优先级',
+  `from_user_type` tinyint(1) NULL DEFAULT NULL COMMENT '发布者类型，1：管理员，2：讲师',
+  `from_user_id` int(11) NULL DEFAULT NULL COMMENT '发布者id',
+  `from_user_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发布者名称',
+  `clicks` bigint(20) NULL DEFAULT NULL COMMENT '点击次数',
+  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of yc_online_course
+-- ----------------------------
+INSERT INTO `yc_online_course` VALUES (1, '100000', '高一语文', NULL, 'https://arrange.oss-cn-shenzhen.aliyuncs.com/thread_6386220_20200520072309_s_1664172_w_316_h_163_16397.gif', 9, '语文', NULL, 1, 1, '梁主任', NULL, 0, NULL, NULL);
+INSERT INTO `yc_online_course` VALUES (2, '100001', '语文1', '1', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/thread_6386220_20200520072309_s_1664172_w_316_h_163_16397.gif', 9, '高一语文', NULL, NULL, NULL, NULL, NULL, 0, '2020-06-08 10:02:18', NULL);
+INSERT INTO `yc_online_course` VALUES (3, '100002', '高一英语语法', '带学生一起学习英语语法', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/psc.jfif', 12, '高一英语', NULL, 2, 1, '梁晓明', NULL, 0, '2020-06-10 22:07:55', NULL);
 
 -- ----------------------------
 -- Table structure for yc_student
