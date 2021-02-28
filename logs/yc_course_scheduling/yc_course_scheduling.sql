@@ -11,7 +11,7 @@
  Target Server Version : 50727
  File Encoding         : 65001
 
- Date: 23/02/2021 14:58:17
+ Date: 28/02/2021 20:07:17
 */
 
 SET NAMES utf8mb4;
@@ -111,21 +111,21 @@ CREATE TABLE `yc_class_room`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 156 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '教室表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 157 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '教室表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_class_room
 -- ----------------------------
-INSERT INTO `yc_class_room` VALUES (1, '01-101', '01-101', '01', 50, '01', '备注', 0, NULL, '2020-04-11 14:21:48');
-INSERT INTO `yc_class_room` VALUES (2, '01-102', '01-102', '01', 50, '01', NULL, 0, NULL, NULL);
-INSERT INTO `yc_class_room` VALUES (3, '01-103', '01-103', '01', 50, '01', NULL, 0, NULL, NULL);
+INSERT INTO `yc_class_room` VALUES (1, '01-101', '01-101', '01', 50, '01', '备注', 0, NULL, '2020-04-10 14:21:48');
+INSERT INTO `yc_class_room` VALUES (2, '01-102', '01-102', '01', 50, '01', '完美00000111', 0, NULL, '2021-02-28 09:30:55');
+INSERT INTO `yc_class_room` VALUES (3, '01-103', '01-103', '01', 50, '01', '很开心0000', 0, NULL, '2021-02-28 09:31:04');
 INSERT INTO `yc_class_room` VALUES (4, '01-104', '01-104', '01', 50, '01', NULL, 0, NULL, NULL);
 INSERT INTO `yc_class_room` VALUES (5, '01-105', '01-105', '01', 50, '01', NULL, 0, NULL, NULL);
 INSERT INTO `yc_class_room` VALUES (6, '01-201', '01-201', '01', 50, '01', NULL, 0, NULL, NULL);
-INSERT INTO `yc_class_room` VALUES (7, '01-202', '01-202', '01', 50, '01', NULL, 0, NULL, NULL);
-INSERT INTO `yc_class_room` VALUES (8, '01-203', '01-203', '01', 50, '01', NULL, 0, NULL, NULL);
-INSERT INTO `yc_class_room` VALUES (9, '01-204', '01-204', '01', 50, '01', NULL, 0, NULL, NULL);
-INSERT INTO `yc_class_room` VALUES (10, '01-205', '01-205', '01', 50, '01', NULL, 0, NULL, NULL);
+INSERT INTO `yc_class_room` VALUES (7, '01-202', '01-202', '01', 50, '01', '测试编辑功能', 0, NULL, '2021-02-27 06:25:46');
+INSERT INTO `yc_class_room` VALUES (8, '01-203', '01-203', '01', 50, '01', '测试---', 0, NULL, '2021-02-28 09:30:25');
+INSERT INTO `yc_class_room` VALUES (9, '01-204', '01-204', '01', 50, '01', '哈哈哈哈', 0, NULL, '2021-02-28 09:30:33');
+INSERT INTO `yc_class_room` VALUES (10, '01-205', '01-205', '01', 50, '01', '准备齐活', 0, NULL, '2021-02-28 09:30:45');
 INSERT INTO `yc_class_room` VALUES (11, '01-301', '01-301', '01', 50, '01', NULL, 0, NULL, NULL);
 INSERT INTO `yc_class_room` VALUES (12, '01-302', '01-302', '01', 50, '01', NULL, 0, NULL, NULL);
 INSERT INTO `yc_class_room` VALUES (13, '01-303', '01-303', '01', 50, '01', NULL, 0, NULL, NULL);
@@ -259,6 +259,7 @@ INSERT INTO `yc_class_room` VALUES (152, '08-302', '08-302', '08', 50, '03', NUL
 INSERT INTO `yc_class_room` VALUES (153, '08-303', '08-303', '08', 50, '03', NULL, 0, NULL, NULL);
 INSERT INTO `yc_class_room` VALUES (154, '08-304', '08-304', '08', 50, '03', NULL, 0, NULL, NULL);
 INSERT INTO `yc_class_room` VALUES (155, '08-305', '08-305', '08', 50, '03', NULL, 0, NULL, NULL);
+INSERT INTO `yc_class_room` VALUES (156, '111', '111', '01', 111, NULL, '111', 1, '2021-02-27 07:18:23', NULL);
 
 -- ----------------------------
 -- Table structure for yc_class_task
@@ -273,11 +274,11 @@ CREATE TABLE `yc_class_task`  (
   `course_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程名',
   `teacher_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师编号',
   `realname` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师姓名',
-  `courseAttr` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程属性',
-  `studentNum` int(11) NOT NULL COMMENT '学生人数',
+  `course_attr` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程属性',
+  `student_num` int(11) NOT NULL COMMENT '学生人数',
   `weeks_sum` int(3) NOT NULL COMMENT '周数',
   `weeks_number` int(11) NOT NULL COMMENT '周学时',
-  `isFix` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '是否固定上课时间',
+  `is_fix` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '是否固定上课时间',
   `class_time` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '固定时间的话,2位为一个时间位置',
   `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
@@ -664,6 +665,32 @@ INSERT INTO `yc_grade_info` VALUES (2, '02', '高二');
 INSERT INTO `yc_grade_info` VALUES (3, '03', '高三');
 
 -- ----------------------------
+-- Table structure for yc_location_info
+-- ----------------------------
+DROP TABLE IF EXISTS `yc_location_info`;
+CREATE TABLE `yc_location_info`  (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id,位置信息，高一在哪栋楼，高二在哪',
+  `teach_build_no` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教学楼编号,放教学楼表中编号',
+  `grade_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '年级编号,放年级表中的id',
+  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除 0 显示， 1 删除',
+  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '年级位置表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of yc_location_info
+-- ----------------------------
+INSERT INTO `yc_location_info` VALUES (1, '01', '01', 1, NULL, NULL);
+INSERT INTO `yc_location_info` VALUES (2, '02', '02', 0, NULL, NULL);
+INSERT INTO `yc_location_info` VALUES (15, '03', '03', 1, '2020-06-01 23:31:44', NULL);
+INSERT INTO `yc_location_info` VALUES (16, '03', '03', 0, '2020-06-01 23:38:11', NULL);
+INSERT INTO `yc_location_info` VALUES (17, '03', '03', 0, '2020-06-01 23:39:52', NULL);
+INSERT INTO `yc_location_info` VALUES (18, '04', '01', 1, '2021-02-28 04:24:56', NULL);
+INSERT INTO `yc_location_info` VALUES (19, '05', '01', 1, '2021-02-28 04:27:43', NULL);
+INSERT INTO `yc_location_info` VALUES (20, '08', '01', 1, '2021-02-28 04:31:49', NULL);
+
+-- ----------------------------
 -- Table structure for yc_student
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_student`;
@@ -697,7 +724,7 @@ INSERT INTO `yc_student` VALUES (2, '2019021541', 'litongxue', '123456', '李同
 INSERT INTO `yc_student` VALUES (3, '2020031235', 'gantongxue', '123456', '甘同学', 3, '高三', '20200302', 19, '湖北省武汉市', '17007891233', 'course@guet.com', NULL, '天天向上', 0, 1, '2020-03-07 12:52:17', '2021-02-13 08:15:18');
 INSERT INTO `yc_student` VALUES (4, '2020012589', 'xitongxue', '123456', '喜同学', 3, '高一', '20200103', 21, '广东省珠海市', '13677731456', 'course@guet.com', NULL, '找工作中', 0, 0, NULL, NULL);
 INSERT INTO `yc_student` VALUES (5, '2020017895', 'huangtongxue', '123456', '黄同学', 3, '高一', '20200101', 20, '广西钦州市', '17689541452', 'course@guet.com', NULL, '技术强才是真的强', 0, 1, NULL, NULL);
-INSERT INTO `yc_student` VALUES (6, '2020017836', 'caitongxue', '123456', '蔡同学', 3, '高一', '20200104', 18, '广西玉林', '18574562587', 'course@guet.com', NULL, '是时候好好学习了', 0, 0, NULL, NULL);
+INSERT INTO `yc_student` VALUES (6, '2020017836', 'caitongxue', '123456', '蔡同学', 3, '高一', '20200104', 18, '广西玉林', '18574562587', 'course@guet.com', NULL, '是时候好好学习了', 0, 0, NULL, '2021-02-27 05:37:51');
 INSERT INTO `yc_student` VALUES (7, '2020021936', 'suntongxue', '123456', '孙同学', 3, '高二', '20200201', 17, '湖南长沙', '18648983826', 'course@guet.com', NULL, '加油咯', 0, 0, NULL, NULL);
 INSERT INTO `yc_student` VALUES (8, '2020031245', 'hutongxue', '123456', '胡同学', 3, '高三', '20200301', 19, '湖北十堰', '17505127841', 'course@guet.com', NULL, '嘿嘿', 0, 0, NULL, NULL);
 INSERT INTO `yc_student` VALUES (9, '2020031278', 'litongxue2', '123456', '黎同学', 3, '高三', '20200302', 17, '安徽省', '13412596654', 'course@guet.com', NULL, '做喜欢做的事', 0, 0, NULL, NULL);
@@ -719,7 +746,7 @@ INSERT INTO `yc_student` VALUES (24, '2020021158', '梁丙光', 'aizai2015', '�
 INSERT INTO `yc_student` VALUES (25, '2020014949', 'registerTest', '123456', '我是测试用户', 3, '高一', '20200101', 33, '桂电', '13677731234', 'test@qq.com', NULL, '努力奋斗', 0, 0, '2020-06-06 10:16:27', '2021-02-09 07:11:25');
 INSERT INTO `yc_student` VALUES (26, '2021034884', 'xuyy19', 'ssssssss', '徐亚远', 3, '高三', NULL, NULL, '河南省商丘市睢阳区', '15225200721', '1462638689@qq.com', NULL, NULL, 1, 0, '2021-02-02 21:43:40', '2021-02-04 06:25:47');
 INSERT INTO `yc_student` VALUES (27, '2021025581', 'xuyy', '123456', '徐亚远', 3, '高三', '20200301', 19, '河南省', '15225200721', '1462638689@qq.com', NULL, NULL, 1, 0, '2021-01-27 16:06:59', '2021-01-28 00:14:11');
-INSERT INTO `yc_student` VALUES (28, '2021028248', 'zwm', 'zwm123', '赵文苗', 3, '高三', '20200305', 22, '河南', '13083776023', '1462638689', NULL, NULL, 0, 0, '2021-01-26 07:30:58', '2021-01-30 12:16:27');
+INSERT INTO `yc_student` VALUES (28, '2021028248', 'zwm', 'zwm123', '赵文苗', 3, '高三', '20200305', 22, '河南', '13083776023', '1462638689', NULL, NULL, 1, 0, '2021-01-26 07:30:58', '2021-01-30 12:16:27');
 
 -- ----------------------------
 -- Table structure for yc_teach_build_info
@@ -734,12 +761,12 @@ CREATE TABLE `yc_teach_build_info`  (
   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
   PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '教学楼信息表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '教学楼信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_teach_build_info
 -- ----------------------------
-INSERT INTO `yc_teach_build_info` VALUES (1, '01', '第1教学楼', '东校区', 0, NULL, '2020-04-10 21:51:09');
+INSERT INTO `yc_teach_build_info` VALUES (1, '01', '第1教学楼', '东校区', 0, NULL, '2020-04-09 21:51:09');
 INSERT INTO `yc_teach_build_info` VALUES (2, '02', '2号教学楼', '1校区', 0, NULL, NULL);
 INSERT INTO `yc_teach_build_info` VALUES (3, '03', '3号教学楼', '1校区', 0, NULL, NULL);
 INSERT INTO `yc_teach_build_info` VALUES (4, '04', '4号教学楼', '1校区', 0, NULL, NULL);
@@ -754,6 +781,7 @@ INSERT INTO `yc_teach_build_info` VALUES (12, '12', '体育楼', '南校区', 0,
 INSERT INTO `yc_teach_build_info` VALUES (13, '13', '化生楼', '西校区', 0, NULL, NULL);
 INSERT INTO `yc_teach_build_info` VALUES (14, '14', '14号教学楼', '2校区', 0, '2020-03-23 00:05:03', NULL);
 INSERT INTO `yc_teach_build_info` VALUES (15, '20', '测试楼', '花江校区', 0, '2020-06-02 11:58:16', NULL);
+INSERT INTO `yc_teach_build_info` VALUES (16, '19', 's', 's', 1, '2021-02-27 06:18:42', NULL);
 
 -- ----------------------------
 -- Table structure for yc_teacher
