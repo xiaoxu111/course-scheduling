@@ -14,7 +14,7 @@
         <el-table-column prop="operation" label="操作" width="240px">
           <template slot-scope="scope">
             <el-button type="primary" size="mini" @click="addTeachArea()">新增安排</el-button>
-            <el-button type="primary" size="mini" @click="editById(scope.$index, scope.row)">编辑</el-button>
+            <!--<el-button type="primary" size="mini" @click="editById(scope.$index, scope.row)">编辑</el-button>-->
       <!--      <el-popconfirm
               title="确定删除吗？"
               @onConfirm="deleteById"
@@ -24,6 +24,30 @@
           </template>
         </el-table-column>
       </el-table>
+
+      <!-- 弹出表单编辑教学楼 -->
+      <el-dialog title="编辑教学区域信息" :visible.sync="visibleForm">
+        <el-form :model="editFormData" label-position="left" label-width="100px">
+          <el-form-item label="年级编号">
+            <el-input v-model="editFormData.gradeNo" autocomplete="off" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="年级">
+            <el-input v-model="editFormData.gradeName" autocomplete="off" disabled></el-input>
+          </el-form-item>
+          <el-form-item label="教学楼编号">
+            <el-input v-model="editFormData.teachBuildNo" autocomplete="off" ></el-input>
+          </el-form-item>
+          <el-form-item label="教学楼名称">
+            <el-input v-model="editFormData.teachBuildName" autocomplete="off" ></el-input>
+          </el-form-item>
+
+        </el-form>
+        <div slot="footer" class="dialog-footer">
+          <el-button @click="visibleForm = false">取 消</el-button>
+          <el-button type="primary" @click="commitEdit()">提 交</el-button>
+        </div>
+      </el-dialog>
+
 
       <!-- 分页 -->
       <div class="footer-button">
@@ -83,6 +107,8 @@ export default {
       locationData: [],
       teachBuildNo: "",
       gradeNo: "",
+      editFormData: [],
+      visibleForm: false,
       grade: [
         {
           value: "01",
@@ -133,11 +159,46 @@ export default {
               this.visible = false;
             } else {
               this.$message.error(res.data.message);
+              this.addForm.value1 = "";
+              this.addForm.value2 = "";
               this.visible = false;
             }
           })
           .catch(error => {});
       }
+    },
+
+    /**
+     * 提交编辑
+     */
+    commitEdit() {
+      console.info("【编辑：1   添加：2】："+this.type);
+      if (this.type == 1) {
+        // 编辑
+        console.info("【编辑：1 】："+this.type);
+        this.modifyLocationInfo(this.editFormData)
+      }
+    },
+
+
+    /**
+     * 更新教学区域
+     */
+    modifyLocationInfo(modifyData) {
+      this.$axios
+        .post("http://localhost:8080/location/modifyInfo/" + this.editFormData.id, modifyData)
+        .then(res => {
+        if (res.data.code == 0) {
+        this.$message({ message: "更新成功", type: "success" })
+        this.allLocation();
+        this.visibleForm = false
+      } else {
+        this.$message.error(res.data.message)
+      }
+    })
+    .catch(error => {
+        this.$message.error("更新失败")
+    });
     },
 
     selectGrade() {
@@ -206,7 +267,12 @@ export default {
         })
         .catch(error => {});
     },
-    editById(index, row) {}
+    editById(index, row) {
+      let modifyId = row.id
+      this.editFormData = row
+      this.visibleForm = true
+      this.type = 1
+    },
   }
 };
 </script>

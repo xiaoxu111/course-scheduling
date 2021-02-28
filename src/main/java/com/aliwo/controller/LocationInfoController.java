@@ -2,8 +2,11 @@ package com.aliwo.controller;
 
 import com.aliwo.common.ServerResponse;
 import com.aliwo.dao.LocationInfoDao;
+import com.aliwo.entity.LocationInfo;
+import com.aliwo.entity.request.LocationSetVO;
 import com.aliwo.entity.response.LocationVO;
 import com.aliwo.service.LocationInfoService;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -47,4 +50,57 @@ public class LocationInfoController {
         map.put("total", total);
         return ServerResponse.ofSuccess(map);
     }
+
+
+    /**
+     * 新增教学区域
+     * @return
+     */
+    @RequestMapping(value = "/setteacharea", method = RequestMethod.POST)
+    public ServerResponse setTeachArea(@RequestBody() LocationSetVO l) {
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.eq("teach_build_no", l.getTeachBuildNo());
+        wrapper.eq("grade_no", l.getGradeNo());
+        LocationInfo locationInfo = new LocationInfo();
+        if (locationInfoService.getOne(wrapper) != null) {
+            return ServerResponse.ofError("该教学区域已经设置过了！");
+        }
+        locationInfo.setTeachBuildNo(l.getTeachBuildNo());
+        locationInfo.setGradeNo(l.getGradeNo());
+        boolean b = locationInfoService.save(locationInfo);
+        if (b) {
+            return ServerResponse.ofSuccess("设置教学区域成功");
+        }
+        return ServerResponse.ofError("设置教学区域失败");
+    }
+
+    /**
+     * 根据id删除教学区域信息
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/location/delete/{id}", method = RequestMethod.DELETE)
+    public ServerResponse delete(@PathVariable("id") Integer id) {
+        boolean b = locationInfoService.removeById(id);
+        if (b) {
+            return ServerResponse.ofSuccess("删除成功");
+        }
+        return ServerResponse.ofError("删除失败");
+    }
+
+    /**
+     * 根据id删除教学区域信息
+     * @param id
+     * @return
+     */
+    @RequestMapping(value = "/location/modifyInfo/{id}", method = RequestMethod.POST)
+    public ServerResponse modifyInfoById(@PathVariable("id") Integer id) {
+     /*   boolean b = locationInfoService.updateById(id);
+        if (b) {
+            return ServerResponse.ofSuccess("删除成功");
+        }*/
+        return ServerResponse.ofError("删除失败");
+
+    }
+
 }
