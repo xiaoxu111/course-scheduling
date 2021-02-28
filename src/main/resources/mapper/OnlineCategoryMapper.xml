@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<!--namespace  填写的是dao层所对应的接口全限定类名-->
+<mapper namespace="com.aliwo.dao.OnlineCategoryDao">
+
+    <resultMap id="BaseResultMap" type="com.aliwo.entity.OnlineCategory">
+        <id property="id" column="id"/>
+        <result property="deleted" column="deleted"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="piority" column="piority"/>
+        <result property="remark" column="remark"/>
+        <result property="categoryName" column="category_name"/>
+        <result property="categoryNo" column="category_no"/>
+        <result property="parentId" column="parent_id"/>
+    </resultMap>
+
+
+
+</mapper>
