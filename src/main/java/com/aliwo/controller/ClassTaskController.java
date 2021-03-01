@@ -14,7 +14,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.text.SimpleDateFormat;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * package_name:com.aliwo.controller
@@ -58,4 +60,27 @@ public class ClassTaskController {
         }
         return ServerResponse.ofError("查询开课任务失败！");
     }
+
+    /**
+     * 获得学期集合,如：
+     * 2019-2020-1
+     * 2019-2020-2
+     *
+     * @return
+     */
+    @GetMapping("/semester")
+    public ServerResponse queryAllSemester() {
+        QueryWrapper wrapper = new QueryWrapper<>();
+        wrapper.select("semester");
+        wrapper.groupBy("semester");
+        List<ClassTask> list = classTaskService.list(wrapper);
+        Set set = new HashSet();
+
+        for (ClassTask c : list) {
+            set.add(c.getSemester());
+        }
+
+        return ServerResponse.ofSuccess(set);
+    }
+
 }
