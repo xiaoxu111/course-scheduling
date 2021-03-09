@@ -1,8 +1,8 @@
 <template>
   <div>
-    <!--<div class="button">
+    <div class="button">
       <el-button type="primary" @click="addTeachArea()">新增安排</el-button>
-    </div>-->
+    </div>
     <div class="wrapper">
       <el-table :data="locationData" size="mini" :stripe="true" :highlight-current-row="true">
         <el-table-column label="序号" type="selection"></el-table-column>
@@ -13,7 +13,7 @@
 
         <el-table-column prop="operation" label="操作" width="240px">
           <template slot-scope="scope">
-            <el-button type="primary" size="mini" @click="addTeachArea()">新增安排</el-button>
+            <!--<el-button type="primary" size="mini" @click="addTeachArea()">新增安排</el-button>-->
             <!--<el-button type="primary" size="mini" @click="editById(scope.$index, scope.row)">编辑</el-button>-->
       <!--      <el-popconfirm
               title="确定删除吗？"
