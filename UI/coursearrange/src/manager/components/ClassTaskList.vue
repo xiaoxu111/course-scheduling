@@ -101,7 +101,8 @@
           <el-input v-model="addClassTaskForm.realname" autocomplete="off" placeholder="请输入讲师名字"></el-input>
         </el-form-item>
         <el-form-item label="课程属性" prop="courseAttr">
-          <el-input v-model="addClassTaskForm.courseAttr" autocomplete="off" placeholder="请输入课程属性"></el-input>
+          <el-input v-model="addClassTaskForm.courseAttr" autocomplete="off"
+                    placeholder="请输入课程属性 例如 01:语数英，02:物化生政史地,03:实验课,04:体育课"></el-input>
         </el-form-item>
         <el-form-item label="学生人数" prop="studentNum">
           <el-input v-model="addClassTaskForm.studentNum" autocomplete="off" placeholder="请输入学生人数"></el-input>
