@@ -78,44 +78,46 @@
     <el-dialog title="添加任务(参照模板填写)" :visible.sync="visible">
       <el-form :model="addClassTaskForm" label-position="left" label-width="80px" :rules="addClassTaskRules">
         <el-form-item label="学期" prop="semester">
-          <el-input v-model="addClassTaskForm.semester" autocomplete="off"></el-input>
+          <el-input v-model="addClassTaskForm.semester" autocomplete="off"
+                    placeholder="请输入学期例如：(2019-2020-01)上学期 ，(2019-2020-02)下学期 "></el-input>
         </el-form-item>
         <el-form-item label="年级" prop="gradeNo">
-          <el-input v-model="addClassTaskForm.gradeNo" autocomplete="off"></el-input>
+          <el-input v-model="addClassTaskForm.gradeNo" autocomplete="off"
+                    placeholder="请输入年级编号例如01 代表高一，02 代表高二，03 代表高三"></el-input>
         </el-form-item>
         <el-form-item label="班级编号" prop="classNo">
-          <el-input v-model="addClassTaskForm.classNo" autocomplete="off"></el-input>
+          <el-input v-model="addClassTaskForm.classNo" autocomplete="off" placeholder="请输入班级编号例如(20200102) 编码方式学期+年级"></el-input>
         </el-form-item>
         <el-form-item label="课程编号" prop="courseNo">
-          <el-input v-model="addClassTaskForm.courseNo" autocomplete="off"></el-input>
+          <el-input v-model="addClassTaskForm.courseNo" autocomplete="off" placeholder="请输入课程编号编号"></el-input>
         </el-form-item>
         <el-form-item label="课程名" prop="courseName">
-          <el-input v-model="addClassTaskForm.courseName" autocomplete="off"></el-input>
+          <el-input v-model="addClassTaskForm.courseName" autocomplete="off" placeholder="请输入课程名"></el-input>
         </el-form-item>
         <el-form-item label="讲师编号" prop="teacherNo">
-          <el-input v-model="addClassTaskForm.teacherNo" autocomplete="off"></el-input>
+          <el-input v-model="addClassTaskForm.teacherNo" autocomplete="off" placeholder="请输入讲师编号"></el-input>
         </el-form-item>
         <el-form-item label="讲师名字" prop="realname">
-          <el-input v-model="addClassTaskForm.realname" autocomplete="off"></el-input>
+          <el-input v-model="addClassTaskForm.realname" autocomplete="off" placeholder="请输入讲师名字"></el-input>
         </el-form-item>
         <el-form-item label="课程属性" prop="courseAttr">
-          <el-input v-model="addClassTaskForm.courseAttr" autocomplete="off"></el-input>
+          <el-input v-model="addClassTaskForm.courseAttr" autocomplete="off" placeholder="请输入课程属性"></el-input>
         </el-form-item>
         <el-form-item label="学生人数" prop="studentNum">
-          <el-input v-model="addClassTaskForm.studentNum" autocomplete="off"></el-input>
+          <el-input v-model="addClassTaskForm.studentNum" autocomplete="off" placeholder="请输入学生人数"></el-input>
         </el-form-item>
         <el-form-item label="周学时" prop="weeksNumber">
-          <el-input v-model="addClassTaskForm.weeksNumber" autocomplete="off"></el-input>
+          <el-input v-model="addClassTaskForm.weeksNumber" autocomplete="off" placeholder="请输入周学时"></el-input>
         </el-form-item>
         <el-form-item label="周数" prop="weeksSum">
-          <el-input v-model="addClassTaskForm.weeksSum" autocomplete="off"></el-input>
+          <el-input v-model="addClassTaskForm.weeksSum" autocomplete="off" placeholder="请输入周数"></el-input>
         </el-form-item>
         <el-form-item label="是否固定" prop="isFix">
-          <el-input v-model="addClassTaskForm.isFix" autocomplete="off"></el-input>
+          <el-input v-model="addClassTaskForm.isFix" autocomplete="off" placeholder="请输入是否固定 例如 1代表固定，2代表不固定"></el-input>
         </el-form-item>
-        <el-form-item label="上课时间" prop="classTime">
-          <el-input v-model="addClassTaskForm.classTime" autocomplete="off"></el-input>
-        </el-form-item>
+       <!-- <el-form-item label="上课时间" prop="classTime">
+          <el-input v-model="addClassTaskForm.classTime" autocomplete="off" placeholder="请输入上课时间"></el-input>
+        </el-form-item>-->
       </el-form>
       <div slot="footer" class="dialog-footer">
         <el-button @click="visible = false">取 消</el-button>
