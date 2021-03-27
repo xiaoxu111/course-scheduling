@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 /**
  * package_name:com.aliwo.dao
  *
- * @author:徐亚远 Date:2021/2/28 17:43
+ * @author:xuyy Date:2021/2/28 17:43
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0
@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
 @Component
 public interface ClassTaskDao extends BaseMapper<ClassTask> {
 
-    @Update("truncate tb_class_task")
+    @Update("truncate yc_class_task")
     void clearClassTaskOld();
 
 }

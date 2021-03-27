@@ -17,7 +17,7 @@ import java.util.Map;
 /**
  * package_name:com.aliwo.controller
  *
- * @author:徐亚远 Date:2021/2/27 17:01
+ * @author:xuyy Date:2021/2/27 17:01
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0

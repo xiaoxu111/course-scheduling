@@ -25,7 +25,7 @@
             :on-success="uploadSuccess"
             :disabled="importBtnDisabled"
             :file-list="fileList"
-            :auto-upload="false"
+            :auto-upload="true"
             :limit="1"
           >
             <el-button style="margin-left: 10px;" slot="trigger" size="small" type="primary">从Excel导入<i class="el-icon-upload2 el-icon--right"></i></el-button>
@@ -35,7 +35,9 @@
               下载模板
               <i class="el-icon-download el-icon--right"></i>
             </el-button>
-            <div slot="tip" class="el-upload__tip">只能上传xls/xlsx文件,导入新任务后将清空原来的任务,请一次性将本学期课程导入完毕</div>
+            <div slot="tip" class="el-upload__tip">
+              <font color="red" size="3.5px">只能上传xls/xlsx文件，导入新课程后将清空原来的课程信息，请一次性将本学期课程导入完毕！！！</font>
+            </div>
           </el-upload>
           <el-button class="add-button" size="small" type="primary" @click="arrangeCourse()">
             排课
@@ -50,9 +52,9 @@
       <el-table-column prop="semester" label="学期" ></el-table-column>
       <el-table-column prop="gradeNo" label="年级" width="60px"></el-table-column>
       <el-table-column prop="classNo" label="班级" ></el-table-column>
-      <el-table-column prop="courseNo" label="课号" ></el-table-column>
-      <el-table-column prop="courseName" label="课名" ></el-table-column>
-      <el-table-column prop="courseAttr" label="课属性" ></el-table-column>
+      <el-table-column prop="courseNo" label="课程号" ></el-table-column>
+      <el-table-column prop="courseName" label="课程名" ></el-table-column>
+      <el-table-column prop="courseAttr" label="课程属性" ></el-table-column>
       <el-table-column prop="teacherNo" label="讲师编号" ></el-table-column>
       <el-table-column prop="realname" label="讲师" ></el-table-column>
       <el-table-column prop="studentNum" label="学生人数" ></el-table-column>
@@ -78,12 +80,59 @@
     <el-dialog title="添加任务(参照模板填写)" :visible.sync="visible">
       <el-form :model="addClassTaskForm" label-position="left" label-width="80px" :rules="addClassTaskRules">
         <el-form-item label="学期" prop="semester">
-          <el-input v-model="addClassTaskForm.semester" autocomplete="off"
-                    placeholder="请输入学期例如：(2019-2020-01)上学期 ，(2019-2020-02)下学期 "></el-input>
+<!--          <el-input v-model="addClassTaskForm.semester" autocomplete="off"
+                    placeholder="请输入学期例如：(2019-2020-01)上学期 ，(2019-2020-02)下学期 "></el-input>-->
+          <el-select
+            class="semester-select-1"
+            @change="handleSelectChange"
+            clearable
+            v-model="addClassTaskForm.semester"
+            placeholder="请选择学期"
+          >
+            <el-option v-for="(item,index) in semesterData" :key="index" :value="item"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="年级" prop="gradeNo">
-          <el-input v-model="addClassTaskForm.gradeNo" autocomplete="off"
-                    placeholder="请输入年级编号例如01 代表高一，02 代表高二，03 代表高三"></el-input>
+<!--          <el-input v-model="addClassTaskForm.gradeNo" autocomplete="off"
+                    placeholder="请输入年级编号例如01 代表高一，02 代表高二，03 代表高三"></el-input>-->
+          <el-select class="semester-select-1"  clearable v-model="addClassTaskForm.gradeNo" placeholder="请选择年级">
+            <el-option value="高一"></el-option>
+            <el-option value="高二"></el-option>
+            <el-option value="高三"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="课程名" prop="courseName">
+          <!--          <el-input v-model="addClassTaskForm.courseName" autocomplete="off" placeholder="请输入课程名"></el-input>-->
+          <el-select class="semester-select-1"  clearable v-model="addClassTaskForm.courseName" placeholder="请选择课程">
+            <el-option value="语文"></el-option>
+            <el-option value="数学"></el-option>
+            <el-option value="英语"></el-option>
+            <el-option value="物理"></el-option>
+            <el-option value="化学"></el-option>
+            <el-option value="生物"></el-option>
+            <el-option value="政治"></el-option>
+            <el-option value="历史"></el-option>
+            <el-option value="地理"></el-option>
+            <el-option value="实验课"></el-option>
+            <el-option value="体育课"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="课程属性" prop="courseAttr">
+<!--          <el-input v-model="addClassTaskForm.courseAttr" autocomplete="off"
+                    placeholder="请输入课程属性 例如 01:语数英，02:物化生政史地,03:实验课,04:体育课"></el-input>-->
+          <el-select class="semester-select-1"  clearable v-model="addClassTaskForm.courseAttr" placeholder="请选择课程属性">
+            <el-option value="语数英"></el-option>
+            <el-option value="物化生政史地"></el-option>
+            <el-option value="实验课"></el-option>
+            <el-option value="体育课"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="是否固定" prop="isFix">
+<!--          <el-input v-model="addClassTaskForm.isFix" autocomplete="off" placeholder="请输入是否固定 例如 1代表固定，2代表不固定"></el-input>-->
+          <el-select class="semester-select-1"  clearable v-model="addClassTaskForm.isFix" placeholder="请选择是否固定">
+            <el-option value="固定"></el-option>
+            <el-option value="不固定"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="班级编号" prop="classNo">
           <el-input v-model="addClassTaskForm.classNo" autocomplete="off" placeholder="请输入班级编号例如(20200102) 编码方式学期+年级"></el-input>
@@ -91,18 +140,11 @@
         <el-form-item label="课程编号" prop="courseNo">
           <el-input v-model="addClassTaskForm.courseNo" autocomplete="off" placeholder="请输入课程编号编号"></el-input>
         </el-form-item>
-        <el-form-item label="课程名" prop="courseName">
-          <el-input v-model="addClassTaskForm.courseName" autocomplete="off" placeholder="请输入课程名"></el-input>
-        </el-form-item>
         <el-form-item label="讲师编号" prop="teacherNo">
           <el-input v-model="addClassTaskForm.teacherNo" autocomplete="off" placeholder="请输入讲师编号"></el-input>
         </el-form-item>
         <el-form-item label="讲师名字" prop="realname">
           <el-input v-model="addClassTaskForm.realname" autocomplete="off" placeholder="请输入讲师名字"></el-input>
-        </el-form-item>
-        <el-form-item label="课程属性" prop="courseAttr">
-          <el-input v-model="addClassTaskForm.courseAttr" autocomplete="off"
-                    placeholder="请输入课程属性 例如 01:语数英，02:物化生政史地,03:实验课,04:体育课"></el-input>
         </el-form-item>
         <el-form-item label="学生人数" prop="studentNum">
           <el-input v-model="addClassTaskForm.studentNum" autocomplete="off" placeholder="请输入学生人数"></el-input>
@@ -113,9 +155,6 @@
         <el-form-item label="周数" prop="weeksSum">
           <el-input v-model="addClassTaskForm.weeksSum" autocomplete="off" placeholder="请输入周数"></el-input>
         </el-form-item>
-        <el-form-item label="是否固定" prop="isFix">
-          <el-input v-model="addClassTaskForm.isFix" autocomplete="off" placeholder="请输入是否固定 例如 1代表固定，2代表不固定"></el-input>
-        </el-form-item>
        <!-- <el-form-item label="上课时间" prop="classTime">
           <el-input v-model="addClassTaskForm.classTime" autocomplete="off" placeholder="请输入上课时间"></el-input>
         </el-form-item>-->
@@ -125,6 +164,96 @@
         <el-button type="primary" @click="commit()">提 交</el-button>
       </div>
     </el-dialog>
+
+    <!-- 弹出表单编辑讲 -->
+    <el-dialog title="编辑任务" :visible.sync="visibleForm">
+      <el-form :model="editFormData" label-position="left" label-width="80px" :rules="addClassTaskRules">
+        <el-form-item label="学期" prop="semester">
+          <!--          <el-input v-model="addClassTaskForm.semester" autocomplete="off"
+                              placeholder="请输入学期例如：(2019-2020-01)上学期 ，(2019-2020-02)下学期 "></el-input>-->
+          <el-select
+            class="semester-select-1"
+            @change="handleSelectChange"
+            clearable
+            v-model="editFormData.semester"
+            placeholder="请选择学期"
+          >
+            <el-option v-for="(item,index) in semesterData" :key="index" :value="item"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="年级" prop="gradeNo">
+          <!--          <el-input v-model="addClassTaskForm.gradeNo" autocomplete="off"
+                              placeholder="请输入年级编号例如01 代表高一，02 代表高二，03 代表高三"></el-input>-->
+          <el-select class="semester-select-1"  clearable v-model="editFormData.gradeNo" placeholder="请选择年级">
+            <el-option value="高一"></el-option>
+            <el-option value="高二"></el-option>
+            <el-option value="高三"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="课程名" prop="courseName">
+          <!--          <el-input v-model="addClassTaskForm.courseName" autocomplete="off" placeholder="请输入课程名"></el-input>-->
+          <el-select class="semester-select-1"  clearable v-model="editFormData.courseName" placeholder="请选择课程">
+            <el-option value="语文"></el-option>
+            <el-option value="数学"></el-option>
+            <el-option value="英语"></el-option>
+            <el-option value="物理"></el-option>
+            <el-option value="化学"></el-option>
+            <el-option value="生物"></el-option>
+            <el-option value="政治"></el-option>
+            <el-option value="历史"></el-option>
+            <el-option value="地理"></el-option>
+            <el-option value="实验课"></el-option>
+            <el-option value="体育课"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="课程属性" prop="courseAttr">
+          <!--          <el-input v-model="addClassTaskForm.courseAttr" autocomplete="off"
+                              placeholder="请输入课程属性 例如 01:语数英，02:物化生政史地,03:实验课,04:体育课"></el-input>-->
+          <el-select class="semester-select-1"  clearable v-model="editFormData.courseAttr" placeholder="请选择课程属性">
+            <el-option value="语数英"></el-option>
+            <el-option value="物化生政史地"></el-option>
+            <el-option value="实验课"></el-option>
+            <el-option value="体育课"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="是否固定" prop="isFix">
+          <!--          <el-input v-model="addClassTaskForm.isFix" autocomplete="off" placeholder="请输入是否固定 例如 1代表固定，2代表不固定"></el-input>-->
+          <el-select class="semester-select-1"  clearable v-model="editFormData.isFix" placeholder="请选择是否固定">
+            <el-option value="固定"></el-option>
+            <el-option value="不固定"></el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item label="班级编号" prop="classNo">
+          <el-input v-model="editFormData.classNo" autocomplete="off" placeholder="请输入班级编号例如(20200102) 编码方式学期+年级"></el-input>
+        </el-form-item>
+        <el-form-item label="课程编号" prop="courseNo">
+          <el-input v-model="editFormData.courseNo" autocomplete="off" placeholder="请输入课程编号编号"></el-input>
+        </el-form-item>
+        <el-form-item label="讲师编号" prop="teacherNo">
+          <el-input v-model="editFormData.teacherNo" autocomplete="off" placeholder="请输入讲师编号"></el-input>
+        </el-form-item>
+        <el-form-item label="讲师名字" prop="realname">
+          <el-input v-model="editFormData.realname" autocomplete="off" placeholder="请输入讲师名字"></el-input>
+        </el-form-item>
+        <el-form-item label="学生人数" prop="studentNum">
+          <el-input v-model="editFormData.studentNum" autocomplete="off" placeholder="请输入学生人数"></el-input>
+        </el-form-item>
+        <el-form-item label="周学时" prop="weeksNumber">
+          <el-input v-model="editFormData.weeksNumber" autocomplete="off" placeholder="请输入周学时"></el-input>
+        </el-form-item>
+        <el-form-item label="周数" prop="weeksSum">
+          <el-input v-model="editFormData.weeksSum" autocomplete="off" placeholder="请输入周数"></el-input>
+        </el-form-item>
+        <!-- <el-form-item label="上课时间" prop="classTime">
+           <el-input v-model="addClassTaskForm.classTime" autocomplete="off" placeholder="请输入上课时间"></el-input>
+         </el-form-item>-->
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="visibleForm = false">取 消</el-button>
+        <el-button type="primary" @click="editCommit()">提 交</el-button>
+      </div>
+    </el-dialog>
+
 
     <!-- 分页 -->
     <div class="footer-button">
@@ -149,6 +278,7 @@ export default {
       loading: false,
       classTaskData: [],
       semesterData: [],
+      editFormData: [],
       addClassTaskForm: {
         semester: '',
         gradeNo: '',
@@ -165,6 +295,7 @@ export default {
         classTime: ''
       },
       visible: false,
+      visibleForm: false,
       page: 1,
       total: 0,
       pageSize: 10,
@@ -201,12 +332,33 @@ export default {
 
   methods: {
 
+    // 提交编辑课程任务
+    editCommit() {
+      this.modifyClassTask(this.editFormData);
+    },
+
+    /**
+     * 根据ID更新课程任务
+     */
+    modifyClassTask(modifyData) {
+      this.$axios
+        .post("http://localhost:8080/classTask/modify", modifyData)
+        .then(res => {
+          this.$message({ message: "更新成功", type: "success" });
+          this.allClassTask();
+          this.visibleForm = false;
+        })
+        .catch(error => {
+          this.$message.error("更新失败");
+        });
+    },
+
     // 提交添加
     commit() {
       this.$axios.post("http://localhost:8080/addclasstask", this.addClassTaskForm)
       .then(res => {
         if (res.data.code == 0) {
-          // 添加完成
+          // 获取所有开课任务
           this.allClassTask()
           this.visible = false
           this.$message({message: "添加课程任务成功！", type: "success"})
@@ -275,12 +427,16 @@ export default {
 
     },
 
+    // 删除课程任务
     deleteById(index, row) {
       this.deleteClassTaskById(row.id);
     },
 
+    // 编辑课程任务
     editById(index, row) {
-
+      let modifyId = row.id;
+      this.editFormData = row;
+      this.visibleForm = true;
     },
 
     handleSizeChange() {},
@@ -353,6 +509,11 @@ export default {
 
 .semester-select {
   float: left;
+  margin-bottom: 10px;
+}
+.semester-select-1 {
+  // vue中下拉框长度的设置
+  width:825px!important;
   margin-bottom: 10px;
 }
 

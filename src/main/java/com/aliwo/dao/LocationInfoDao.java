@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * package_name:com.aliwo.dao
  *
- * @author:徐亚远 Date:2021/2/27 16:27
+ * @author:xuyy Date:2021/2/27 16:27
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0

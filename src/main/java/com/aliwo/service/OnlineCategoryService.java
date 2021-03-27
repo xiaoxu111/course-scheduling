@@ -6,7 +6,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 /**
  * package_name:com.aliwo.service
  *
- * @author:徐亚远 Date:2021/2/28 20:17
+ * @author:xuyy Date:2021/2/28 20:17
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0

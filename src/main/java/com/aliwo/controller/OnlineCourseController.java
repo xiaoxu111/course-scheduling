@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 /**
  * package_name:com.aliwo.controller
  *
- * @author:徐亚远 Date:2021/2/28 20:47
+ * @author:xuyy Date:2021/2/28 20:47
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0

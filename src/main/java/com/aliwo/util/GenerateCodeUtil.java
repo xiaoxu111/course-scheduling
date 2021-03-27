@@ -14,7 +14,7 @@ import com.baomidou.mybatisplus.generator.config.rules.NamingStrategy;
 /**
  * package_name:com.aliwo.util
  *
- * @author:徐亚远 Date:2021/3/1 21:41
+ * @author:xuyy Date:2021/3/1 21:41
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0

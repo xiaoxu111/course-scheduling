@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 /**
  * package_name:com.aliwo.service.impl
  *
- * @author:徐亚远 Date:2021/2/27 16:59
+ * @author:xuyy Date:2021/2/27 16:59
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0

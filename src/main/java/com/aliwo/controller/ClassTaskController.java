@@ -4,7 +4,6 @@ import com.aliwo.common.ServerResponse;
 import com.aliwo.entity.ClassTask;
 import com.aliwo.entity.request.ClassTaskDTO;
 import com.aliwo.service.ClassTaskService;
-import com.aliwo.util.DateUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -12,6 +11,7 @@ import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -22,7 +22,7 @@ import java.util.Set;
 /**
  * package_name:com.aliwo.controller
  *
- * @author:徐亚远 Date:2021/2/28 18:04
+ * @author:xuyy Date:2021/2/28 18:04
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0
@@ -53,6 +53,27 @@ public class ClassTaskController {
             List<ClassTask> classTaskList = ipage.getRecords();
             if (classTaskList != null && classTaskList.size() > 0){
                for (ClassTask classTask : classTaskList){
+                   if ("01".equals(classTask.getGradeNo())){
+                       classTask.setGradeNo("高一");
+                   }
+                   if ("02".equals(classTask.getGradeNo())){
+                       classTask.setGradeNo("高二");
+                   }
+                   if ("03".equals(classTask.getGradeNo())){
+                       classTask.setGradeNo("高三");
+                   }
+                   if ("01".equals(classTask.getCourseAttr())){
+                       classTask.setCourseAttr("语数英");
+                   }
+                   if ("02".equals(classTask.getCourseAttr())){
+                       classTask.setCourseAttr("物化生政史地");
+                   }
+                   if ("03".equals(classTask.getCourseAttr())){
+                       classTask.setCourseAttr("实验课");
+                   }
+                   if ("04".equals(classTask.getCourseAttr())){
+                       classTask.setCourseAttr("体育课");
+                   }
                    if ("1".equals(classTask.getIsFix())){
                         classTask.setIsFix("固定");
                    }
@@ -116,6 +137,10 @@ public class ClassTaskController {
      *  检查添加是否合法参数
      */
     private ServerResponse checkAddClassTaskParam(@RequestBody() ClassTaskDTO c, ClassTask classTask) {
+        // 检查课程名称和课程属性是否对应 有点问题
+        if (c.getCourseAttr().indexOf(c.getCourseName().substring(0,1)) == -1){
+            return ServerResponse.ofError("课程名与课程属性不对应，请重新填写！！！");
+        }
         if (Strings.isEmpty(c.getSemester())){
             return ServerResponse.ofError("学期必填，非空！！！");
         }
@@ -123,7 +148,15 @@ public class ClassTaskController {
         if (Strings.isEmpty(c.getGradeNo())){
             return ServerResponse.ofError("年级必填，非空！！！");
         }
-        classTask.setGradeNo(c.getGradeNo());
+        if ("高一".equals(c.getGradeNo())) {
+            classTask.setGradeNo("01");
+        }
+        if ("高二".equals(c.getGradeNo())) {
+            classTask.setGradeNo("02");
+        }
+        if ("高三".equals(c.getGradeNo())) {
+            classTask.setGradeNo("03");
+        }
         if (Strings.isEmpty(c.getClassNo())){
             return ServerResponse.ofError("班级必填，非空！！！");
         }
@@ -147,7 +180,18 @@ public class ClassTaskController {
         if (Strings.isEmpty(c.getCourseAttr())){
             return ServerResponse.ofError("课程属性必填，非空！！！");
         }
-        classTask.setCourseAttr(c.getCourseAttr());
+        if ("语数英".equals(c.getCourseAttr())){
+            classTask.setCourseAttr("01");
+        }
+        if ("物化生政史地".equals(c.getCourseAttr())){
+            classTask.setCourseAttr("02");
+        }
+        if ("实验课".equals(c.getCourseAttr())){
+            classTask.setCourseAttr("03");
+        }
+        if ("体育课".equals(c.getCourseAttr())){
+            classTask.setCourseAttr("04");
+        }
         if (Strings.isEmpty(String.valueOf(c.getStudentNum()))){
             return ServerResponse.ofError("学生人数必填，非空！！！");
         }
@@ -163,7 +207,12 @@ public class ClassTaskController {
         if (Strings.isEmpty(String.valueOf(c.getIsFix()))){
             return ServerResponse.ofError("是否固定必填，非空！！！");
         }
-        classTask.setIsFix(c.getIsFix());
+        if ("固定".equals(c.getIsFix())){
+            classTask.setIsFix("1");
+        }
+        if ("不固定".equals(c.getIsFix())){
+            classTask.setIsFix("2");
+        }
         classTask.setClassTime(c.getClassTime());
         return null;
     }
@@ -181,5 +230,37 @@ public class ClassTaskController {
             return ServerResponse.ofSuccess("删除成功");
         }
         return ServerResponse.ofError("删除失败");
+    }
+
+
+    /**
+     * 修改讲师信息 个人中心使用
+     *
+     * @param classTask
+     * @return ServerResponse
+     * token 验证现在不能用后续完善
+     */
+    @RequestMapping(value = "/classTask/modify", method = RequestMethod.POST)
+    //@UserLoginToken
+    public ServerResponse modifyClassTask(@RequestBody ClassTask classTask) {
+        // 检查修改的字段是否合规
+       if (!this.checkEditClassTaskColumn(classTask)){
+           ServerResponse.ofError("编辑任务不合规，失败！！！");
+       }
+        // 修改操作
+        return classTaskService.updateById(classTask) ? ServerResponse.ofSuccess("修改成功") : ServerResponse.ofError("修改失败");
+    }
+
+    /**
+     * 检查修改的字段是否合规
+     * @param classTask
+     * @return
+     */
+    private Boolean checkEditClassTaskColumn(ClassTask classTask){
+        Boolean flag = false;
+        if (StringUtils.isEmpty(classTask.getGradeNo())){
+
+        }
+        return flag;
     }
 }

@@ -7,8 +7,11 @@ import com.aliwo.dao.ClassTaskDao;
 import com.aliwo.entity.ClassTask;
 import com.aliwo.service.ClassTaskService;
 import com.aliwo.service.UploadOrDownLoadService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
@@ -16,7 +19,7 @@ import java.util.List;
 /**
  * package_name:com.aliwo.service.impl
  *
- * @author:徐亚远 Date:2021/3/21 15:32
+ * @author:xuyy Date:2021/3/21 15:32
  * 项目名:course-scheduling
  * Description:TODO
  * Version: 1.0
@@ -24,6 +27,7 @@ import java.util.List;
 @Service
 public class UploadOrDownLoadServiceImpl implements UploadOrDownLoadService {
 
+    private static final Logger LOG = LoggerFactory.getLogger(UploadOrDownLoadServiceImpl.class);
     @Autowired
     private ClassTaskService classTaskService;
     @Autowired
@@ -47,6 +51,7 @@ public class UploadOrDownLoadServiceImpl implements UploadOrDownLoadService {
             list = ExcelImportUtil.importExcel(
                     file.getInputStream(),
                     ClassTask.class, params);
+            LOG.info("总共需要插入多少条记录：" + list.size());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,9 +70,18 @@ public class UploadOrDownLoadServiceImpl implements UploadOrDownLoadService {
     private boolean save(List<ClassTask> list) {
         // 清空旧任务
         this.clearClassTaskOld();
+        LOG.info("清空旧数据成功：");
         int i = 0;
-        // 遍历课程任务插入数据库
+        // 遍历课程任务实际插入的数据
+        Integer liseSize = list.size();
+        // 记录不合规数据 默认 0
+        Integer noComplianceLisze = 0;
         for (ClassTask classTask : list) {
+            if (StringUtils.isEmpty(classTask.getGradeNo())) {
+                ++noComplianceLisze;
+                liseSize--;
+                continue;
+            }
             ClassTask c = new ClassTask();
             c.setSemester(classTask.getSemester());
             c.setGradeNo(classTask.getGradeNo());
@@ -85,9 +99,13 @@ public class UploadOrDownLoadServiceImpl implements UploadOrDownLoadService {
             boolean b = classTaskService.save(c);
             if (b) {
                 i = i + 1;
+                LOG.info("插入到第" +"【" + i + "】" + "条数据" + c.toString());
             }
         }
-        if (i == list.size()) {
+        LOG.info("记录到excel" + "【" + list.size() + "】" +"条数据");
+        LOG.info("记录到" + "【" + noComplianceLisze + "】" +"条不合规数据");
+        LOG.info("实际导入了" + "【" + liseSize + "】" +"条数据");
+        if (i == liseSize) {
             return true;
         }
         return false;
