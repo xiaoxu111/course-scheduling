@@ -62,8 +62,10 @@ public class UploadOrDownLoadServiceImpl implements UploadOrDownLoadService {
         }
         return ServerResponse.ofError("导入课程任务失败");
     }
+
     /**
      * 将文件中的数据插入数据库
+     *
      * @param list
      * @return
      */
@@ -99,12 +101,12 @@ public class UploadOrDownLoadServiceImpl implements UploadOrDownLoadService {
             boolean b = classTaskService.save(c);
             if (b) {
                 i = i + 1;
-                LOG.info("插入到第" +"【" + i + "】" + "条数据" + c.toString());
+                LOG.info("插入到第" + "【" + i + "】" + "条数据" + c.toString());
             }
         }
-        LOG.info("记录到excel" + "【" + list.size() + "】" +"条数据");
-        LOG.info("记录到" + "【" + noComplianceLisze + "】" +"条不合规数据");
-        LOG.info("实际导入了" + "【" + liseSize + "】" +"条数据");
+        LOG.info("记录到excel" + "【" + list.size() + "】" + "条数据");
+        LOG.info("记录到" + "【" + noComplianceLisze + "】" + "条不合规数据");
+        LOG.info("实际导入了" + "【" + liseSize + "】" + "条数据");
         if (i == liseSize) {
             return true;
         }

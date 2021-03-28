@@ -11,7 +11,6 @@ import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 
 import java.text.SimpleDateFormat;
@@ -51,36 +50,36 @@ public class ClassTaskController {
         IPage<ClassTask> ipage = classTaskService.page(pages, wrapper);
         if (ipage != null) {
             List<ClassTask> classTaskList = ipage.getRecords();
-            if (classTaskList != null && classTaskList.size() > 0){
-               for (ClassTask classTask : classTaskList){
-                   if ("01".equals(classTask.getGradeNo())){
-                       classTask.setGradeNo("高一");
-                   }
-                   if ("02".equals(classTask.getGradeNo())){
-                       classTask.setGradeNo("高二");
-                   }
-                   if ("03".equals(classTask.getGradeNo())){
-                       classTask.setGradeNo("高三");
-                   }
-                   if ("01".equals(classTask.getCourseAttr())){
-                       classTask.setCourseAttr("语数英");
-                   }
-                   if ("02".equals(classTask.getCourseAttr())){
-                       classTask.setCourseAttr("物化生政史地");
-                   }
-                   if ("03".equals(classTask.getCourseAttr())){
-                       classTask.setCourseAttr("实验课");
-                   }
-                   if ("04".equals(classTask.getCourseAttr())){
-                       classTask.setCourseAttr("体育课");
-                   }
-                   if ("1".equals(classTask.getIsFix())){
+            if (classTaskList != null && classTaskList.size() > 0) {
+                for (ClassTask classTask : classTaskList) {
+                    if ("01".equals(classTask.getGradeNo())) {
+                        classTask.setGradeNo("高一");
+                    }
+                    if ("02".equals(classTask.getGradeNo())) {
+                        classTask.setGradeNo("高二");
+                    }
+                    if ("03".equals(classTask.getGradeNo())) {
+                        classTask.setGradeNo("高三");
+                    }
+                    if ("01".equals(classTask.getCourseAttr())) {
+                        classTask.setCourseAttr("语数英");
+                    }
+                    if ("02".equals(classTask.getCourseAttr())) {
+                        classTask.setCourseAttr("物化生政史地");
+                    }
+                    if ("03".equals(classTask.getCourseAttr())) {
+                        classTask.setCourseAttr("实验课");
+                    }
+                    if ("04".equals(classTask.getCourseAttr())) {
+                        classTask.setCourseAttr("体育课");
+                    }
+                    if ("1".equals(classTask.getIsFix())) {
                         classTask.setIsFix("固定");
-                   }
-                   if ("2".equals(classTask.getIsFix())){
-                       classTask.setIsFix("不固定");
-                   }
-               }
+                    }
+                    if ("2".equals(classTask.getIsFix())) {
+                        classTask.setIsFix("不固定");
+                    }
+                }
             }
             return ServerResponse.ofSuccess(ipage);
         }
@@ -116,7 +115,7 @@ public class ClassTaskController {
      * @param c
      * @return
      */
-    @RequestMapping(value = "/addclasstask",method = RequestMethod.POST)
+    @RequestMapping(value = "/addclasstask", method = RequestMethod.POST)
     public ServerResponse addClassTask(@RequestBody() ClassTaskDTO c) {
         LOG.info("添加排课任务数据实体：" + c);
         ClassTask classTask = new ClassTask();
@@ -133,19 +132,18 @@ public class ClassTaskController {
     /**
      * @param c
      * @param classTask
-     * @return
-     *  检查添加是否合法参数
+     * @return 检查添加是否合法参数
      */
     private ServerResponse checkAddClassTaskParam(@RequestBody() ClassTaskDTO c, ClassTask classTask) {
         // 检查课程名称和课程属性是否对应 有点问题
-        if (c.getCourseAttr().indexOf(c.getCourseName().substring(0,1)) == -1){
+        if (c.getCourseAttr().indexOf(c.getCourseName().substring(0, 1)) == -1) {
             return ServerResponse.ofError("课程名与课程属性不对应，请重新填写！！！");
         }
-        if (Strings.isEmpty(c.getSemester())){
+        if (Strings.isEmpty(c.getSemester())) {
             return ServerResponse.ofError("学期必填，非空！！！");
         }
         classTask.setSemester(c.getSemester());
-        if (Strings.isEmpty(c.getGradeNo())){
+        if (Strings.isEmpty(c.getGradeNo())) {
             return ServerResponse.ofError("年级必填，非空！！！");
         }
         if ("高一".equals(c.getGradeNo())) {
@@ -157,60 +155,60 @@ public class ClassTaskController {
         if ("高三".equals(c.getGradeNo())) {
             classTask.setGradeNo("03");
         }
-        if (Strings.isEmpty(c.getClassNo())){
+        if (Strings.isEmpty(c.getClassNo())) {
             return ServerResponse.ofError("班级必填，非空！！！");
         }
         classTask.setClassNo(c.getClassNo());
-        if (Strings.isEmpty(c.getCourseNo())){
+        if (Strings.isEmpty(c.getCourseNo())) {
             return ServerResponse.ofError("课程编号必填，非空！！！");
         }
         classTask.setCourseNo(c.getCourseNo());
-        if (Strings.isEmpty(c.getCourseName())){
+        if (Strings.isEmpty(c.getCourseName())) {
             return ServerResponse.ofError("课程名必填，非空！！！");
         }
         classTask.setCourseName(c.getCourseName());
-        if (Strings.isEmpty(c.getTeacherNo())){
+        if (Strings.isEmpty(c.getTeacherNo())) {
             return ServerResponse.ofError("讲师编号必填，非空！！！");
         }
         classTask.setTeacherNo(c.getTeacherNo());
-        if (Strings.isEmpty(c.getRealname())){
+        if (Strings.isEmpty(c.getRealname())) {
             return ServerResponse.ofError("讲师名字必填，非空！！！");
         }
         classTask.setRealname(c.getRealname());
-        if (Strings.isEmpty(c.getCourseAttr())){
+        if (Strings.isEmpty(c.getCourseAttr())) {
             return ServerResponse.ofError("课程属性必填，非空！！！");
         }
-        if ("语数英".equals(c.getCourseAttr())){
+        if ("语数英".equals(c.getCourseAttr())) {
             classTask.setCourseAttr("01");
         }
-        if ("物化生政史地".equals(c.getCourseAttr())){
+        if ("物化生政史地".equals(c.getCourseAttr())) {
             classTask.setCourseAttr("02");
         }
-        if ("实验课".equals(c.getCourseAttr())){
+        if ("实验课".equals(c.getCourseAttr())) {
             classTask.setCourseAttr("03");
         }
-        if ("体育课".equals(c.getCourseAttr())){
+        if ("体育课".equals(c.getCourseAttr())) {
             classTask.setCourseAttr("04");
         }
-        if (Strings.isEmpty(String.valueOf(c.getStudentNum()))){
+        if (Strings.isEmpty(String.valueOf(c.getStudentNum()))) {
             return ServerResponse.ofError("学生人数必填，非空！！！");
         }
         classTask.setStudentNum(c.getStudentNum());
-        if (Strings.isEmpty(String.valueOf(c.getWeeksNumber()))){
+        if (Strings.isEmpty(String.valueOf(c.getWeeksNumber()))) {
             return ServerResponse.ofError("周学时必填，非空！！！");
         }
         classTask.setWeeksNumber(c.getWeeksNumber());
-        if (Strings.isEmpty(String.valueOf(c.getWeeksSum()))){
+        if (Strings.isEmpty(String.valueOf(c.getWeeksSum()))) {
             return ServerResponse.ofError("周数必填，非空！！！");
         }
         classTask.setWeeksSum(c.getWeeksSum());
-        if (Strings.isEmpty(String.valueOf(c.getIsFix()))){
+        if (Strings.isEmpty(String.valueOf(c.getIsFix()))) {
             return ServerResponse.ofError("是否固定必填，非空！！！");
         }
-        if ("固定".equals(c.getIsFix())){
+        if ("固定".equals(c.getIsFix())) {
             classTask.setIsFix("1");
         }
-        if ("不固定".equals(c.getIsFix())){
+        if ("不固定".equals(c.getIsFix())) {
             classTask.setIsFix("2");
         }
         classTask.setClassTime(c.getClassTime());
@@ -219,6 +217,7 @@ public class ClassTaskController {
 
     /**
      * 删除开课任务
+     *
      * @param id
      * @return
      */
@@ -244,23 +243,70 @@ public class ClassTaskController {
     //@UserLoginToken
     public ServerResponse modifyClassTask(@RequestBody ClassTask classTask) {
         // 检查修改的字段是否合规
-       if (!this.checkEditClassTaskColumn(classTask)){
-           ServerResponse.ofError("编辑任务不合规，失败！！！");
-       }
+        ServerResponse serverResponse = this.checkEditClassTaskColumn(classTask);
+        if (serverResponse.getCode() != 0) {
+            return serverResponse;
+        }
         // 修改操作
-        return classTaskService.updateById(classTask) ? ServerResponse.ofSuccess("修改成功") : ServerResponse.ofError("修改失败");
+        return classTaskService.updateById(classTask) ? ServerResponse.ofSuccess("修改成功") : ServerResponse.ofError(
+                "修改失败");
     }
 
     /**
      * 检查修改的字段是否合规
+     *
      * @param classTask
      * @return
      */
-    private Boolean checkEditClassTaskColumn(ClassTask classTask){
-        Boolean flag = false;
-        if (StringUtils.isEmpty(classTask.getGradeNo())){
-
+    private ServerResponse checkEditClassTaskColumn(ClassTask classTask) {
+        if ("高一".equals(classTask.getGradeNo())) {
+            classTask.setGradeNo("01");
         }
-        return flag;
+        if ("高二".equals(classTask.getGradeNo())) {
+            classTask.setGradeNo("02");
+        }
+        if ("高三".equals(classTask.getGradeNo())) {
+            classTask.setGradeNo("03");
+        }
+        if ("语数英".equals(classTask.getCourseAttr())) {
+            classTask.setCourseAttr("01");
+        }
+        if ("物化生政史地".equals(classTask.getCourseAttr())) {
+            classTask.setCourseAttr("02");
+        }
+        if ("实验课".equals(classTask.getCourseAttr())) {
+            classTask.setCourseAttr("03");
+        }
+        if ("体育课".equals(classTask.getCourseAttr())) {
+            classTask.setCourseAttr("04");
+        }
+        if ("固定".equals(classTask.getIsFix())) {
+            classTask.setIsFix("1");
+        }
+        if ("不固定".equals(classTask.getIsFix())) {
+            classTask.setIsFix("2");
+        }
+        if (Strings.isEmpty(classTask.getClassNo())) {
+            return ServerResponse.ofError("班级编号必填，非空！！！");
+        }
+        if (Strings.isEmpty(classTask.getCourseNo())) {
+            return ServerResponse.ofError("课程编号必填，非空！！！");
+        }
+        if (Strings.isEmpty(classTask.getTeacherNo())) {
+            return ServerResponse.ofError("讲师编号必填，非空！！！");
+        }
+        if (Strings.isEmpty(classTask.getRealname())) {
+            return ServerResponse.ofError("讲师姓名必填，非空！！！");
+        }
+        if ("null".equals(String.valueOf(classTask.getStudentNum())) || "0".equals(String.valueOf(classTask.getStudentNum()))) {
+            return ServerResponse.ofError("班级学生人数必填，非空！！！");
+        }
+        if ("null".equals(String.valueOf(classTask.getWeeksNumber())) || "0".equals(String.valueOf(classTask.getWeeksNumber()))) {
+            return ServerResponse.ofError("周学时必填，非空！！！");
+        }
+        if ("null".equals(String.valueOf(classTask.getWeeksSum())) || "0".equals(String.valueOf(classTask.getWeeksSum()))) {
+            return ServerResponse.ofError("上课周数必填，非空！！！");
+        }
+        return ServerResponse.ofSuccess();
     }
 }

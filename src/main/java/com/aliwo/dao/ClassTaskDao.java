@@ -17,7 +17,6 @@ import org.springframework.stereotype.Component;
 @Mapper
 @Component
 public interface ClassTaskDao extends BaseMapper<ClassTask> {
-
     @Update("truncate yc_class_task")
     void clearClassTaskOld();
 
