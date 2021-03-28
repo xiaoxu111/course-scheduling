@@ -18,20 +18,65 @@
       <el-table-column type="index"></el-table-column>
       <el-table-column prop="onlineNo" label="课程号"></el-table-column>
       <el-table-column prop="onlineName" label="课程名"></el-table-column>
-      <el-table-column prop="cover" label="封面" width="80">
+      <el-table-column prop="onlineCategoryName" label="类别"></el-table-column>
+      <el-table-column prop="cover" label="封面" >
         <template slot-scope="scope">
-          <el-image fit="contain" style="width: 24px; height: 30px" :src="scope.row.cover"></el-image>
+          <el-image fit="contain" style="width: 120px; height: 140px" :src="scope.row.cover"></el-image>
         </template>
       </el-table-column>
-
-      <el-table-column prop="onlineCategoryName" label="类别"></el-table-column>
       <el-table-column prop="fromUserName" label="用户"></el-table-column>
-      <el-table-column label="详情" width="100">
+      <el-table-column label="视频详情" >
         <template slot-scope="scope">
           <el-button icon="el-icon-menu" @click="handleDetail(scope.row)" size="mini"></el-button>
         </template>
       </el-table-column>
+      <el-table-column prop="operation" label="操作" width="150px">
+        <template slot-scope="scope">
+          <el-button type="primary" size="small" @click="editById(scope.$index, scope.row)">编辑</el-button>
+          <el-button type="danger" size="small" @click="deleteById(scope.$index, scope.row)">删除</el-button>
+        </template>
+      </el-table-column>
     </el-table>
+
+    <!-- 弹出表单编辑课程 -->
+    <el-dialog title="编辑课程" :visible.sync="editVisibleForm">
+      <el-form :model="editFormData" label-position="left" label-width="80px">
+        <el-form-item label="课程号" prop="onlineNo">
+          <el-input v-model="editFormData.onlineNo" autocomplete="off" disabled></el-input>
+        </el-form-item>
+        <el-form-item label="类别" prop="onlineCategoryName">
+          <el-cascader
+            class="semester-select-1"
+            clearable
+            size="small"
+            v-model="cascader"
+            :options="options"
+            :props="props"
+            disabled
+          ></el-cascader>
+        </el-form-item>
+        <el-form-item label="课程名" prop="onlineName">
+          <el-input v-model="editFormData.onlineName" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="封面" prop="cover">
+          <template slot-scope="scope">
+            <el-image fit="contain" style="width: 500px; height: 350px" :src="editFormData.cover"></el-image>
+          </template>
+        </el-form-item>
+        <el-form-item>
+          <el-upload class="upload-demo" action="http://localhost:8080/onlinevideo/upload"
+                     :on-success="handleCourseCoverSuccess">
+            <el-button size="small" type="primary">点击修改封面</el-button>
+          </el-upload>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="cancel">取 消</el-button>
+        <el-button type="primary" @click="commit()">提 交</el-button>
+      </div>
+    </el-dialog>
+
+
     <el-pagination
       layout="prev, pager, next"
       :total="total"
@@ -52,12 +97,12 @@
         </el-table-column>
         <el-table-column prop="videoUrl" label="视频地址">
           <template slot-scope="scope">
-              <el-link :href="scope.row.videoUrl" target="_blank">视频链接</el-link>
+            <el-link :href="scope.row.videoUrl" target="_blank">视频链接</el-link>
           </template>
         </el-table-column>
         <el-table-column prop="fromUserName" label="发布者"></el-table-column>
         <el-table-column prop="createTime" label="发布时间"></el-table-column>
-        <el-table-column label="详情" width="100">
+        <el-table-column label="视频详情" width="100">
           <template slot-scope="scope">
             <el-button
               icon="el-icon-delete"
@@ -70,24 +115,25 @@
       </el-table>
     </el-dialog>
 
+
     <el-dialog
       title="上传课程"
       :visible.sync="uploadCourseVisibleForm"
       width="700px"
-      style="text-align:left;"
+      style="text-align:center;"
     >
-      <el-form :model="uploadCourseForm" label-position="right" label-width="100px">
+      <el-form :model="uploadCourseForm" ref="regFormRef" label-position="right" label-width="100px">
         <el-form-item label="网课名" prop="onlineName">
-          <el-input v-model="uploadCourseForm.onlineName" autocomplete="off"></el-input>
+          <el-input v-model="uploadCourseForm.onlineName" autocomplete="off" placeholder="请输入网课名"></el-input>
         </el-form-item>
         <el-form-item label="课程简介" prop="description">
-          <el-input v-model="uploadCourseForm.description" autocomplete="off"></el-input>
+          <el-input v-model="uploadCourseForm.description" autocomplete="off" placeholder="请输入课程简介"></el-input>
         </el-form-item>
 
         <el-form-item label="类别" prop="onlineCategoryId">
           <el-cascader
             clearable
-            size="small"
+            size="medium"
             v-model="uploadCourseForm.cid"
             :options="options"
             :props="props"
@@ -103,11 +149,14 @@
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
-        <el-form-item style="text-align:left;">
+        <el-form-item style="text-align:right;">
           <el-button type="primary" @click="saveCourse()" size="small">保存</el-button>
+          <el-button @click="resetForm('regFormRef')">重置</el-button>
+          <el-button type="primary" @click="closeSave()" size="small">关闭</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
+
 
     <el-dialog
       title="上传视频"
@@ -145,7 +194,6 @@
             ></el-option>
           </el-select>
         </el-form-item>
-
         <el-form-item label="视频编号" prop="videoNo">
           <el-input v-model="uploadVideoForm.videoNo" autocomplete="off"></el-input>
         </el-form-item>
@@ -154,6 +202,8 @@
         </el-form-item>
       </el-form>
     </el-dialog>
+
+
   </div>
 </template>
 
@@ -168,10 +218,14 @@ export default {
       },
       options: [],
       tableData: [],
+      editFormData: {
+        courseNo: ''
+      },
       page: 1,
       limit: 10,
       total: 0,
       visibleForm: false,
+      editVisibleForm: false,
       cascader: [],
       videoData: [],
       uploadVideoForm: {},
@@ -218,16 +272,63 @@ export default {
       this.$axios
         .get(
           "http://localhost:8080/onlinecourse/get-list/" +
-            cid +
-            "/" +
-            this.page +
-            "/" +
-            this.limit
+          cid +
+          "/" +
+          this.page +
+          "/" +
+          this.limit
         )
         .then(r => {
           this.tableData = r.data.data.records;
           this.total = r.data.data.total;
         });
+    },
+
+    // 编辑教材
+    editById(index, row) {
+      let modifyId = row.id
+      this.editFormData = row
+      this.editVisibleForm = true
+    },
+
+    // 编辑取消
+    cancel() {
+      this.editVisibleForm = false
+      this.editFormData.onlineNo = ''
+      this.editFormData.onlineName = ''
+      this.editFormData.onlineCategoryName = ''
+      this.editFormData.cover = ''
+    },
+
+    // 编辑提交
+    commit(){
+      this.modifyCourseInfo(this.editFormData);
+    },
+    // 编辑提交
+    modifyCourseInfo(modifyData) {
+      this.$axios
+        // console.info(modifyData)
+        //  console.info(modifyData.onlineCategoryName)
+        .post("http://localhost:8080/onlinecourse/modify/" + this.editFormData.id, modifyData)
+        .then(res => {
+          this.$message({ message: "更新成功", type: "success" })
+          this.handleChange();
+          this.editVisibleForm = false
+        })
+        .catch(error => {
+          this.$message.error("更新失败")
+        });
+    },
+
+    // 重置按钮
+    resetForm(regFormRef) {
+      this.$refs[regFormRef].resetFields();
+    },
+
+    // 关闭
+    closeSave() {
+      this.uploadCourseVisibleForm = false
+      this.uploadCourseForm = {}
     },
     handleDetail(row) {
       this.detailRow = row;
@@ -256,7 +357,7 @@ export default {
         .delete("http://localhost:8080/onlinevideo/delete/" + row.id)
         .then(r => {
           if (r.data.code == 0) {
-            this.$message({ message: "删除成功", type: "success" });
+            this.$message({message: "删除成功", type: "success"});
             this.handleDetail(this.detailRow);
           }
         });
@@ -274,8 +375,10 @@ export default {
         .post("http://localhost:8080/onlinecourse/add", data)
         .then(r => {
           if (r.data.code == 0) {
-            this.$message({ message: "上传成功", type: "success" });
+            this.$message({message: "上传成功", type: "success"});
             this.handleChange();
+          } else {
+            this.$message.error(r.data.message);
           }
         });
       this.uploadCourseVisibleForm = false;
@@ -290,7 +393,7 @@ export default {
         .post("http://localhost:8080/onlinevideo/add", data)
         .then(r => {
           if (r.data.code == 0) {
-            this.$message({ message: "上传成功", type: "success" });
+            this.$message({message: "上传成功", type: "success"});
             this.init();
           }
         });
@@ -355,10 +458,17 @@ export default {
 .c-panel {
   text-align: left;
   padding: 10px;
+
   span {
     font-size: 14px;
     color: #666;
     margin-right: 10px;
   }
+}
+
+.semester-select-1 {
+  // vue中下拉框长度的设置
+  width: 825px !important;
+  margin-bottom: 10px;
 }
 </style>
