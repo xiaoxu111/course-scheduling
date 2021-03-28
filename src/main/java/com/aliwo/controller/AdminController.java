@@ -8,6 +8,7 @@ import com.aliwo.service.AdminService;
 import com.aliwo.service.impl.TokenService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +43,17 @@ public class AdminController {
      */
     @PostMapping("/login")
     public com.aliwo.common.ServerResponse adminLogin(@RequestBody UserLoginRequest adminLoginRequest) {
+        if (Strings.isEmpty(adminLoginRequest.getUsername())){
+            return ServerResponse.ofError("用户名非空，请填写用户名！！！");
+        }
+        if (Strings.isEmpty(adminLoginRequest.getPassword())){
+            return ServerResponse.ofError("密码非空，请填写用户名！！！");
+        }
         Map<String, Object> map = new HashMap();
         Admin admin = adminService.adminLogin(adminLoginRequest.getUsername(), adminLoginRequest.getPassword());
+        if (null == admin){
+            return ServerResponse.ofError("没有查询到相应用户，请重新登录");
+        }
         String token = tokenService.getToken(admin);
         if (null != admin && !StringUtils.isEmpty(token)) {
             // 密码隐藏起来

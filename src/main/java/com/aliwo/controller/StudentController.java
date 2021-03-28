@@ -52,6 +52,12 @@ public class StudentController {
     public ServerResponse studentLogin(@RequestBody StudentLoginRequest studentLoginRequest, HttpServletResponse
             response, HttpServletRequest request, HttpSession session)
             throws UnsupportedEncodingException {
+        if (Strings.isEmpty(studentLoginRequest.getUsername())){
+            return ServerResponse.ofError("用户名非空，请填写用户名！！！");
+        }
+        if (Strings.isEmpty(studentLoginRequest.getPassword())){
+            return ServerResponse.ofError("密码非空，请填写用户名！！！");
+        }
         Map<String, Object> map = new HashMap<>();
         // 先判断是否有该学号，该学生
         QueryWrapper<Student> wrapper = new QueryWrapper<Student>().eq("student_no", studentLoginRequest.getUsername());
@@ -64,6 +70,16 @@ public class StudentController {
         } else if (0 != student2.getStatus()) {
             // 否则进行下一步验证账号的的状态
             return ServerResponse.ofError("该学生账号异常，请联系管理员");
+        }
+        if (StringUtils.isNotEmpty(student2.getUsername())){
+            if (!student2.getStudentNo().equals(studentLoginRequest.getUsername())){
+                return ServerResponse.ofError("用户名不对，请重新输入！！！");
+            }
+        }
+        if (StringUtils.isNotEmpty(student2.getPassword())){
+            if (!student2.getPassword().equals(studentLoginRequest.getPassword())){
+                return ServerResponse.ofError("密码不对，请重新输入！！！");
+            }
         }
         // 调用登录
         Student student = studentService.studentLogin(studentLoginRequest.getUsername(), studentLoginRequest.getPassword());

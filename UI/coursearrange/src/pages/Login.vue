@@ -79,7 +79,8 @@ export default {
             this.$router.push('/student')
             this.$message({message: "登录成功", type: "success"})
           } else {
-            alert(res.data.message)
+            this.$message.error(res.data.message);
+            this.studentLoginForm.password = ''
           }
         }).catch((error) => {
           // 失败

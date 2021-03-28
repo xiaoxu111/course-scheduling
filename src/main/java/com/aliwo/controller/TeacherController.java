@@ -51,6 +51,12 @@ public class TeacherController {
      */
     @RequestMapping(value = "/login", method = RequestMethod.POST)
     public ServerResponse TeacherLogin(@RequestBody UserLoginRequest userLoginRequest) {
+        if (Strings.isEmpty(userLoginRequest.getUsername())){
+            return ServerResponse.ofError("用户名非空，请填写用户名！！！");
+        }
+        if (Strings.isEmpty(userLoginRequest.getPassword())){
+            return ServerResponse.ofError("密码非空，请填写用户名！！！");
+        }
         Map<String, Object> map = new HashMap<>();
         QueryWrapper<Teacher> wrapper = new QueryWrapper<>();
         wrapper.eq("teacher_no", userLoginRequest.getUsername());

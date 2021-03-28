@@ -93,7 +93,8 @@ export default {
               this.$router.push('/systemdata')
               this.$message({message: "登录成功", type: "success"})
             } else {
-              alert(res.data.message)
+              this.$message.error(res.data.message);
+              // alert(res.data.message)
               this.adminLoginForm.password = ''
             }
           }).catch((error) => {
@@ -114,7 +115,7 @@ export default {
               this.$router.push('/systemdata')
               this.$message({message: "登录成功", type: "success"})
             } else {
-              alert(res.data.message)
+              this.$message.error(res.data.message);
               this.adminLoginForm.password = ''
             }
           }).catch((error) => {
