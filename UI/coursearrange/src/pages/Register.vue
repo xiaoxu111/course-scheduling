@@ -189,7 +189,7 @@ export default {
     // 创建学号按钮响应，返回学号并填充到学号栏
     createStuNo() {
       // 把年级对应的编号this.studentRegNewForm.grade带过去
-      if (this.studentRegNewForm.grade == "" || this.studentRegNewForm.grade == undefined || this.studentRegNewForm.grade == null) {
+      if ("" == this.studentRegNewForm.grade || this.studentRegNewForm.grade == undefined || this.studentRegNewForm.grade == null) {
         this.$message.error('请先选择所在的年级！！！');
       }
       this.$axios.post('http://localhost:8080/student/createstudentno/' + this.studentRegNewForm.grade, {})
