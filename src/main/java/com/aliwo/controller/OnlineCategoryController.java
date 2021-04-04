@@ -2,11 +2,8 @@ package com.aliwo.controller;
 
 import com.aliwo.common.ServerResponse;
 import com.aliwo.entity.OnlineCategory;
-import com.aliwo.entity.OnlineCourse;
 import com.aliwo.service.OnlineCategoryService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -52,6 +49,24 @@ public class OnlineCategoryController {
         wrapper.eq("parent_id", id);
         List<OnlineCategory> list = onlineCategoryService.list(wrapper);
         return ServerResponse.ofSuccess(list);
+    }
+
+
+    /**
+     * 添加类别
+     * @param categoryNo
+     * @param categoryName
+     * @return
+     */
+    @RequestMapping(value = "/add", method = RequestMethod.POST)
+    public ServerResponse addCategory(@RequestParam(name = "categoryNo") String categoryNo,
+                                      @RequestParam(name = "categoryName") String categoryName,
+                                      @RequestParam(name = "parentId") Integer parentId) {
+        OnlineCategory onlineCategory = new OnlineCategory();
+        onlineCategory.setCategoryNo(categoryNo);
+        onlineCategory.setCategoryName(categoryName);
+        onlineCategory.setParentId(parentId);
+        return onlineCategoryService.save(onlineCategory) ? ServerResponse.ofSuccess("添加成功") : ServerResponse.ofError("添加失败");
     }
 
 }

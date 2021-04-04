@@ -13,14 +13,13 @@
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
     >
       <el-table-column type="index"></el-table-column>
-      <!-- <el-table-column prop="id" label="id" sortable width="180"></el-table-column> -->
       <el-table-column prop="categoryName" label="名称" sortable></el-table-column>
-      <!-- <el-table-column prop="remark" label="备注"></el-table-column> -->
       <el-table-column label="级别">
         <template scope="scope">{{scope.row.parentId == 0 ? '一级类别' : '二级类别'}}</template>
       </el-table-column>
-      <el-table-column prop="categoryNo" label="编号" width="100"></el-table-column>
-      <el-table-column prop="id" label="#" sortable width="100"></el-table-column>
+      <el-table-column prop="categoryNo" label="编号"></el-table-column>
+      <el-table-column prop="id" label="#" sortable></el-table-column>
+      <el-table-column prop="remark" label="备注"></el-table-column>
 
       <el-table-column label="操作" width="150px">
         <template slot-scope="scope">

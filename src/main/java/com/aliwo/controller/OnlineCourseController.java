@@ -58,18 +58,9 @@ public class OnlineCourseController {
      */
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ServerResponse addCourse(@RequestBody OnlineCourseAddVO on) {
-        if (StringUtils.isEmpty(on.getFromUserName())){
-            return ServerResponse.ofError("系统没有找到相应的上传者，失败！！！");
-        }
-        if (null == String.valueOf(on.getFromUserId())){
-            return ServerResponse.ofError("系统没有找到相应的上传者ID，失败！！！");
-        }
-        if (StringUtils.isEmpty(on.getOnlineName())){
-            return ServerResponse.ofError("请填写网课名称");
-        }
-        if (StringUtils.isEmpty(on.getDescription())){
-            return ServerResponse.ofError("请填写课程简介");
-        }
+        // 添加前的一些校验
+        ServerResponse ofError = getServerResponse(on);
+        if (ofError != null) return ofError;
         OnlineCourse onlineCourse = new OnlineCourse();
         // 获取网课编号
         String no = this.getCourseNo();
@@ -89,6 +80,30 @@ public class OnlineCourseController {
     }
 
     /**
+     * 添加前一些必要的校验
+     *
+     * @param onlineCourseAddVo
+     * @return com.aliwo.common.ServerResponse
+     * @author jitwxs
+     * @date 2021/4/1 22:19
+     */
+    private ServerResponse getServerResponse(OnlineCourseAddVO onlineCourseAddVo) {
+        if (StringUtils.isEmpty(onlineCourseAddVo.getFromUserName())) {
+            return ServerResponse.ofError("系统没有找到相应的上传者，失败！！！");
+        }
+        if (null == String.valueOf(onlineCourseAddVo.getFromUserId())) {
+            return ServerResponse.ofError("系统没有找到相应的上传者ID，失败！！！");
+        }
+        if (StringUtils.isEmpty(onlineCourseAddVo.getOnlineName())) {
+            return ServerResponse.ofError("请填写网课名称");
+        }
+        if (StringUtils.isEmpty(onlineCourseAddVo.getDescription())) {
+            return ServerResponse.ofError("请填写课程简介");
+        }
+        return null;
+    }
+
+    /**
      * 自动获取网课编号
      *
      * @return
@@ -105,6 +120,7 @@ public class OnlineCourseController {
 
     /**
      * 更新网课信息
+     *
      * @param id
      * @param onlineCourse
      * @return
@@ -119,5 +135,42 @@ public class OnlineCourseController {
         return ServerResponse.ofError("更新失败");
     }
 
+    /**
+     * 根据教材id删除教材信息
+     *
+     * @param id
+     * @return com.aliwo.common.ServerResponse
+     * @author xuyayuan
+     * @date 2021/4/4 19:49
+     */
+    @RequestMapping(value = "/deleteOnlineCourseById/{id}", method = RequestMethod.DELETE)
+    public ServerResponse deleteOnlineCourseById(@PathVariable("id") Integer id) {
+        boolean b = onlineCourseService.removeById(id);
+        if (b) {
+            return ServerResponse.ofSuccess("删除成功");
+        }
+        return ServerResponse.ofError("删除失败");
+    }
+
+    /**
+     * 课程管理，网课列表上传视频点击课程的下拉框 分页查询网课
+     *
+     * @param page
+     * @param limit
+     * @return com.aliwo.common.ServerResponse
+     * @author xuyayuan
+     * @date 2021/4/4 20:01
+     */
+    @GetMapping("/list/{page}")
+    public ServerResponse list(@PathVariable("page") Integer page, @RequestParam(defaultValue = "10") Integer limit) {
+        QueryWrapper wrapper = new QueryWrapper();
+        wrapper.orderByDesc("update_time");
+        Page<OnlineCourse> pages = new Page<>(page, limit);
+        IPage<OnlineCourse> iPage = onlineCourseService.page(pages, wrapper);
+        if (null != page) {
+            return ServerResponse.ofSuccess(iPage);
+        }
+        return ServerResponse.ofError("查询不到数据");
+    }
 
 }

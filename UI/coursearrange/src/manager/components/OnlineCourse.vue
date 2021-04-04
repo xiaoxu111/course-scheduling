@@ -65,7 +65,7 @@
         </el-form-item>
         <el-form-item>
           <el-upload class="upload-demo" action="http://localhost:8080/onlinevideo/upload"
-                     :on-success="handleCourseCoverSuccess">
+                     :on-success="modifyHandleCourseCoverSuccess">
             <el-button size="small" type="primary">点击修改封面</el-button>
           </el-upload>
         </el-form-item>
@@ -90,20 +90,27 @@
       <el-table :data="videoData" style="width: 100%">
         <el-table-column type="index"></el-table-column>
         <el-table-column prop="videoName" label="视频名称"></el-table-column>
-        <el-table-column prop="cover" label="封面" width="80">
+        <el-table-column prop="cover" label="封面">
           <template slot-scope="scope">
-            <el-image fit="contain" style="width: 24px; height: 30px" :src="scope.row.cover"></el-image>
+            <el-image fit="contain" style="width: 120px; height: 140px" :src="scope.row.cover"></el-image>
           </template>
         </el-table-column>
         <el-table-column prop="videoUrl" label="视频地址">
           <template slot-scope="scope">
-            <el-link :href="scope.row.videoUrl" target="_blank">视频链接</el-link>
+            <el-link :href="scope.row.videoUrl" target="_blank">在线播放</el-link>
           </template>
         </el-table-column>
         <el-table-column prop="fromUserName" label="发布者"></el-table-column>
         <el-table-column prop="createTime" label="发布时间"></el-table-column>
-        <el-table-column label="视频详情" width="100">
+        <el-table-column prop="updateTime" label="修改时间"></el-table-column>
+        <el-table-column label="操作" width="200">
           <template slot-scope="scope">
+            <el-button
+              icon="el-icon-edit"
+              type="primary"
+              @click="handleVideoModify(scope.row)"
+              size="mini"
+            ></el-button>
             <el-button
               icon="el-icon-delete"
               @click="handleVideoDelete(scope.row)"
@@ -169,6 +176,7 @@
           <el-upload
             class="upload-demo"
             action="http://localhost:8080/onlinevideo/upload"
+            ref="upload" list-type="picture" :show-file-list="true" :limit="1"
             :on-success="handleVideoCoverSuccess"
           >
             <el-button size="small" type="primary">点击上传</el-button>
@@ -178,8 +186,8 @@
           <el-upload
             class="upload-demo"
             action="http://localhost:8080/onlinevideo/upload"
-            :on-success="handleVideoUploadSuccess"
-          >
+            ref="upload" list-type="picture" :show-file-list="true" :limit="1"
+            :on-success="handleVideoUploadSuccess">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
@@ -290,6 +298,10 @@ export default {
       this.editFormData = row
       this.editVisibleForm = true
     },
+    // 删除教材
+    deleteById(index, row) {
+      this.deleteOnlineCourseById(row.id);
+    },
 
     // 编辑取消
     cancel() {
@@ -307,7 +319,6 @@ export default {
     // 编辑提交
     modifyCourseInfo(modifyData) {
       this.$axios
-        // console.info(modifyData)
         //  console.info(modifyData.onlineCategoryName)
         .post("http://localhost:8080/onlinecourse/modify/" + this.editFormData.id, modifyData)
         .then(res => {
@@ -352,12 +363,32 @@ export default {
       this.uploadVideoForm = {};
       this.uploadVideoVisibleForm = true;
     },
+    // 视频修改
+    handleVideoModify(row) {
+      this.$axios
+        // .post("http://localhost:8080/onlinevideo/modifyById/" + row.id)
+        .then(r => {
+          if (r.data.code == 0) {
+            this.$message({message: r.data.message, type: "success"});
+            this.handleDetail(this.detailRow);
+          }
+          if (r.data.code != 0) {
+            this.$message.error(r.data.message);
+            this.handleDetail(this.detailRow);
+          }
+        });
+    },
+    // 删除视频
     handleVideoDelete(row) {
       this.$axios
         .delete("http://localhost:8080/onlinevideo/delete/" + row.id)
         .then(r => {
           if (r.data.code == 0) {
-            this.$message({message: "删除成功", type: "success"});
+            this.$message({message: r.data.message, type: "success"});
+            this.handleDetail(this.detailRow);
+          }
+          if (r.data.code != 0) {
+            this.$message.error(r.data.message);
             this.handleDetail(this.detailRow);
           }
         });
@@ -393,21 +424,30 @@ export default {
         .post("http://localhost:8080/onlinevideo/add", data)
         .then(r => {
           if (r.data.code == 0) {
-            this.$message({message: "上传成功", type: "success"});
+            this.$message({message: r.data.message, type: "success"});
+            this.init();
+          }
+          if (r.data.code != 0) {
+            this.$message.error(r.data.message);
             this.init();
           }
         });
       this.uploadVideoVisibleForm = false;
+    },
+    modifyHandleCourseCoverSuccess(res, file) {
+      this.editFormData.cover = res.data.url;
     },
     handleCourseCoverSuccess(res, file) {
       this.uploadCourseForm.cover = res.data.url;
     },
     handleVideoCoverSuccess(res, file) {
       this.uploadVideoForm.cover = res.data.url;
+      this.$refs.upload.clearFiles();
     },
     handleVideoUploadSuccess(res, file) {
       this.uploadVideoForm.videoUrl = res.data.url;
       this.uploadVideoForm.videoName = res.data.name;
+      this.$refs.upload.clearFiles();
     },
     remoteMethod() {
       let params = {
@@ -449,6 +489,20 @@ export default {
           this.uu.fromUserName = JSON.parse(user).realname;
         }
       }
+    },
+    /**
+     * 删除教材信息
+     */
+    deleteOnlineCourseById(id) {
+      this.$axios
+        .delete("http://localhost:8080/onlinecourse/deleteOnlineCourseById/" + id)
+        .then(res => {
+          this.handleChange();
+          this.$message({message: "删除成功", type: "success"})
+        })
+        .catch(error => {
+          this.$message.error("删除失败")
+        });
     }
   }
 };
