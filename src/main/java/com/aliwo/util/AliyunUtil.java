@@ -30,7 +30,6 @@ import java.util.UUID;
 public class AliyunUtil {
     private static final Logger LOG = LoggerFactory.getLogger(AliyunUtil.class);
 
-    // bucket域名：oss-cn-beijing.aliyuncs.com
     @Value("${aliyun.oss.file.endpoint}")
     private static String endpoint = "";
     private static String accessKeyId = "";
