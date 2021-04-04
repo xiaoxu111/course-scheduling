@@ -32,13 +32,10 @@ public class AliyunUtil {
 
     // bucket域名：oss-cn-beijing.aliyuncs.com
     @Value("${aliyun.oss.file.endpoint}")
-    private static String endpoint = "oss-cn-beijing.aliyuncs.com";
-    // LTAI4GGu1g4jx1XVMRkTP4iT
-    private static String accessKeyId = "LTAI4GGu1g4jx1XVMRkTP4iT";
-    // u5eh3LKHzkNSOyyfkOyGuExIOiX4aL
-    private static String accessKeySecret = "u5eh3LKHzkNSOyyfkOyGuExIOiX4aL";
-    // aliwo-xiaoxu-oos
-    private static String bucketName = "aliwo-xiaoxu-oos";
+    private static String endpoint = "";
+    private static String accessKeyId = "";
+    private static String accessKeySecret = "";
+    private static String bucketName = "";
 
     /**
      * 文件上传成功返回路径
