@@ -1,13 +1,13 @@
 <template>
   <div>
-    <!--<div class="add-button">
-      <el-button type="primary" @click="addRoom()">添加</el-button>
-    </div>-->
-    <div class="header-menu">
+    <div class="add-button">
+      <el-button type="primary" @click="addRoom()">添加教室</el-button>
+    </div>
+<!--    <div class="header-menu">
       <el-input placeholder="请输入教室名" v-model="keyword" @clear="inputListener" clearable>
         <el-button slot="append" type="primary" icon="el-icon-search"  @click="searchClassRoom">搜索教室</el-button>
       </el-input>
-    </div>
+    </div>-->
 
     <!-- 数据显示 -->
     <el-table :data="classroomData" size="mini" :stripe="true" :highlight-current-row="true">
@@ -21,7 +21,7 @@
 
       <el-table-column prop="operation" label="操作" width="240px" >
         <template slot-scope="scope">
-          <el-button  type="primary" size="mini" @click="addRoom()">添加</el-button>
+<!--          <el-button  type="primary" size="mini" @click="addRoom()">添加</el-button>-->
           <el-button type="danger" size="mini " @click="deleteById(scope.$index, scope.row)">删除</el-button>
           <el-button type="primary" size="mini " @click="editById(scope.$index, scope.row)">编辑</el-button>
         </template>
