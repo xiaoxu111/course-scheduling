@@ -12,7 +12,7 @@
     </div>
     <!-- 教学楼列表 -->
     <el-table :data="teachBuildData" size="mini" :stripe="true" :highlight-current-row="true">
-      <el-table-column label="序号" type="selection"></el-table-column>
+      <el-table-column label="序号" type="index"></el-table-column>
       <!-- <el-table-column prop="id" label="ID"></el-table-column> -->
       <el-table-column prop="teachBuildNo" label="教学楼编号"></el-table-column>
       <el-table-column prop="teachBuildName" label="教学楼名称"></el-table-column>

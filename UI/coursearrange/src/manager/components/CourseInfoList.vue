@@ -11,7 +11,7 @@
 
     <!-- 教材信息 -->
     <el-table :data="courseInfoData" size="mini" :stripe="true" :highlight-current-row="true">
-      <el-table-column label="序号" type="selection"></el-table-column>
+      <el-table-column label="序号" type="index"></el-table-column>
       <!-- <el-table-column prop="id" label="ID"></el-table-column> -->
       <el-table-column prop="courseNo" label="课程编号"></el-table-column>
       <el-table-column prop="courseName" label="课程名"></el-table-column>

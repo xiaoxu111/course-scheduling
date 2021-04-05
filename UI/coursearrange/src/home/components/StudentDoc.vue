@@ -2,7 +2,7 @@
   <div>
     <!-- 学生端查看文档页面 -->
     <el-table :data="docData" :stripe="true" :highlight-current-row="true">
-      <el-table-column label="序号" type="selection"></el-table-column>
+      <el-table-column label="序号" type="index"></el-table-column>
       <!-- <el-table-column prop="id" label="ID"></el-table-column> -->
       <el-table-column prop="docName" label="文件名"></el-table-column>
       <el-table-column prop="description" label="简介"></el-table-column>

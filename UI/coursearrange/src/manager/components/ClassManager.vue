@@ -18,7 +18,7 @@
     </div>
     <div>
       <el-table :data="classInfoData" size="mini" :stripe="true" :highlight-current-row="true">
-        <el-table-column label="序号" type="selection"></el-table-column>
+        <el-table-column label="序号" type="index"></el-table-column>
         <el-table-column prop="gradeName" label="年级"></el-table-column>
         <el-table-column prop="classNo" label="班级编号"></el-table-column>
         <el-table-column prop="className" label="班级名称"></el-table-column>

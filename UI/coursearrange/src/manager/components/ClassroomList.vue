@@ -11,7 +11,7 @@
 
     <!-- 数据显示 -->
     <el-table :data="classroomData" size="mini" :stripe="true" :highlight-current-row="true">
-      <el-table-column label="序号" type="selection"></el-table-column>
+      <el-table-column label="序号" type="index"></el-table-column>
       <!-- <el-table-column prop="id" label="ID"></el-table-column> -->
       <el-table-column prop="classRoomNo" label="教室编号"></el-table-column>
       <el-table-column prop="classRoomName" label="教室名"></el-table-column>

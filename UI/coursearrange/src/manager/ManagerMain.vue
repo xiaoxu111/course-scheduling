@@ -94,9 +94,9 @@
               <el-menu-item index="6-1">
                 <router-link class="links" to="/studydocs">学习文档</router-link>
               </el-menu-item>
-              <el-menu-item index="6-2">
-                <router-link class="links" to="/exercise">在线测试</router-link>
-              </el-menu-item>
+<!--              <el-menu-item index="6-2">-->
+<!--                <router-link class="links" to="/exercise">在线测试</router-link>-->
+<!--              </el-menu-item>-->
               <el-menu-item index="6-3">
                 <router-link to="/courseinfolist" class="links">教材列表</router-link>
               </el-menu-item>

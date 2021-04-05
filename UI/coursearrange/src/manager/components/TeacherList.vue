@@ -9,7 +9,7 @@
     </div>
     <!-- 讲师列表 -->
     <el-table :data="teacherData" size="mini" :stripe="true" :highlight-current-row="true">
-      <el-table-column label="序号" type="selection"></el-table-column>
+      <el-table-column label="序号" type="index" fixed width="50"></el-table-column>
       <el-table-column prop="teacherNo" label="编号" fixed width="100"></el-table-column>
       <el-table-column prop="username" label="用户名" fixed width="100"></el-table-column>
       <el-table-column prop="realname" label="姓名" fixed width="100"></el-table-column>
@@ -19,12 +19,12 @@
       <el-table-column prop="telephone" label="电话" fixed width="100"></el-table-column>
       <el-table-column prop="email" label="邮件" fixed width="150"></el-table-column>
       <el-table-column prop="address" label="地址"></el-table-column>
-      <el-table-column prop="license" label="证件照">
+      <el-table-column prop="license" label="证件照（点击预览）">
         <template slot-scope="scope">
           <el-image
             v-if="scope.row.license != null "
             fit="contain"
-            style="width: 50px; height: 20px"
+            style="width: 100px; height: 40px"
             :src="scope.row.license"
             :preview-src-list="scope.row.license.split('#')"
           ></el-image>

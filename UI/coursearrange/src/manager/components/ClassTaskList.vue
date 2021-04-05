@@ -49,7 +49,7 @@
     </div>
     <!-- 开课任务，等待排课的课程 -->
     <el-table class="ckasstask-table" :data="classTaskData" size="mini" :stripe="true" :highlight-current-row="true">
-      <el-table-column label="序号" type="selection"></el-table-column>
+      <el-table-column label="序号" type="index"></el-table-column>
       <el-table-column prop="semester" label="学期"></el-table-column>
       <el-table-column prop="gradeNo" label="年级" width="60px"></el-table-column>
       <el-table-column prop="classNo" label="班级"></el-table-column>

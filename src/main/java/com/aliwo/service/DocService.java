@@ -1,6 +1,8 @@
 package com.aliwo.service;
 
+import com.aliwo.common.ServerResponse;
 import com.aliwo.entity.Doc;
+import com.aliwo.entity.request.DocsVO;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -12,4 +14,6 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * Version: 1.0
  **/
 public interface DocService extends IService<Doc> {
+
+    ServerResponse addDcos(DocsVO docsVO);
 }

@@ -7,7 +7,7 @@
     <!-- 表格 -->
     <div class="table">
       <el-table :data="docData" size="mini" :stripe="true">
-        <el-table-column label="序号" type="selection"></el-table-column>
+        <el-table-column label="序号" type="index"></el-table-column>
         <el-table-column prop="docName" label="文件名"></el-table-column>
         <el-table-column prop="description" label="描述"></el-table-column>
         <el-table-column prop="toClassNo" label="接收班级"></el-table-column>
@@ -38,27 +38,6 @@
 
     <!-- 添加文档 -->
     <el-dialog title="添加文档" :visible.sync="visible">
-      <el-upload
-        class="add-button"
-        ref="upload"
-        accept=".doc, .docx, .pdf, .jpeg, .png, .jpg"
-        action="http://localhost:8080/uploaddocs"
-        :on-success="uploadSuccess"
-        :disabled="importBtnDisabled"
-        :file-list="fileList"
-        :auto-upload="true"
-        :limit="1"
-      >
-        <el-button
-          style="margin-left: 10px;"
-          slot="trigger"
-          size="small"
-          type="primary"
-        >
-          上传
-          <i class="el-icon-upload2 el-icon--right"></i>
-        </el-button>
-      </el-upload>
       <el-form :model="addDocData" label-position="left" label-width="80px">
         <el-form-item label="文件名" prop="fileName">
           <el-input v-model="addDocData.fileName" autocomplete="off" placeholder="输入文件名"></el-input>
@@ -71,6 +50,27 @@
         </el-form-item>
         <el-form-item label="有效期" prop="expire">
           <el-input v-model="addDocData.expire" autocomplete="off" placeholder="天数，只填写数字"></el-input>
+        </el-form-item>
+        <el-form-item label="上传文档">
+        <el-upload
+          class="add-button"
+          ref="upload"
+          accept=".doc, .docx, .pdf, .jpeg, .png, .jpg"
+          action="http://localhost:8080/uploaddocs"
+          :on-success="uploadSuccess"
+          :disabled="importBtnDisabled"
+          :file-list="fileList"
+          :auto-upload="true"
+          :limit="1">
+          <el-button
+            style="float: right"
+            slot="trigger"
+            size="small"
+            type="primary">
+            点击上传文档
+            <i class="el-icon-upload2 el-icon--right"></i>
+          </el-button>
+        </el-upload>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -94,7 +94,7 @@ export default {
         fromUserName: '',
         docUrl: '',
         // 文件的实际名字
-        docName: '' ,
+        docName: '',
         // 上传者自定义的名字
         fileName: ''
       },
@@ -120,7 +120,6 @@ export default {
       this.visible = true
 
     },
-
 
 
     // 获得上传的用户类型

@@ -27,7 +27,7 @@
         :show-header="true"
         :highlight-current-row="true"
       >
-        <el-table-column label="序号" type="selection"></el-table-column>
+        <el-table-column label="序号" type="index"></el-table-column>
         <el-table-column prop="exerciseTitle" label="题目"></el-table-column>
         <el-table-column prop="multiselect" label="是否多选"></el-table-column>
         <el-table-column prop="answer" label="答案"></el-table-column>

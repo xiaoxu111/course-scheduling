@@ -2,6 +2,7 @@ package com.aliwo.controller;
 
 import com.aliwo.common.ServerResponse;
 import com.aliwo.entity.Doc;
+import com.aliwo.entity.request.DocsVO;
 import com.aliwo.service.DocService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -123,5 +124,17 @@ public class DocController {
             return ServerResponse.ofSuccess("删除成功");
         }
         return ServerResponse.ofError("删除失败");
+    }
+
+    /**
+     * 添加文档的相关描述信息
+     * @author xuyayuan
+     * @date 2021/4/5 19:38
+     * @param docsVO
+     * @return com.aliwo.common.ServerResponse
+     */
+    @PostMapping("/adddocs")
+    public ServerResponse addDocs(@RequestBody DocsVO docsVO) {
+        return docService.addDcos(docsVO);
     }
 }

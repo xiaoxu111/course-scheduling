@@ -13,7 +13,7 @@
       default-expand-all
       :tree-props="{children: 'children', hasChildren: 'hasChildren'}"
     >
-      <el-table-column type="index"></el-table-column>
+      <el-table-column type="index" label="序号"></el-table-column>
       <el-table-column prop="categoryName" label="名称" sortable></el-table-column>
       <el-table-column label="级别">
         <template scope="scope">{{scope.row.parentId == 0 ? '一级类别' : '二级类别'}}</template>

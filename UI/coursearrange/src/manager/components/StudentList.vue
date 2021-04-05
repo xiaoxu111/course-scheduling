@@ -18,9 +18,9 @@
       </el-select>
     </div>
     <!-- 数据显示 -->
-    <el-table :data="studentData" size="mini" :stripe="true" :highlight-current-row="true">
-      <el-table-column label="序号" type="selection"></el-table-column>
+    <el-table :data="studentData" size="small" :stripe="true" :highlight-current-row="true">
       <!-- <el-table-column prop="id" label="ID"></el-table-column> -->
+      <el-table-column type="index" label="序号" fixed width="50"></el-table-column>
       <el-table-column prop="studentNo" label="学号" fixed width="100"></el-table-column>
       <el-table-column prop="realname" label="姓名" fixed width="100"></el-table-column>
       <el-table-column prop="username" label="昵称" fixed width="100"></el-table-column>

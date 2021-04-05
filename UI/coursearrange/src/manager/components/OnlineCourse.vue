@@ -15,13 +15,21 @@
       <el-button size="small" @click="handleUploadVideo" plain>上传视频</el-button>
     </div>
     <el-table :data="tableData" style="width: 100%">
-      <el-table-column type="index"></el-table-column>
+      <el-table-column type="index" label="序号"></el-table-column>
       <el-table-column prop="onlineNo" label="课程号"></el-table-column>
       <el-table-column prop="onlineName" label="课程名"></el-table-column>
       <el-table-column prop="onlineCategoryName" label="类别"></el-table-column>
-      <el-table-column prop="cover" label="封面">
+      <el-table-column prop="cover" label="封面（点击预览）">
         <template slot-scope="scope">
-          <el-image fit="contain" style="width: 120px; height: 140px" :src="scope.row.cover"></el-image>
+          <el-image
+            v-if="scope.row.cover != null "
+            fit="contain"
+            style="width: 120px; height: 140px"
+            :src="scope.row.cover"
+            :preview-src-list="scope.row.cover.split('#')">
+<!--            fit="contain" style="width: 120px; height: 140px" :src="scope.row.cover"-->
+
+          </el-image>
         </template>
       </el-table-column>
       <el-table-column prop="fromUserName" label="用户"></el-table-column>
@@ -92,9 +100,17 @@
       <el-table :data="videoData" style="width: 100%">
         <el-table-column type="index"></el-table-column>
         <el-table-column prop="videoName" label="视频名称"></el-table-column>
-        <el-table-column prop="cover" label="封面">
+        <el-table-column prop="cover" label="封面（点击预览）">
           <template slot-scope="scope">
-            <el-image fit="contain" style="width: 120px; height: 140px" :src="scope.row.cover"></el-image>
+            <el-image
+              v-if="scope.row.cover != null "
+              fit="contain"
+              style="width: 120px; height: 140px"
+              :src="scope.row.cover"
+              :preview-src-list="scope.row.cover.split('#')">
+<!--              fit="contain" style="width: 120px; height: 140px" :src="scope.row.cover">-->
+
+            </el-image>
           </template>
         </el-table-column>
         <el-table-column prop="videoUrl" label="视频地址">
@@ -215,8 +231,7 @@
             class="upload-demo"
             action="http://localhost:8080/onlinevideo/upload"
             ref="upload" list-type="picture" :show-file-list="true" :limit="1"
-            :on-success="handleVideoCoverSuccess"
-          >
+            :on-success="handleVideoCoverSuccess">
             <el-button size="small" type="primary">点击上传</el-button>
           </el-upload>
         </el-form-item>
