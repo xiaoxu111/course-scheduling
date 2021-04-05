@@ -102,7 +102,7 @@ public class DocController {
      * @return com.aliwo.common.ServerResponse
      */
     @RequestMapping(value = "/docs/{page}", method = RequestMethod.GET)
-    public ServerResponse allDocs(@PathVariable("page") Integer page, @RequestParam(defaultValue = "10") Integer limit) {
+    public ServerResponse allDocs(@PathVariable("page") Integer page, @RequestParam(defaultValue = "5") Integer limit) {
         Page<Doc> pages = new Page<>(page, limit);
         QueryWrapper<Doc> wrapper = new QueryWrapper<Doc>().orderByDesc("create_time");
         IPage<Doc> iPage = docService.page(pages, wrapper);

@@ -105,8 +105,8 @@ export default {
       importBtnDisabled: false,
       loading: false,
       page: 1,
-      total: 10,
-      pageSize: 10,
+      pageSize: 5,
+      total: 0,
     };
   },
 
@@ -217,13 +217,12 @@ export default {
       this.addDocData = {}
     },
 
-    handleSizeChange(v) {
-      this.page = v
-      this.allDocs()
+    handleSizeChange() {
     },
 
-    handleCurrentChange() {
-
+    handleCurrentChange(v) {
+      this.page = v
+      this.allDocs()
     },
 
     uploadSuccess(response, file, fileList) {
