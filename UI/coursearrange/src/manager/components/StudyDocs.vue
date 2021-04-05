@@ -12,14 +12,14 @@
         <el-table-column prop="description" label="描述"></el-table-column>
         <el-table-column prop="toClassNo" label="接收班级"></el-table-column>
         <el-table-column prop="fromUserName" label="发布者"></el-table-column>
-        <el-table-column prop="expire" label="有效期(天)"></el-table-column>
+        <!--        <el-table-column prop="expire" label="有效期(天)"></el-table-column>-->
         <el-table-column prop="createTime" label="上传时间"></el-table-column>
         <el-table-column prop="operation" label="操作" width="150px">
-        <template slot-scope="scope">
-           <!--<el-button type="text" size="small" @click="previewById(scope.$index, scope.row)">预览</el-button>-->
-          <el-button type="primary" size="small" @click="downloadById(scope.$index, scope.row)">下载</el-button>
-          <el-button type="danger" size="small" @click="deleteById(scope.$index, scope.row)">删除</el-button>
-        </template>
+          <template slot-scope="scope">
+            <!--<el-button type="text" size="small" @click="previewById(scope.$index, scope.row)">预览</el-button>-->
+            <el-button type="primary" size="small" @click="downloadById(scope.$index, scope.row)">下载</el-button>
+            <el-button type="danger" size="small" @click="deleteById(scope.$index, scope.row)">删除</el-button>
+          </template>
         </el-table-column>
       </el-table>
     </div>
@@ -39,7 +39,7 @@
     <!-- 添加文档 -->
     <el-dialog title="添加文档" :visible.sync="visible">
       <el-upload
-      class="add-button"
+        class="add-button"
         ref="upload"
         accept=".doc, .docx, .pdf, .jpeg, .png, .jpg"
         action="http://localhost:8080/uploaddocs"
@@ -155,38 +155,38 @@ export default {
       // this.$refs.upload.submit()
       // 提交input信息
       this.$axios.post("http://localhost:8080/adddocs", this.addDocData)
-      .then(res => {
-        if (res.data.code == 0) {
-          this.addDocData = {}
-          this.visible = false
-          this.$message({message: "添加文档成功", type: "success"})
-          this.loading = false
-          this.allDocs()
-        } else {
-          this.$message.error(res.data.message)
-        }
-      })
-      .catch(error => {
+        .then(res => {
+          if (res.data.code == 0) {
+            this.addDocData = {}
+            this.visible = false
+            this.$message({message: "添加文档成功", type: "success"})
+            this.loading = false
+            this.allDocs()
+          } else {
+            this.$message.error(res.data.message)
+          }
+        })
+        .catch(error => {
 
-      })
+        })
     },
 
     // 所有文档
     allDocs() {
       this.$axios.get("http://localhost:8080/docs/" + this.page)
-      .then(res => {
-        if (res.data.code == 0) {
-          let ret = res.data.data
-          this.docData = ret.records
-          this.total = ret.total
+        .then(res => {
+          if (res.data.code == 0) {
+            let ret = res.data.data
+            this.docData = ret.records
+            this.total = ret.total
 
-        } else {
-          this.$message.error(res.data.message)
-        }
-      })
-      .catch(error => {
+          } else {
+            this.$message.error(res.data.message)
+          }
+        })
+        .catch(error => {
 
-      })
+        })
     },
 
     // 下载
@@ -196,19 +196,19 @@ export default {
     },
 
     deleteById(index, row) {
-      alert(row.id)
+      console.info(row.id)
       this.$axios.delete("http://localhost:8080/deletedoc?id=" + row.id)
-      .then(res => {
-        if (res.data.code == 0) {
-          // 删除成功
-          console.log(res)
-          this.allDocs()
-          this.$message({message: "删除成功", type: "success"})
-        } else {
-          this.$message.error(res.data.message)
-        }
-      })
-      .catch()
+        .then(res => {
+          if (res.data.code == 0) {
+            // 删除成功
+            console.log(res)
+            this.allDocs()
+            this.$message({message: "删除成功", type: "success"})
+          } else {
+            this.$message.error(res.data.message)
+          }
+        })
+        .catch()
     },
 
     // 取消

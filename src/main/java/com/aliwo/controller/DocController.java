@@ -92,4 +92,36 @@ public class DocController {
             return ServerResponse.ofSuccess(doc.getDocName()+" 下载了"+"【"+doc.getClicks()+"次"+"】");
         }
     }
+
+    /**
+     * 分页查询所有的文档
+     * @author xuyayuan
+     * @date 2021/4/5 17:41
+     * @param page
+     * @param limit
+     * @return com.aliwo.common.ServerResponse
+     */
+    @RequestMapping(value = "/docs/{page}", method = RequestMethod.GET)
+    public ServerResponse allDocs(@PathVariable("page") Integer page, @RequestParam(defaultValue = "10") Integer limit) {
+        Page<Doc> pages = new Page<>(page, limit);
+        QueryWrapper<Doc> wrapper = new QueryWrapper<Doc>().orderByDesc("create_time");
+        IPage<Doc> iPage = docService.page(pages, wrapper);
+        return ServerResponse.ofSuccess(iPage);
+    }
+
+    /**
+     * 根据id删除文档
+     * @author xuyayuan
+     * @date 2021/4/5 17:46
+     * @param id
+     * @return com.aliwo.common.ServerResponse
+     */
+    @RequestMapping(value = "/deletedoc", method = RequestMethod.DELETE)
+    public ServerResponse delete(@RequestParam Integer id) {
+        boolean b = docService.removeById(id);
+        if (b) {
+            return ServerResponse.ofSuccess("删除成功");
+        }
+        return ServerResponse.ofError("删除失败");
+    }
 }
