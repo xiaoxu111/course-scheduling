@@ -7,7 +7,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -62,33 +61,12 @@ public class OnlineCategoryController {
     @RequestMapping(value = "/add", method = RequestMethod.POST)
     public ServerResponse addCategory(@RequestParam(name = "categoryNo") String categoryNo,
                                       @RequestParam(name = "categoryName") String categoryName,
-                                      @RequestParam(name = "remark") String remark,
                                       @RequestParam(name = "parentId") Integer parentId) {
         OnlineCategory onlineCategory = new OnlineCategory();
         onlineCategory.setCategoryNo(categoryNo);
         onlineCategory.setCategoryName(categoryName);
         onlineCategory.setParentId(parentId);
-        onlineCategory.setRemark(remark);
         return onlineCategoryService.save(onlineCategory) ? ServerResponse.ofSuccess("添加成功") : ServerResponse.ofError("添加失败");
-    }
-
-    /**
-     * 删除类别
-     * @author xuyayuan
-     * @date 2021/4/5 16:45
-     * @param id 
-     * @return com.aliwo.common.ServerResponse
-     */
-    @RequestMapping(value = "/delete/{id}", method = RequestMethod.DELETE)
-    public ServerResponse deleteCategory(@PathVariable("id") Integer id) {
-        OnlineCategory onlineCategory = onlineCategoryService.getById(id);
-        onlineCategory.setUpdateTime(LocalDateTime.now());
-        onlineCategoryService.updateById(onlineCategory);
-        if (onlineCategoryService.removeById(id)) {
-            return ServerResponse.ofSuccess("删除类别成功");
-        } else {
-            return ServerResponse.ofError("删除类别失败");
-        }
     }
 
 }

@@ -12,7 +12,7 @@
         <el-table-column prop="description" label="描述"></el-table-column>
         <el-table-column prop="toClassNo" label="接收班级"></el-table-column>
         <el-table-column prop="fromUserName" label="发布者"></el-table-column>
-<!--        <el-table-column prop="expire" label="有效期(天)"></el-table-column>-->
+        <el-table-column prop="expire" label="有效期(天)"></el-table-column>
         <el-table-column prop="createTime" label="上传时间"></el-table-column>
         <el-table-column prop="operation" label="操作" width="150px">
         <template slot-scope="scope">
@@ -196,7 +196,7 @@ export default {
     },
 
     deleteById(index, row) {
-      console.info(row.id)
+      alert(row.id)
       this.$axios.delete("http://localhost:8080/deletedoc?id=" + row.id)
       .then(res => {
         if (res.data.code == 0) {

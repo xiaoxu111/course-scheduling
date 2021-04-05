@@ -1,14 +1,13 @@
 <template>
   <div>
     <!-- 添加教学楼 -->
-<!--    <div class="add-button">-->
-<!--      <el-button type="primary" size="mini" @click="addTeachbuild">添加</el-button>-->
-<!--    </div>-->
+    <!--<div class="add-button">
+      <el-button type="primary" @click="addTeachbuild">添加</el-button>
+    </div>-->
     <div class="header-menu">
-<!--      <el-input placeholder="请输入教学楼名" v-model="keyword" @clear="inputListener" clearable>-->
-<!--        <el-button slot="append" type="primary" icon="el-icon-search"  @click="searchClassRoom">搜索教学楼</el-button>-->
-<!--      </el-input>-->
-        <el-button type="primary" size="mini" @click="addTeachbuild">添加教学楼</el-button>
+      <el-input placeholder="请输入教学楼名" v-model="keyword" @clear="inputListener" clearable>
+        <el-button slot="append" type="primary" icon="el-icon-search"  @click="searchClassRoom">搜索教学楼</el-button>
+      </el-input>
     </div>
     <!-- 教学楼列表 -->
     <el-table :data="teachBuildData" size="mini" :stripe="true" :highlight-current-row="true">
@@ -22,7 +21,7 @@
         <template slot-scope="scope">
           <el-button type="danger" size="mini" @click="deleteById(scope.$index, scope.row)">删除</el-button>
           <el-button type="primary" size="mini" @click="editById(scope.$index, scope.row)">编辑</el-button>
-<!--          <el-button type="primary" size="mini" @click="addTeachbuild">添加</el-button>-->
+          <el-button type="primary" size="mini" @click="addTeachbuild">添加</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -55,7 +54,7 @@
         <el-form-item label="名称" prop="teachBuildName">
           <!--<el-input v-model="editFormData.teachBuildName" autocomplete="off"></el-input>-->
           <template>
-            <el-select v-model="editFormData.teachBuildName" class="semester-select-1" placeholder="名称" clearable="true">
+            <el-select v-model="editFormData.teachBuildName" placeholder="名称" clearable="true">
               <el-option
                 v-for="item in teachBuildNames"
                 :key="item.value"
@@ -68,7 +67,7 @@
         <el-form-item label="所在区域" prop="teachBuildLocation">
           <!--<el-input v-model="editFormData.teachBuildLocation" autocomplete="off"></el-input>-->
           <template>
-            <el-select v-model="editFormData.teachBuildLocation"  class="semester-select-1" placeholder="所在区域" clearable="true">
+            <el-select v-model="editFormData.teachBuildLocation" placeholder="所在区域" clearable="true">
               <el-option
                 v-for="item in teachBuildLocations"
                 :key="item.value"
@@ -360,11 +359,6 @@ export default {
 <style lang="less" scoped>
 .footer-button {
   margin-top: 10px;
-}
-.semester-select-1 {
-  // vue中下拉框长度的设置
-  width:840px!important;
-  margin-bottom: 10px;
 }
 
 .add-button {

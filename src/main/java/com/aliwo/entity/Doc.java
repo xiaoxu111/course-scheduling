@@ -90,6 +90,8 @@ public class Doc extends Model<Doc> {
      * 创建时间,插入时自动填充
      */
     @TableField(fill = FieldFill.INSERT)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private Date createTime;
 
     /**
