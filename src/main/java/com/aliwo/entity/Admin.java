@@ -2,6 +2,9 @@ package com.aliwo.entity;
 
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -135,12 +138,16 @@ public class Admin extends Model<Admin> {
      * 创建时间 字段注解,插入值时自动填充
      */
     @TableField(fill = FieldFill.INSERT)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private LocalDateTime createTime;
 
     /**
      * 更新时间,字段注解,插入和更新字段时自动填充
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private LocalDateTime updateTime;
 
     @Override

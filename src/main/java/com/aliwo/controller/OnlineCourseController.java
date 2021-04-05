@@ -11,6 +11,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -128,6 +129,7 @@ public class OnlineCourseController {
     @PostMapping("/modify/{id}")
     public ServerResponse modifyCourseInfo(@PathVariable("id") Integer id, @RequestBody OnlineCourse onlineCourse) {
         QueryWrapper<OnlineCourse> wrapper = new QueryWrapper<OnlineCourse>().eq("id", id);
+        onlineCourse.setUpdateTime(LocalDateTime.now());
         boolean b = onlineCourseService.update(onlineCourse, wrapper);
         if (b) {
             return ServerResponse.ofSuccess("更新成功");

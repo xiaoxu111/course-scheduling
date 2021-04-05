@@ -19,17 +19,19 @@
       <el-table-column prop="onlineNo" label="课程号"></el-table-column>
       <el-table-column prop="onlineName" label="课程名"></el-table-column>
       <el-table-column prop="onlineCategoryName" label="类别"></el-table-column>
-      <el-table-column prop="cover" label="封面" >
+      <el-table-column prop="cover" label="封面">
         <template slot-scope="scope">
           <el-image fit="contain" style="width: 120px; height: 140px" :src="scope.row.cover"></el-image>
         </template>
       </el-table-column>
       <el-table-column prop="fromUserName" label="用户"></el-table-column>
-      <el-table-column label="视频详情" >
+      <el-table-column label="视频详情">
         <template slot-scope="scope">
           <el-button icon="el-icon-menu" @click="handleDetail(scope.row)" size="mini"></el-button>
         </template>
       </el-table-column>
+      <el-table-column prop="createTime" label="上传时间"></el-table-column>
+      <el-table-column prop="updateTime" label="更新时间"></el-table-column>
       <el-table-column prop="operation" label="操作" width="150px">
         <template slot-scope="scope">
           <el-button type="primary" size="small" @click="editById(scope.$index, scope.row)">编辑</el-button>
@@ -120,6 +122,42 @@
           </template>
         </el-table-column>
       </el-table>
+    </el-dialog>
+
+    <el-dialog title="编辑视频列表" :visible.sync="visibleModifyVideoForm">
+      <el-form
+        :model="editFormVideoData"
+        label-position="left"
+        label-width="100px"
+      >
+        <el-form-item label="视频名称：" prop="videoName">
+          <el-input v-model="editFormVideoData.videoName" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="修改视频：">
+          <el-upload
+            class="upload-demo"
+            action="http://localhost:8080/onlinevideo/upload"
+            ref="upload" list-type="picture" :show-file-list="true" :limit="1"
+            :on-success="handleModifyVideoSuccess">
+            <el-button size="small" type="primary">重新上传视频</el-button>
+          </el-upload>
+        </el-form-item>
+        <el-form-item label="封面：" prop="cover">
+          <template slot-scope="scope">
+            <el-image fit="contain" style="width: 500px; height: 350px" :src="editFormVideoData.cover"></el-image>
+          </template>
+        </el-form-item>
+        <el-form-item>
+          <el-upload class="upload-demo" action="http://localhost:8080/onlinevideo/upload"
+                     :on-success="modifyModifyVideoCoverSuccess">
+            <el-button size="small" type="primary">点击修改封面</el-button>
+          </el-upload>
+        </el-form-item>
+      </el-form>
+      <div slot="footer" class="dialog-footer">
+        <el-button @click="visibleModifyVideoForm = false">取 消</el-button>
+        <el-button type="primary" @click="commitMidifyVideo()">提 交</el-button>
+      </div>
     </el-dialog>
 
 
@@ -232,6 +270,8 @@ export default {
       page: 1,
       limit: 10,
       total: 0,
+      editFormVideoData: [],
+      visibleModifyVideoForm: false,
       visibleForm: false,
       editVisibleForm: false,
       cascader: [],
@@ -312,9 +352,31 @@ export default {
       this.editFormData.cover = ''
     },
 
-    // 编辑提交
-    commit(){
-      this.modifyCourseInfo(this.editFormData);
+    // 编辑提交更新视频信息
+    commitMidifyVideo() {
+      this.modifyUploadVideoInfo(this.editFormVideoData);
+    },
+    /**
+     * 根据ID更新上传的视频信息
+     */
+    modifyUploadVideoInfo(editFormVideoData) {
+      console.info("sscover:"+editFormVideoData.cover);
+      this.$axios
+        .post("http://localhost:8080/onlinevideo/modifyById", editFormVideoData)
+        .then(r => {
+          if (r.data.code == 0) {
+            this.$message({message: r.data.message, type: "success"});
+            this.handleDetail(this.detailRow);
+            this.visibleModifyVideoForm = false;
+          }
+          if (r.data.code != 0) {
+            this.$message.error(r.data.message);
+            this.handleDetail(this.detailRow);
+          }
+        })
+        .catch(error => {
+          this.$message.error("更新失败");
+        });
     },
     // 编辑提交
     modifyCourseInfo(modifyData) {
@@ -322,7 +384,7 @@ export default {
         //  console.info(modifyData.onlineCategoryName)
         .post("http://localhost:8080/onlinecourse/modify/" + this.editFormData.id, modifyData)
         .then(res => {
-          this.$message({ message: "更新成功", type: "success" })
+          this.$message({message: "更新成功", type: "success"})
           this.handleChange();
           this.editVisibleForm = false
         })
@@ -365,18 +427,14 @@ export default {
     },
     // 视频修改
     handleVideoModify(row) {
-      this.$axios
-        // .post("http://localhost:8080/onlinevideo/modifyById/" + row.id)
-        .then(r => {
-          if (r.data.code == 0) {
-            this.$message({message: r.data.message, type: "success"});
-            this.handleDetail(this.detailRow);
-          }
-          if (r.data.code != 0) {
-            this.$message.error(r.data.message);
-            this.handleDetail(this.detailRow);
-          }
-        });
+      let modifyId = row.id;
+      this.editFormVideoData = row;
+      this.visibleModifyVideoForm = true;
+    },
+    // 提交更新视频信息
+    commit() {
+      // let modifyData = this.editFormData
+      this.modifyTeacher(this.editFormData);
     },
     // 删除视频
     handleVideoDelete(row) {
@@ -437,6 +495,9 @@ export default {
     modifyHandleCourseCoverSuccess(res, file) {
       this.editFormData.cover = res.data.url;
     },
+    modifyModifyVideoCoverSuccess(res, file) {
+      this.editFormVideoData.cover = res.data.url;
+    },
     handleCourseCoverSuccess(res, file) {
       this.uploadCourseForm.cover = res.data.url;
     },
@@ -447,6 +508,12 @@ export default {
     handleVideoUploadSuccess(res, file) {
       this.uploadVideoForm.videoUrl = res.data.url;
       this.uploadVideoForm.videoName = res.data.name;
+      this.$refs.upload.clearFiles();
+    },
+    // 重新上传视频
+    handleModifyVideoSuccess(res, file) {
+      this.editFormVideoData.videoUrl = res.data.url;
+      this.editFormVideoData.videoName = res.data.name;
       this.$refs.upload.clearFiles();
     },
     remoteMethod() {

@@ -20,6 +20,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -134,13 +135,12 @@ public class OnlineVideoController {
      * 根据id修改视频
      * @author xuyayuan
      * @date 2021/4/4 21:10
-     * @param id
+     * @param onlineVideo
      * @return com.aliwo.common.ServerResponse
      */
-    @RequestMapping(value = "/modifyById/{id}", method = RequestMethod.POST)
-    public ServerResponse modifyVideoById(@PathVariable("id") Integer id) {
-
-        //return onlineVideoService.removeById(id) ? ServerResponse.ofSuccess("删除视频成功") : ServerResponse.ofError("删除视频失败");
-        return ServerResponse.ofSuccess();
+    @RequestMapping(value = "/modifyById", method = RequestMethod.POST)
+    public ServerResponse modifyVideoById(@RequestBody OnlineVideo onlineVideo) {
+        onlineVideo.setUpdateTime(LocalDateTime.now());
+        return onlineVideoService.updateById(onlineVideo) ? ServerResponse.ofSuccess("修改成功") : ServerResponse.ofError("修改失败");
     }
 }

@@ -3,6 +3,9 @@ package com.aliwo.entity;
 import cn.afterturn.easypoi.excel.annotation.ExcelIgnore;
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
+import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.databind.annotation.JsonSerialize;
+import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.Data;
 
 import java.time.LocalDateTime;
@@ -67,6 +70,8 @@ public class ClassRoom extends Model<ClassRoom> {
      */
     @ExcelIgnore
     @TableField(fill = FieldFill.INSERT)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private LocalDateTime createTime;
 
     /**
@@ -74,5 +79,7 @@ public class ClassRoom extends Model<ClassRoom> {
      */
     @ExcelIgnore
     @TableField(fill = FieldFill.INSERT_UPDATE)
+    @JsonSerialize(using = LocalDateTimeSerializer.class)
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
     private LocalDateTime updateTime;
 }
