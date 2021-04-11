@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : mysql主库
+ Source Server         : xyy-mysql
  Source Server Type    : MySQL
- Source Server Version : 50727
+ Source Server Version : 80023
  Source Host           : localhost:3306
  Source Schema         : yc_course_scheduling
 
  Target Server Type    : MySQL
- Target Server Version : 50727
+ Target Server Version : 80023
  File Encoding         : 65001
 
- Date: 28/02/2021 21:15:49
+ Date: 10/04/2021 10:09:36
 */
 
 SET NAMES utf8mb4;
@@ -22,31 +22,31 @@ SET FOREIGN_KEY_CHECKS = 0;
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_admin`;
 CREATE TABLE `yc_admin`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `adminer_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '管理员编号',
-  `username` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
-  `password` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
-  `realname` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '真实姓名',
-  `user_type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '用户类型',
-  `job_title` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职称',
-  `license` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '证件照地址',
-  `teach_subject` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教授科目',
-  `telephone` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
-  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电子邮件',
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
-  `age` int(3) NULL DEFAULT NULL COMMENT '年龄',
-  `avatar` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
-  `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '签名',
-  `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `type` tinyint(1) NULL DEFAULT NULL COMMENT '管理员类型',
-  `piority` int(2) NULL DEFAULT NULL COMMENT '优先级',
-  `power` tinyint(1) NULL DEFAULT NULL COMMENT '1为管理员，0为超级管理员',
-  `status` tinyint(1) NULL DEFAULT 0 COMMENT '账号状态',
-  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
-  `create_time` datetime(0) NULL DEFAULT NULL,
-  `update_time` datetime(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
+                             `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id',
+                             `adminer_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '管理员编号',
+                             `username` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '用户名',
+                             `password` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
+                             `realname` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '真实姓名',
+                             `user_type` tinyint(1) NOT NULL DEFAULT 1 COMMENT '用户类型',
+                             `job_title` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职称',
+                             `license` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '证件照地址',
+                             `teach_subject` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教授科目',
+                             `telephone` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
+                             `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电子邮件',
+                             `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
+                             `age` int(0) NULL DEFAULT NULL COMMENT '年龄',
+                             `avatar` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
+                             `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '签名',
+                             `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+                             `type` tinyint(1) NULL DEFAULT NULL COMMENT '管理员类型',
+                             `piority` int(0) NULL DEFAULT NULL COMMENT '优先级',
+                             `power` tinyint(1) NULL DEFAULT NULL COMMENT '1为管理员，0为超级管理员',
+                             `status` tinyint(1) NULL DEFAULT 0 COMMENT '账号状态',
+                             `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
+                             `create_time` datetime(0) NULL DEFAULT NULL,
+                             `update_time` datetime(0) NULL DEFAULT NULL,
+                             PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '管理员表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_admin
@@ -60,16 +60,16 @@ INSERT INTO `yc_admin` VALUES (3, '10013', 'demo02', 'xu2021', '王五', 1, '教
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_class_info`;
 CREATE TABLE `yc_class_info`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id,班级表',
-  `class_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级编号',
-  `class_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级名称',
-  `num` int(11) NOT NULL DEFAULT 0 COMMENT '班级人数',
-  `teacher_id` int(11) NULL DEFAULT NULL COMMENT '班主任Id',
-  `remark` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '直接用来做为年级编号的划分了',
-  `deleted` tinyint(1) NULL DEFAULT 0,
-  `create_time` datetime(0) NULL DEFAULT NULL,
-  `update_time` datetime(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
+                                  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id,班级表',
+                                  `class_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级编号',
+                                  `class_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级名称',
+                                  `num` int(0) NOT NULL DEFAULT 0 COMMENT '班级人数',
+                                  `teacher_id` int(0) NULL DEFAULT NULL COMMENT '班主任Id',
+                                  `remark` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '直接用来做为年级编号的划分了',
+                                  `deleted` tinyint(1) NULL DEFAULT 0,
+                                  `create_time` datetime(0) NULL DEFAULT NULL,
+                                  `update_time` datetime(0) NULL DEFAULT NULL,
+                                  PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '班级表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
@@ -94,24 +94,25 @@ INSERT INTO `yc_class_info` VALUES (24, '20200106', '高一6班-测试班级', 3
 INSERT INTO `yc_class_info` VALUES (25, '202101102', '21年高一2班', 60, 7, '01', 0, '2021-02-13 08:59:39', NULL);
 INSERT INTO `yc_class_info` VALUES (26, '202102103', '测试002', 0, 1, '01', 0, '2021-02-14 04:44:58', NULL);
 INSERT INTO `yc_class_info` VALUES (27, '202103103', '测试003', 50, 7, '03', 0, '2021-02-13 12:49:52', '2021-02-13 20:50:09');
+INSERT INTO `yc_class_info` VALUES (28, '003', '测试', 12, 5, '02', 0, '2021-03-27 21:55:33', NULL);
 
 -- ----------------------------
 -- Table structure for yc_class_room
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_class_room`;
 CREATE TABLE `yc_class_room`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '教室id',
-  `class_room_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教室编号',
-  `class_room_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教室名称',
-  `teachbuild_no` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '所在教学楼编号',
-  `capacity` int(11) NOT NULL COMMENT '教室人数容量',
-  `attribute` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教室属性',
-  `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除（默认0显示，1删除）',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 157 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '教室表' ROW_FORMAT = Dynamic;
+                                  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '教室id',
+                                  `class_room_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教室编号',
+                                  `class_room_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教室名称',
+                                  `teachbuild_no` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '所在教学楼编号',
+                                  `capacity` int(0) NOT NULL COMMENT '教室人数容量',
+                                  `attribute` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教室属性',
+                                  `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+                                  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除（默认0显示，1删除）',
+                                  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+                                  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 156 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '教室表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_class_room
@@ -119,9 +120,9 @@ CREATE TABLE `yc_class_room`  (
 INSERT INTO `yc_class_room` VALUES (1, '01-101', '01-101', '01', 50, '01', '备注', 0, NULL, '2020-04-10 14:21:48');
 INSERT INTO `yc_class_room` VALUES (2, '01-102', '01-102', '01', 50, '01', '完美00000111', 0, NULL, '2021-02-28 09:30:55');
 INSERT INTO `yc_class_room` VALUES (3, '01-103', '01-103', '01', 50, '01', '很开心0000', 0, NULL, '2021-02-28 09:31:04');
-INSERT INTO `yc_class_room` VALUES (4, '01-104', '01-104', '01', 50, '01', NULL, 0, NULL, NULL);
-INSERT INTO `yc_class_room` VALUES (5, '01-105', '01-105', '01', 50, '01', NULL, 0, NULL, NULL);
-INSERT INTO `yc_class_room` VALUES (6, '01-201', '01-201', '01', 50, '01', NULL, 0, NULL, NULL);
+INSERT INTO `yc_class_room` VALUES (4, '01-104', '01-104', '01', 50, '01', 'hhhhhhhhhh', 0, NULL, '2021-03-09 13:09:30');
+INSERT INTO `yc_class_room` VALUES (5, '01-105', '01-105', '01', 50, '01', 'fffff', 0, NULL, '2021-03-09 13:09:23');
+INSERT INTO `yc_class_room` VALUES (6, '01-201', '01-201', '01', 50, '01', 'yyyyyyyyyyyyy', 0, NULL, '2021-03-09 13:09:50');
 INSERT INTO `yc_class_room` VALUES (7, '01-202', '01-202', '01', 50, '01', '测试编辑功能', 0, NULL, '2021-02-27 06:25:46');
 INSERT INTO `yc_class_room` VALUES (8, '01-203', '01-203', '01', 50, '01', '测试---', 0, NULL, '2021-02-28 09:30:25');
 INSERT INTO `yc_class_room` VALUES (9, '01-204', '01-204', '01', 50, '01', '哈哈哈哈', 0, NULL, '2021-02-28 09:30:33');
@@ -266,120 +267,110 @@ INSERT INTO `yc_class_room` VALUES (156, '111', '111', '01', 111, NULL, '111', 1
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_class_task`;
 CREATE TABLE `yc_class_task`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id，即将要上课的，需要进行排课的',
-  `semester` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学期',
-  `grade_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '年级编号',
-  `class_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级编号',
-  `course_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程编号',
-  `course_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程名',
-  `teacher_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师编号',
-  `realname` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师姓名',
-  `course_attr` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程属性',
-  `student_num` int(11) NOT NULL COMMENT '学生人数',
-  `weeks_sum` int(3) NOT NULL COMMENT '周数',
-  `weeks_number` int(11) NOT NULL COMMENT '周学时',
-  `is_fix` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '是否固定上课时间',
-  `class_time` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '固定时间的话,2位为一个时间位置',
-  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 73 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '课程计划表' ROW_FORMAT = Dynamic;
+                                  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id，即将要上课的，需要进行排课的',
+                                  `semester` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学期',
+                                  `grade_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '年级编号',
+                                  `class_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级编号',
+                                  `course_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程编号',
+                                  `course_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程名',
+                                  `teacher_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师编号',
+                                  `realname` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师姓名',
+                                  `course_attr` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程属性 01:语数英，02:物化生政史地,03:实验课,04:体育课',
+                                  `student_num` int(0) NOT NULL COMMENT '学生人数',
+                                  `weeks_sum` int(0) NOT NULL COMMENT '周数',
+                                  `weeks_number` int(0) NOT NULL COMMENT '周学时',
+                                  `is_fix` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '是否固定上课时间',
+                                  `class_time` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '固定时间的话,2位为一个时间位置',
+                                  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
+                                  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+                                  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '课程计划表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_class_task
 -- ----------------------------
-INSERT INTO `yc_class_task` VALUES (1, '2019-2020-1', '01', '20200101', '100001', '高一语文必修1', '10010', '梁晓明', '01', 42, 20, 6, '1', NULL, 0, '2020-06-11 10:25:35', NULL);
-INSERT INTO `yc_class_task` VALUES (2, '2019-2020-1', '01', '20200101', '100033', '高一数学必修1', '10012', '李雪雪', '01', 37, 20, 6, '1', NULL, 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (3, '2019-2020-1', '01', '20200101', '100056', '高一英语必修1', '10013', '王小芳', '01', 39, 20, 6, '1', NULL, 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (4, '2019-2020-1', '01', '20200101', '100004', '高一物理1', '10025', '张德良', '02', 42, 20, 4, '1', NULL, 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (5, '2019-2020-1', '01', '20200101', '100014', '高一化学必修1', '10033', '韩云', '02', 40, 20, 4, '1', NULL, 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (6, '2019-2020-1', '01', '20200101', '100041', '高一思想政治必修1', '10045', '江大波', '02', 40, 20, 4, '1', NULL, 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (7, '2019-2020-1', '01', '20200101', '100021', '高一历史必修1', '10044', '吴天盛', '02', 40, 20, 4, '1', NULL, 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (8, '2019-2020-1', '01', '20200101', '100007', '高一地理必修1', '10043', '王杰', '02', 40, 20, 4, '1', NULL, 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (9, '2019-2020-1', '01', '20200101', '100027', '高一生物必修1：分子与细胞', '10042', '谭咏麟', '02', 40, 20, 4, '1', NULL, 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (10, '2019-2020-1', '01', '20200101', '100051', '体育课', '10041', '张杰', '04', 40, 20, 2, '2', '14', 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (11, '2019-2020-1', '01', '20200101', '100066', '物理实验', '10025', '张德良', '03', 40, 20, 2, '2', '04', 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (12, '2019-2020-1', '01', '20200101', '100067', '化学实验', '10023', '张靓颖', '03', 40, 20, 2, '2', '15', 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (13, '2019-2020-1', '01', '20200102', '100001', '高一语文必修1', '10010', '梁晓明', '01', 42, 20, 6, '1', NULL, 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (14, '2019-2020-1', '01', '20200102', '100033', '高一数学必修1', '10012', '李雪雪', '01', 37, 20, 6, '1', NULL, 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (15, '2019-2020-1', '01', '20200102', '100056', '高一英语必修1', '10013', '王小芳', '01', 39, 20, 6, '1', NULL, 0, '2020-06-11 10:25:36', NULL);
-INSERT INTO `yc_class_task` VALUES (16, '2019-2020-1', '01', '20200102', '100004', '高一物理1', '10025', '张德良', '02', 42, 20, 2, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (17, '2019-2020-1', '01', '20200102', '100014', '高一化学必修1', '10033', '韩云', '02', 40, 20, 2, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (18, '2019-2020-1', '01', '20200102', '100041', '高一思想政治必修1', '10045', '江大波', '02', 40, 20, 4, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (19, '2019-2020-1', '01', '20200102', '100021', '高一历史必修1', '10044', '吴天盛', '02', 40, 20, 4, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (20, '2019-2020-1', '01', '20200102', '100007', '高一地理必修1', '10043', '王杰', '02', 40, 20, 4, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (21, '2019-2020-1', '01', '20200102', '100027', '高一生物必修1：分子与细胞', '10042', '谭咏麟', '02', 40, 20, 2, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (22, '2019-2020-1', '01', '20200102', '100051', '体育课', '10041', '张杰', '04', 40, 20, 2, '2', '19', 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (23, '2019-2020-1', '01', '20200102', '100066', '物理实验', '10025', '张德良', '03', 40, 20, 2, '2', '09', 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (24, '2019-2020-1', '01', '20200102', '100067', '化学实验', '10023', '张靓颖', '03', 40, 20, 2, '2', '20', 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (25, '2019-2020-1', '01', '20200103', '100001', '高一语文必修1', '10034', '韦雪琪', '01', 45, 20, 6, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (26, '2019-2020-1', '01', '20200103', '100003', '高一数学1', '10035', '张三封', '01', 45, 20, 6, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (27, '2019-2020-1', '01', '20200103', '100056', '高一英语必修1', '10029', '郑小红', '01', 45, 20, 6, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (28, '2019-2020-1', '01', '20200103', '100004', '高一物理1', '10025', '张德良', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (29, '2019-2020-1', '01', '20200103', '100015', '高一化学必修2', '10037', '莫小新', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (30, '2019-2020-1', '01', '20200103', '100028', '高一生物必修2：遗传与进化', '10038', '甘楠', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (31, '2019-2020-1', '01', '20200103', '100022', '高一历史必修2', '10036', '胡小小', '02', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:37', NULL);
-INSERT INTO `yc_class_task` VALUES (32, '2019-2020-1', '01', '20200103', '100008', '高一地理必修2', '10031', '张小龙', '02', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (33, '2019-2020-1', '01', '20200103', '100042', '高一思想政治必修2', '10040', '夏紫若', '02', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (34, '2019-2020-1', '01', '20200103', '100062', '信息与技术1', '10039', '江晓东', '03', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (35, '2019-2020-1', '01', '20200103', '100051', '体育课', '10041', '张杰', '04', 45, 20, 2, '2', '15', 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (36, '2019-2020-1', '01', '20200103', '100066', '物理实验', '10025', '张德良', '03', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (37, '2019-2020-1', '01', '20200103', '100067', '化学实验', '10023', '张靓颖', '03', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (38, '2019-2020-1', '01', '20200104', '100004', '高一物理1', '10026', '张勇', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (39, '2019-2020-1', '01', '20200104', '100070', '语文', '10028', '马芸', '01', 45, 20, 6, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (40, '2019-2020-1', '01', '20200104', '100071', '数学', '10049', '王刚', '01', 45, 20, 6, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (41, '2019-2020-1', '01', '20200104', '100072', '英语', '10040', '夏紫若', '01', 45, 20, 6, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (42, '2019-2020-1', '01', '20200104', '100073', '化学', '10020', '胡冬梅', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (43, '2019-2020-1', '01', '20200104', '100074', '政治', '10019', '汪莉莉', '02', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (44, '2019-2020-1', '01', '20200104', '100075', '地理', '10024', '侯德南', '02', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (45, '2019-2020-1', '01', '20200104', '100076', '生物', '10018', '梁忠诚', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (46, '2019-2020-1', '01', '20200104', '100066', '物理实验', '10025', '张德良', '03', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (47, '2019-2020-1', '01', '20200104', '100067', '化学实验', '10021', '林俊杰', '03', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:38', NULL);
-INSERT INTO `yc_class_task` VALUES (48, '2019-2020-1', '01', '20200104', '100051', '体育课', '10015', '孙振东', '04', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (49, '2019-2020-1', '01', '20200104', '100063', '信息技术2', '10032', '谭晓江', '03', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (50, '2019-2020-1', '01', '20200105', '100070', '语文', '10028', '马芸', '01', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (51, '2019-2020-1', '01', '20200105', '100071', '数学', '10049', '王刚', '01', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (52, '2019-2020-1', '01', '20200105', '100072', '英语', '10040', '夏紫若', '01', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (53, '2019-2020-1', '01', '20200105', '100004', '高一物理1', '10026', '张勇', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (54, '2019-2020-1', '01', '20200105', '100073', '化学', '10020', '胡冬梅', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (55, '2019-2020-1', '01', '20200105', '100076', '生物', '10018', '梁忠诚', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (56, '2019-2020-1', '01', '20200105', '100066', '物理实验', '10025', '张德良', '03', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (57, '2019-2020-1', '01', '20200105', '100067', '化学实验', '10021', '林俊杰', '03', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (58, '2019-2020-1', '01', '20200105', '100051', '体育课', '10015', '孙振东', '04', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (59, '2019-2020-1', '01', '20200105', '100063', '信息技术2', '10032', '谭晓江', '03', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (60, '2019-2020-1', '01', '20200105', '100074', '政治', '10019', '汪莉莉', '02', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (61, '2019-2020-1', '01', '20200105', '100075', '地理', '10024', '侯德南', '02', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (62, '2019-2020-1', '01', '20200105', '100076', '生物', '10018', '梁忠诚', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (63, '2019-2020-1', '01', '20200201', '100005', '高二语文必修5', '10019', '汪莉莉', '01', 45, 20, 6, '1', NULL, 0, '2020-06-11 10:25:39', NULL);
-INSERT INTO `yc_class_task` VALUES (64, '2019-2020-1', '01', '20200201', '100017', '高二化学选修2', '10050', '黄三毛', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:40', NULL);
-INSERT INTO `yc_class_task` VALUES (65, '2019-2020-1', '01', '20200201', '100029', '高二生物必修3：稳态与环境', '10031', '张小龙', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:40', NULL);
-INSERT INTO `yc_class_task` VALUES (66, '2019-2020-1', '01', '20200201', '100035', '高二数学必修3', '10051', '燕双鹰', '01', 45, 20, 6, '1', NULL, 0, '2020-06-11 10:25:40', NULL);
-INSERT INTO `yc_class_task` VALUES (67, '2019-2020-1', '01', '20200201', '100058', '高二英语必修3', '10047', '马东锡', '01', 45, 20, 6, '1', NULL, 0, '2020-06-11 10:25:40', NULL);
-INSERT INTO `yc_class_task` VALUES (68, '2019-2020-1', '01', '20200201', '100066', '物理实验', '10025', '张德良', '03', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:40', NULL);
-INSERT INTO `yc_class_task` VALUES (69, '2019-2020-1', '01', '20200201', '100067', '化学实验', '10021', '林俊杰', '03', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:40', NULL);
-INSERT INTO `yc_class_task` VALUES (70, '2019-2020-1', '01', '20200201', '100051', '体育课', '10015', '孙振东', '04', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:40', NULL);
-INSERT INTO `yc_class_task` VALUES (71, '2019-2020-1', '01', '20200201', '100063', '信息技术2', '10032', '谭晓江', '03', 45, 20, 2, '1', NULL, 0, '2020-06-11 10:25:40', NULL);
-INSERT INTO `yc_class_task` VALUES (72, '2019-2020-1', '01', '20200201', '100061', '高二物理2', '10024', '侯德南', '02', 45, 20, 4, '1', NULL, 0, '2020-06-11 10:25:40', NULL);
+INSERT INTO `yc_class_task` VALUES (1, '2019-2020-1', '01', '20200101', '100001', '高一语文必修1', '10010', '梁晓明', '01', 42, 20, 6, '1', NULL, 0, '2021-03-28 17:00:45', NULL);
+INSERT INTO `yc_class_task` VALUES (2, '2019-2020-1', '01', '20200101', '100033', '高一数学必修1', '10012', '李雪雪', '01', 37, 20, 6, '1', NULL, 0, '2021-03-28 17:00:45', NULL);
+INSERT INTO `yc_class_task` VALUES (3, '2019-2020-1', '01', '20200101', '100056', '高一英语必修1', '10013', '王小芳', '01', 39, 20, 6, '1', NULL, 0, '2021-03-28 17:00:45', NULL);
+INSERT INTO `yc_class_task` VALUES (4, '2019-2020-1', '01', '20200101', '100004', '高一物理1', '10025', '张德良', '02', 42, 20, 4, '1', NULL, 0, '2021-03-28 17:00:45', NULL);
+INSERT INTO `yc_class_task` VALUES (5, '2019-2020-1', '01', '20200101', '100014', '高一化学必修1', '10033', '韩云', '02', 40, 20, 4, '1', NULL, 0, '2021-03-28 17:00:45', NULL);
+INSERT INTO `yc_class_task` VALUES (6, '2019-2020-1', '01', '20200101', '100041', '高一思想政治必修1', '10045', '江大波', '02', 40, 20, 4, '1', NULL, 0, '2021-03-28 17:00:45', NULL);
+INSERT INTO `yc_class_task` VALUES (7, '2019-2020-1', '01', '20200101', '100021', '高一历史必修1', '10044', '吴天盛', '02', 40, 20, 4, '1', NULL, 0, '2021-03-28 17:00:45', NULL);
+INSERT INTO `yc_class_task` VALUES (8, '2019-2020-1', '01', '20200101', '100007', '高一地理必修1', '10043', '王杰', '02', 40, 20, 4, '1', NULL, 0, '2021-03-28 17:00:45', NULL);
+INSERT INTO `yc_class_task` VALUES (9, '2019-2020-1', '01', '20200101', '100027', '高一生物必修1：分子与细胞', '10042', '谭咏麟', '02', 40, 20, 4, '1', NULL, 0, '2021-03-28 17:00:46', NULL);
+INSERT INTO `yc_class_task` VALUES (10, '2019-2020-1', '01', '20200101', '100051', '体育课', '10041', '张杰', '04', 40, 20, 2, '2', '14', 0, '2021-03-28 17:00:46', NULL);
+INSERT INTO `yc_class_task` VALUES (11, '2019-2020-1', '01', '20200101', '100066', '物理实验', '10025', '张德良', '03', 40, 20, 2, '2', '04', 0, '2021-03-28 17:00:46', NULL);
+INSERT INTO `yc_class_task` VALUES (12, '2019-2020-1', '01', '20200101', '100067', '化学实验', '10023', '张靓颖', '03', 40, 20, 2, '2', '15', 0, '2021-03-28 17:00:46', NULL);
+INSERT INTO `yc_class_task` VALUES (13, '2019-2020-1', '01', '20200102', '100001', '高一语文必修1', '10010', '梁晓明', '01', 42, 20, 6, '1', NULL, 0, '2021-03-28 17:00:46', NULL);
+INSERT INTO `yc_class_task` VALUES (14, '2019-2020-1', '01', '20200102', '100033', '高一数学必修1', '10012', '李雪雪', '01', 37, 20, 6, '1', NULL, 0, '2021-03-28 17:00:46', NULL);
+INSERT INTO `yc_class_task` VALUES (15, '2019-2020-1', '01', '20200102', '100056', '高一英语必修1', '10013', '王小芳', '01', 39, 20, 6, '1', NULL, 0, '2021-03-28 17:00:46', NULL);
+INSERT INTO `yc_class_task` VALUES (16, '2019-2020-1', '01', '20200102', '100004', '高一物理1', '10025', '张德良', '02', 42, 20, 2, '1', NULL, 0, '2021-03-28 17:00:46', NULL);
+INSERT INTO `yc_class_task` VALUES (17, '2019-2020-1', '01', '20200102', '100014', '高一化学必修1', '10033', '韩云', '02', 40, 20, 2, '1', NULL, 0, '2021-03-28 17:00:46', NULL);
+INSERT INTO `yc_class_task` VALUES (18, '2019-2020-1', '01', '20200102', '100041', '高一思想政治必修1', '10045', '江大波', '02', 40, 20, 4, '1', NULL, 0, '2021-03-28 17:00:46', NULL);
+INSERT INTO `yc_class_task` VALUES (19, '2019-2020-1', '01', '20200102', '100021', '高一历史必修1', '10044', '吴天盛', '02', 40, 20, 4, '1', NULL, 0, '2021-03-28 17:00:47', NULL);
+INSERT INTO `yc_class_task` VALUES (20, '2019-2020-1', '01', '20200102', '100007', '高一地理必修1', '10043', '王杰', '02', 40, 20, 4, '1', NULL, 0, '2021-03-28 17:00:47', NULL);
+INSERT INTO `yc_class_task` VALUES (21, '2019-2020-1', '01', '20200102', '100027', '高一生物必修1：分子与细胞', '10042', '谭咏麟', '02', 40, 20, 2, '1', NULL, 0, '2021-03-28 17:00:47', NULL);
+INSERT INTO `yc_class_task` VALUES (22, '2019-2020-1', '01', '20200102', '100051', '体育课', '10041', '张杰', '04', 40, 20, 2, '2', '19', 0, '2021-03-28 17:00:47', NULL);
+INSERT INTO `yc_class_task` VALUES (23, '2019-2020-1', '01', '20200102', '100066', '物理实验', '10025', '张德良', '03', 40, 20, 2, '2', '09', 0, '2021-03-28 17:00:47', NULL);
+INSERT INTO `yc_class_task` VALUES (24, '2019-2020-1', '01', '20200102', '100067', '化学实验', '10023', '张靓颖', '03', 40, 20, 2, '2', '20', 0, '2021-03-28 17:00:47', NULL);
+INSERT INTO `yc_class_task` VALUES (25, '2019-2020-1', '01', '20200103', '100001', '高一语文必修1', '10034', '韦雪琪', '01', 45, 20, 6, '1', NULL, 0, '2021-03-28 17:00:47', NULL);
+INSERT INTO `yc_class_task` VALUES (26, '2019-2020-1', '01', '20200103', '100003', '高一数学1', '10035', '张三封', '01', 45, 20, 6, '1', NULL, 0, '2021-03-28 17:00:47', NULL);
+INSERT INTO `yc_class_task` VALUES (27, '2019-2020-1', '01', '20200103', '100056', '高一英语必修1', '10029', '郑小红', '01', 45, 20, 6, '1', NULL, 0, '2021-03-28 17:00:47', NULL);
+INSERT INTO `yc_class_task` VALUES (28, '2019-2020-1', '01', '20200103', '100004', '高一物理1', '10025', '张德良', '02', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:47', NULL);
+INSERT INTO `yc_class_task` VALUES (29, '2019-2020-1', '01', '20200103', '100015', '高一化学必修2', '10037', '莫小新', '02', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:47', NULL);
+INSERT INTO `yc_class_task` VALUES (30, '2019-2020-1', '01', '20200103', '100028', '高一生物必修2：遗传与进化', '10038', '甘楠', '02', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:47', NULL);
+INSERT INTO `yc_class_task` VALUES (31, '2019-2020-1', '01', '20200103', '100022', '高一历史必修2', '10036', '胡小小', '02', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (32, '2019-2020-1', '01', '20200103', '100008', '高一地理必修2', '10031', '张小龙', '02', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (33, '2019-2020-1', '01', '20200103', '100042', '高一思想政治必修2', '10040', '夏紫若', '02', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (34, '2019-2020-1', '01', '20200103', '100062', '信息与技术1', '10039', '江晓东', '03', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (35, '2019-2020-1', '01', '20200103', '100051', '体育课', '10041', '张杰', '04', 45, 20, 2, '2', '15', 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (36, '2019-2020-1', '01', '20200103', '100066', '物理实验', '10025', '张德良', '03', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (37, '2019-2020-1', '01', '20200103', '100067', '化学实验', '10023', '张靓颖', '03', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (38, '2019-2020-1', '01', '20200104', '100004', '高一物理1', '10026', '张勇', '02', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (39, '2019-2020-1', '01', '20200104', '100070', '语文', '10028', '马芸', '01', 45, 20, 6, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (40, '2019-2020-1', '01', '20200104', '100071', '数学', '10049', '王刚', '01', 45, 20, 6, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (41, '2019-2020-1', '01', '20200104', '100072', '英语', '10040', '夏紫若', '01', 45, 20, 6, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (42, '2019-2020-1', '01', '20200104', '100073', '化学', '10020', '胡冬梅', '02', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (43, '2019-2020-1', '01', '20200104', '100074', '政治', '10019', '汪莉莉', '02', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (44, '2019-2020-1', '01', '20200104', '100075', '地理', '10024', '侯德南', '02', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:48', NULL);
+INSERT INTO `yc_class_task` VALUES (45, '2019-2020-1', '01', '20200104', '100076', '生物', '10018', '梁忠诚', '02', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:49', NULL);
+INSERT INTO `yc_class_task` VALUES (46, '2019-2020-1', '01', '20200104', '100066', '物理实验', '10025', '张德良', '03', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:49', NULL);
+INSERT INTO `yc_class_task` VALUES (47, '2019-2020-1', '01', '20200104', '100067', '化学实验', '10021', '林俊杰', '03', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:49', NULL);
+INSERT INTO `yc_class_task` VALUES (48, '2019-2020-1', '01', '20200104', '100051', '体育课', '10015', '孙振东', '04', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:49', NULL);
+INSERT INTO `yc_class_task` VALUES (49, '2019-2020-1', '01', '20200104', '100063', '信息技术2', '10032', '谭晓江', '03', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:49', NULL);
+INSERT INTO `yc_class_task` VALUES (50, '2019-2020-1', '01', '20200105', '100070', '语文', '10028', '马芸', '01', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:49', NULL);
+INSERT INTO `yc_class_task` VALUES (51, '2019-2020-1', '01', '20200105', '100071', '数学', '10049', '王刚', '01', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:49', NULL);
+INSERT INTO `yc_class_task` VALUES (52, '2019-2020-1', '01', '20200105', '100072', '英语', '10040', '夏紫若', '01', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:49', NULL);
+INSERT INTO `yc_class_task` VALUES (53, '2019-2020-1', '01', '20200105', '100004', '高一物理1', '10026', '张勇', '02', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:49', NULL);
+INSERT INTO `yc_class_task` VALUES (54, '2019-2020-1', '01', '20200105', '100073', '化学', '10020', '胡冬梅', '02', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:49', NULL);
+INSERT INTO `yc_class_task` VALUES (55, '2019-2020-1', '01', '20200105', '100076', '生物', '10018', '梁忠诚', '02', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:49', NULL);
+INSERT INTO `yc_class_task` VALUES (56, '2019-2020-1', '01', '20200105', '100066', '物理实验', '10025', '张德良', '03', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:49', NULL);
+INSERT INTO `yc_class_task` VALUES (57, '2019-2020-1', '01', '20200105', '100067', '化学实验', '10021', '林俊杰', '03', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:50', '2021-03-28 17:32:52');
+INSERT INTO `yc_class_task` VALUES (58, '2019-2020-1', '01', '20200105', '100051', '体育课', '10015', '孙振东', '04', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:50', '2021-03-28 17:38:21');
+INSERT INTO `yc_class_task` VALUES (59, '2019-2020-1', '01', '20200105', '100063', '信息技术2', '10032', '谭晓江', '03', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:50', '2021-03-28 17:43:25');
+INSERT INTO `yc_class_task` VALUES (60, '2019-2020-1', '01', '20200105', '100074', '政治', '10019', '汪莉莉', '02', 45, 20, 10, '1', NULL, 1, '2021-03-28 17:00:50', '2021-03-28 17:52:43');
+INSERT INTO `yc_class_task` VALUES (61, '2019-2020-1', '01', '20200105', '100075', '地理', '10024', '侯德南', '02', 45, 20, 2, '1', NULL, 0, '2021-03-28 17:00:50', '2021-03-28 17:36:16');
+INSERT INTO `yc_class_task` VALUES (62, '2019-2020-1', '01', '20200105', '100076', '生物', '10018', '梁忠诚', '02', 45, 20, 4, '1', NULL, 0, '2021-03-28 17:00:50', '2021-03-28 18:01:21');
 
 -- ----------------------------
 -- Table structure for yc_course_info
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_course_info`;
 CREATE TABLE `yc_course_info`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `course_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程编号',
-  `course_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程名',
-  `course_attr` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程属性',
-  `publisher` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '出版社',
-  `status` tinyint(1) NULL DEFAULT NULL COMMENT '课程状态',
-  `piority` int(2) NULL DEFAULT NULL COMMENT '优先级',
-  `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除 0 显示, 1 删除',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 76 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '课程表' ROW_FORMAT = Dynamic;
+                                   `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id',
+                                   `course_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程编号',
+                                   `course_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程名',
+                                   `course_attr` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程属性',
+                                   `publisher` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '出版社',
+                                   `status` tinyint(1) NULL DEFAULT NULL COMMENT '课程状态',
+                                   `piority` int(0) NULL DEFAULT NULL COMMENT '优先级',
+                                   `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+                                   `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除 0 显示, 1 删除',
+                                   `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+                                   `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+                                   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 75 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '课程表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_course_info
@@ -465,20 +456,20 @@ INSERT INTO `yc_course_info` VALUES (75, '100076', '生物', '02', NULL, NULL, N
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_course_plan`;
 CREATE TABLE `yc_course_plan`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `grade_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '年级编号',
-  `class_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级编号',
-  `course_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程编号',
-  `teacher_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '讲师编号',
-  `class_room_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教室编号',
-  `class_time` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '上课时间',
-  `weeks_sum` int(3) NULL DEFAULT NULL COMMENT '周数',
-  `semester` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学期',
-  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
-  `create_time` datetime(0) NULL DEFAULT NULL,
-  `update_time` datetime(0) NULL DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 128 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '排课表' ROW_FORMAT = Dynamic;
+                                   `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id',
+                                   `grade_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '年级编号',
+                                   `class_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '班级编号',
+                                   `course_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '课程编号',
+                                   `teacher_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '讲师编号',
+                                   `class_room_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教室编号',
+                                   `class_time` varchar(10) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '上课时间',
+                                   `weeks_sum` int(0) NULL DEFAULT NULL COMMENT '周数',
+                                   `semester` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '学期',
+                                   `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
+                                   `create_time` datetime(0) NULL DEFAULT NULL,
+                                   `update_time` datetime(0) NULL DEFAULT NULL,
+                                   PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 127 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '排课表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_course_plan
@@ -616,46 +607,52 @@ INSERT INTO `yc_course_plan` VALUES (127, '01', '20200101', '100027', '10042', '
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_doc`;
 CREATE TABLE `yc_doc`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `doc_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'doc文件名',
-  `file_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件实际名',
-  `doc_url` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件路径',
-  `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件描述',
-  `to_class_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '目标班级',
-  `from_user_id` int(11) NULL DEFAULT NULL COMMENT '发布者id',
-  `from_user_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发布者名字',
-  `from_user_type` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '2' COMMENT '来自的用户类型1:管理员。2：讲师',
-  `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `clicks` bigint(20) NULL DEFAULT NULL COMMENT '阅读次数',
-  `expire` int(11) NULL DEFAULT NULL COMMENT '有效天数',
-  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生文档信息表' ROW_FORMAT = Dynamic;
+                           `id` int(0) NOT NULL AUTO_INCREMENT,
+                           `doc_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT 'doc文件名',
+                           `file_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件实际名',
+                           `doc_url` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件路径',
+                           `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '文件描述',
+                           `to_class_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '目标班级',
+                           `from_user_id` int(0) NULL DEFAULT NULL COMMENT '发布者id',
+                           `from_user_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发布者名字',
+                           `from_user_type` varchar(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT '2' COMMENT '来自的用户类型1:管理员。2：讲师',
+                           `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+                           `clicks` bigint(0) NULL DEFAULT NULL COMMENT '阅读次数',
+                           `expire` int(0) NULL DEFAULT NULL COMMENT '有效天数',
+                           `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
+                           `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+                           `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生文档信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_doc
 -- ----------------------------
-INSERT INTO `yc_doc` VALUES (7, '一寸照.jpg', '一寸照', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/一寸照.jpg', '照片参考样例', '20200101', 1, '梁主任', '1', NULL, 26, 0, 0, '2020-05-30 22:27:57', '2021-02-03 12:54:35');
-INSERT INTO `yc_doc` VALUES (9, '3、软件需求说明书（GB856T——88）.doc', '需求说明', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/3、软件需求说明书（GB856T——88）.doc', '分析书', '20200201', 1, '梁主任', '1', NULL, 12, 0, 0, '2020-05-31 00:09:09', NULL);
-INSERT INTO `yc_doc` VALUES (10, '进度计划表参考.docx', '进度计划参考表', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/进度计划表参考.docx', '进度计划的参考表格', '20200103', 1, '梁主任', '1', NULL, 13, 0, 0, '2020-05-31 00:09:46', NULL);
-INSERT INTO `yc_doc` VALUES (11, '毕业设计独创性承诺书.docx', '独创性承诺', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/毕业设计独创性承诺书.docx', '测试文件', '20200105', 1, '梁主任', '1', NULL, 52, 0, 0, '2020-05-31 10:58:08', NULL);
-INSERT INTO `yc_doc` VALUES (12, '20200519161528.jpg', '123', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/20200519161528.jpg', '123', '123', 1, '梁主任', '1', NULL, 111, 123123, 0, '2020-05-31 12:33:14', NULL);
-INSERT INTO `yc_doc` VALUES (13, '467345634.docx', '123', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/467345634.docx', '3123', '12312', 1, '梁主任', '1', NULL, 100, 123123, 1, '2020-05-31 12:34:47', NULL);
+INSERT INTO `yc_doc` VALUES (7, '一寸照.jpg', '一寸照', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/一寸照.jpg', '照片参考样例', '20200101', 1, '梁主任', '1', NULL, 26, 0, 1, '2020-05-30 22:27:57', '2021-02-03 12:54:35');
+INSERT INTO `yc_doc` VALUES (9, '3、软件需求说明书（GB856T——88）.doc', '需求说明', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/3、软件需求说明书（GB856T——88）.doc', '分析书', '20200201', 1, '梁主任', '1', NULL, 12, 0, 0, '2020-05-31 00:09:09', '2021-04-05 17:48:01');
+INSERT INTO `yc_doc` VALUES (10, '进度计划表参考.docx', '进度计划参考表', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/进度计划表参考.docx', '进度计划的参考表格', '20200103', 1, '梁主任', '1', NULL, 13, 0, 0, '2020-05-31 00:09:46', '2021-04-05 17:48:04');
+INSERT INTO `yc_doc` VALUES (11, '毕业设计独创性承诺书.docx', '独创性承诺', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/毕业设计独创性承诺书.docx', '测试文件', '20200105', 1, '梁主任', '1', NULL, 52, 0, 0, '2020-05-31 10:58:08', '2021-04-05 17:48:06');
+INSERT INTO `yc_doc` VALUES (12, '20200519161528.jpg', '123', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/20200519161528.jpg', '123', '123', 1, '梁主任', '1', NULL, 111, 123123, 0, '2020-05-31 12:33:14', '2021-04-05 17:48:09');
+INSERT INTO `yc_doc` VALUES (13, '467345634.docx', '123', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/467345634.docx', '3123', '12312', 1, '梁主任', '1', NULL, 100, 123123, 0, '2020-05-31 12:34:47', '2021-04-05 17:48:11');
 INSERT INTO `yc_doc` VALUES (14, '翻译文献未定格式.docx', '参考文献', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/翻译文献未定格式.docx', '英文翻译示例', '20200101', 1, '梁主任', '1', NULL, 271, 0, 0, '2020-06-10 21:40:51', '2021-01-23 04:50:37');
 INSERT INTO `yc_doc` VALUES (15, '桂林电子科技大学毕业设计（论文）任务书.docx', '任务书', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/桂林电子科技大学毕业设计（论文）任务书.docx', '排课系统任务书', '20200101', 1, '梁晓明', '2', NULL, 3504, 0, 0, '2020-06-10 21:48:23', '2021-01-23 12:45:55');
+INSERT INTO `yc_doc` VALUES (18, '微信图片_20210328125805.jpg', '测试', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', '上传文档测试', '20200102', 1, '梁晓明', '1', NULL, NULL, 2, 0, '2021-04-05 21:51:03', NULL);
+INSERT INTO `yc_doc` VALUES (19, '微信图片_20210328125805 (3).jpg', '测试时间', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805 (3).jpg', '测试时间', '20200103', 1, '梁晓明', '1', NULL, NULL, 2, 0, '2021-04-05 13:50:08', NULL);
+INSERT INTO `yc_doc` VALUES (20, '一寸照.jpg', '测试预览', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/一寸照.jpg', '测试预览', '20200102', 1, '梁晓明', '1', NULL, NULL, 2, 0, '2021-04-05 14:10:59', NULL);
+INSERT INTO `yc_doc` VALUES (21, '微信图片_20210328125805 (3).jpg', '测试预览02', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805 (3).jpg', '测试预览02', '20200102', 1, '梁晓明', '1', NULL, NULL, 1, 0, '2021-04-05 14:14:45', NULL);
+INSERT INTO `yc_doc` VALUES (22, '微信图片_20210328125805.jpg', 'tt', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', 'tt', '22', 1, '梁晓明', '1', NULL, NULL, 1, 0, '2021-04-05 14:38:38', NULL);
+INSERT INTO `yc_doc` VALUES (23, '南阳理工学院_徐亚远_java后端开发工程师.pdf', '1', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/南阳理工学院_徐亚远_java后端开发工程师.pdf', '1', '1', 1, '梁晓明', '1', NULL, NULL, 1, 0, '2021-04-05 14:40:14', NULL);
 
 -- ----------------------------
 -- Table structure for yc_grade_info
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_grade_info`;
 CREATE TABLE `yc_grade_info`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id,年级表',
-  `grade_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '年级编号',
-  `grade_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '年级名称',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '年级信息表' ROW_FORMAT = Dynamic;
+                                  `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id,年级表',
+                                  `grade_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '年级编号',
+                                  `grade_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '年级名称',
+                                  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '年级信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_grade_info
@@ -669,14 +666,14 @@ INSERT INTO `yc_grade_info` VALUES (3, '03', '高三');
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_location_info`;
 CREATE TABLE `yc_location_info`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id,位置信息，高一在哪栋楼，高二在哪',
-  `teach_build_no` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教学楼编号,放教学楼表中编号',
-  `grade_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '年级编号,放年级表中的id',
-  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除 0 显示， 1 删除',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '年级位置表' ROW_FORMAT = Dynamic;
+                                     `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id,位置信息，高一在哪栋楼，高二在哪',
+                                     `teach_build_no` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教学楼编号,放教学楼表中编号',
+                                     `grade_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '年级编号,放年级表中的id',
+                                     `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除 0 显示， 1 删除',
+                                     `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+                                     `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+                                     PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '年级位置表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_location_info
@@ -689,93 +686,147 @@ INSERT INTO `yc_location_info` VALUES (17, '03', '03', 0, '2020-06-01 23:39:52',
 INSERT INTO `yc_location_info` VALUES (18, '04', '01', 1, '2021-02-28 04:24:56', NULL);
 INSERT INTO `yc_location_info` VALUES (19, '05', '01', 1, '2021-02-28 04:27:43', NULL);
 INSERT INTO `yc_location_info` VALUES (20, '08', '01', 1, '2021-02-28 04:31:49', NULL);
+INSERT INTO `yc_location_info` VALUES (21, '08', '01', 0, '2021-03-09 13:11:22', NULL);
+INSERT INTO `yc_location_info` VALUES (22, '12', '01', 0, '2021-03-09 13:12:52', NULL);
 
 -- ----------------------------
 -- Table structure for yc_online_category
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_online_category`;
 CREATE TABLE `yc_online_category`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id',
-  `category_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类别编号，01-99',
-  `category_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '网课类别',
-  `parent_id` int(11) NULL DEFAULT 0 COMMENT '父级id，默认0为一级分类',
-  `piority` int(3) NULL DEFAULT NULL COMMENT '优先级',
-  `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
-  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 13 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '网课类别表' ROW_FORMAT = Dynamic;
+                                       `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id',
+                                       `category_no` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类别编号，01-99',
+                                       `category_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '网课类别',
+                                       `parent_id` int(0) NULL DEFAULT 0 COMMENT '父级id，默认0为一级分类',
+                                       `piority` int(0) NULL DEFAULT NULL COMMENT '优先级',
+                                       `remark` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '备注',
+                                       `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
+                                       `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+                                       `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+                                       PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 23 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '网课类别表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_online_category
 -- ----------------------------
-INSERT INTO `yc_online_category` VALUES (1, '01', '语文', 0, NULL, '语文类别', 0, NULL, NULL);
+INSERT INTO `yc_online_category` VALUES (1, '01', '语文', 0, NULL, '语文类别', 0, '2020-06-07 23:13:36', NULL);
 INSERT INTO `yc_online_category` VALUES (2, '02', '数学', 0, NULL, NULL, 0, '2020-06-07 23:13:36', NULL);
 INSERT INTO `yc_online_category` VALUES (3, '03', '英语', 0, NULL, NULL, 0, '2020-06-08 09:17:43', NULL);
 INSERT INTO `yc_online_category` VALUES (4, '04', '物理', 0, NULL, NULL, 0, '2020-06-08 09:23:37', NULL);
 INSERT INTO `yc_online_category` VALUES (5, '05', '化学', 0, NULL, NULL, 0, '2020-06-08 09:23:44', NULL);
 INSERT INTO `yc_online_category` VALUES (6, '07', '生物', 0, NULL, NULL, 0, '2020-06-08 09:24:04', NULL);
-INSERT INTO `yc_online_category` VALUES (9, '08', '高一语文', 1, NULL, NULL, 0, '2020-06-08 09:47:34', NULL);
-INSERT INTO `yc_online_category` VALUES (10, '09', '高一数学', 2, NULL, NULL, 0, '2020-06-08 09:47:49', NULL);
-INSERT INTO `yc_online_category` VALUES (11, '10', '高二语文', 1, NULL, NULL, 0, '2020-06-08 09:48:20', NULL);
-INSERT INTO `yc_online_category` VALUES (12, '10', '高一英语', 3, NULL, NULL, 0, '2020-06-10 22:06:47', NULL);
+INSERT INTO `yc_online_category` VALUES (9, '08', '高一语文', 1, NULL, '语文类别', 0, '2020-06-08 09:47:34', NULL);
+INSERT INTO `yc_online_category` VALUES (10, '09', '高一数学', 2, NULL, '数学', 0, '2020-06-08 09:47:49', NULL);
+INSERT INTO `yc_online_category` VALUES (11, '10', '高二语文', 1, NULL, '语文类别', 0, '2020-06-08 09:48:20', NULL);
+INSERT INTO `yc_online_category` VALUES (12, '10', '高一英语', 3, NULL, '英语类别', 0, '2020-06-10 22:06:47', NULL);
+INSERT INTO `yc_online_category` VALUES (13, '11', '高一物理', 4, NULL, '物理类别', 0, '2021-04-04 23:08:41', NULL);
+INSERT INTO `yc_online_category` VALUES (14, '22', '测试数学', 2, NULL, NULL, 0, '2021-04-05 15:30:16', NULL);
+INSERT INTO `yc_online_category` VALUES (15, '14', '体育', 0, NULL, NULL, 0, '2021-04-05 16:35:38', NULL);
+INSERT INTO `yc_online_category` VALUES (16, '15-1', '高一体育', 15, NULL, NULL, 0, '2021-04-05 16:37:42', NULL);
+INSERT INTO `yc_online_category` VALUES (17, '6-1', '高一生物', 6, NULL, NULL, 0, '2021-04-05 16:38:23', NULL);
+INSERT INTO `yc_online_category` VALUES (18, '5-1', '高一化学', 5, NULL, NULL, 0, '2021-04-05 16:38:49', NULL);
+INSERT INTO `yc_online_category` VALUES (19, '14', '实验', 0, NULL, '实验课父级类别', 0, '2021-04-05 16:43:35', NULL);
+INSERT INTO `yc_online_category` VALUES (21, '19-1', '高一实验课', 19, NULL, '高一上学期实验课', 0, '2021-04-05 16:44:08', '2021-04-05 17:26:12');
+INSERT INTO `yc_online_category` VALUES (23, '19-2', '高二实验', 19, NULL, '高二实验', 0, '2021-04-05 17:27:39', NULL);
 
 -- ----------------------------
 -- Table structure for yc_online_course
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_online_course`;
 CREATE TABLE `yc_online_course`  (
-  `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT,
-  `online_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '网课编号，100000，6位数',
-  `online_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '网课课程名',
-  `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程介绍',
-  `cover` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '封面图片地址',
-  `online_category_id` int(11) NULL DEFAULT NULL COMMENT '网课类型id',
-  `online_category_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类别名称',
-  `piority` int(3) NULL DEFAULT NULL COMMENT '优先级',
-  `from_user_type` tinyint(1) NULL DEFAULT NULL COMMENT '发布者类型，1：管理员，2：讲师',
-  `from_user_id` int(11) NULL DEFAULT NULL COMMENT '发布者id',
-  `from_user_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发布者名称',
-  `clicks` bigint(20) NULL DEFAULT NULL COMMENT '点击次数',
-  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 4 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+                                     `id` int(0) UNSIGNED NOT NULL AUTO_INCREMENT,
+                                     `online_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '网课编号，100000，6位数',
+                                     `online_name` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '网课课程名',
+                                     `description` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '课程介绍',
+                                     `cover` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '封面图片地址',
+                                     `online_category_id` int(0) NULL DEFAULT NULL COMMENT '网课类型id',
+                                     `online_category_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类别名称',
+                                     `piority` int(0) NULL DEFAULT NULL COMMENT '优先级',
+                                     `from_user_type` tinyint(1) NULL DEFAULT NULL COMMENT '发布者类型，1：管理员，2：讲师',
+                                     `from_user_id` int(0) NULL DEFAULT NULL COMMENT '发布者id',
+                                     `from_user_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '发布者名称',
+                                     `clicks` bigint(0) NULL DEFAULT NULL COMMENT '点击次数',
+                                     `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
+                                     `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+                                     `update_time` datetime(0) NULL DEFAULT NULL COMMENT '修改时间',
+                                     PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 10 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_online_course
 -- ----------------------------
-INSERT INTO `yc_online_course` VALUES (1, '100000', '高一语文', NULL, 'https://arrange.oss-cn-shenzhen.aliyuncs.com/thread_6386220_20200520072309_s_1664172_w_316_h_163_16397.gif', 9, '语文', NULL, 1, 1, '梁主任', NULL, 0, NULL, NULL);
-INSERT INTO `yc_online_course` VALUES (2, '100001', '语文1', '1', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/thread_6386220_20200520072309_s_1664172_w_316_h_163_16397.gif', 9, '高一语文', NULL, NULL, NULL, NULL, NULL, 0, '2020-06-08 10:02:18', NULL);
-INSERT INTO `yc_online_course` VALUES (3, '100002', '高一英语语法', '带学生一起学习英语语法', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/psc.jfif', 12, '高一英语', NULL, 2, 1, '梁晓明', NULL, 0, '2020-06-10 22:07:55', NULL);
+INSERT INTO `yc_online_course` VALUES (1, '100000', '高一语文sstyyyy天天', NULL, 'https://arrange.oss-cn-shenzhen.aliyuncs.com/thread_6386220_20200520072309_s_1664172_w_316_h_163_16397.gif', 9, '语文', NULL, 1, 1, '梁晓明', NULL, 0, '2020-06-08 10:02:18', '2021-04-05 12:04:13');
+INSERT INTO `yc_online_course` VALUES (2, '100001', '语文1ttyyyy', '1', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/thread_6386220_20200520072309_s_1664172_w_316_h_163_16397.gif', 9, '高一语文', NULL, NULL, NULL, '梁晓明', NULL, 0, '2020-06-08 10:02:18', '2021-03-28 22:56:23');
+INSERT INTO `yc_online_course` VALUES (3, '100002', '高一英语语法', '带学生一起学习英语语法', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/psc.jfif', 12, '高一英语', NULL, 2, 1, '梁晓明', NULL, 0, '2020-06-10 22:07:55', '2021-04-05 11:56:51');
+INSERT INTO `yc_online_course` VALUES (4, '100003', '1', '1', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/psc.jfif', 10, '高一数学', NULL, 1, 1, '梁晓明', NULL, 0, '2021-03-28 21:19:12', '2021-04-05 11:56:53');
+INSERT INTO `yc_online_course` VALUES (6, '100004', '语文', '1', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', 9, '高一语文', NULL, 1, 1, '梁晓明', NULL, 0, '2021-03-28 21:52:27', '2021-03-28 22:56:36');
+INSERT INTO `yc_online_course` VALUES (7, '100005', 'x', 'x', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/psc.jfif', 9, '高一语文', NULL, 1, 1, '梁晓明', NULL, 0, '2021-04-04 17:47:25', '2021-04-05 11:56:56');
+INSERT INTO `yc_online_course` VALUES (8, '100006', 'y', 'y', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', 9, '高一语文', NULL, 1, 1, '梁晓明', NULL, 1, '2021-04-04 17:49:24', '2021-04-04 19:01:08');
+INSERT INTO `yc_online_course` VALUES (9, '100007', 'uuu', 'uuuu', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', 9, '高一语文', NULL, 1, 1, '梁晓明', NULL, 1, '2021-04-04 19:16:46', '2021-04-05 11:56:58');
+INSERT INTO `yc_online_course` VALUES (10, '100006', '高一物理必修一', '高中物理一', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/psc.jfif', 13, '高一物理', NULL, 1, 1, '梁晓明', NULL, 0, '2021-04-04 23:11:22', '2021-04-05 11:57:00');
+
+-- ----------------------------
+-- Table structure for yc_online_video
+-- ----------------------------
+DROP TABLE IF EXISTS `yc_online_video`;
+CREATE TABLE `yc_online_video`  (
+                                    `id` int(0) NOT NULL AUTO_INCREMENT,
+                                    `online_course_id` int(0) NULL DEFAULT NULL COMMENT '所属在线课程id',
+                                    `video_no` varchar(6) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '类似01-001',
+                                    `video_name` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '视频名称',
+                                    `video_url` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '视频路径',
+                                    `cover` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '视频封面',
+                                    `from_user_type` tinyint(1) NULL DEFAULT NULL COMMENT '上传用户类型，1管理员，2讲师',
+                                    `from_user_id` int(0) NULL DEFAULT NULL COMMENT '上传者id',
+                                    `from_user_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '上传者名称',
+                                    `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '0 显示，1 删除',
+                                    `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+                                    `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+                                    PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 21 CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of yc_online_video
+-- ----------------------------
+INSERT INTO `yc_online_video` VALUES (2, 2, '1-1', '珠海迈科智能科技股份有限公司.mp4', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/珠海迈科智能科技股份有限公司.mp4', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/psc.jfif', 1, 1, '梁晓明', 0, '2020-06-08 13:26:17', '2021-04-05 14:24:13');
+INSERT INTO `yc_online_video` VALUES (5, 5, '10.3', 'xxx', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/01-%E4%B8%8A%E6%AC%A1%E8%AF%BE%E5%86%85%E5%AE%B9%E5%9B%9E%E9%A1%BE__rec.avi?Expires=1612708222&OSSAccessKeyId=TMP.3KgpoDm6Wd2bDTR3zeoUoroM1TXtnAS9L942XAJA7hS7eR8KGpotxUZWqwwEkgVRbXJ5QK6DMVpTF9DFuM4yTX2JZ9iNmc&Signature=YcKa7mZDeGSphV4buhFLzAEjWfg%3D', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/thread_6386220_20200520072309_s_1664172_w_316_h_163_16397.gif', 1, 1, '梁晓明', 0, '2020-06-08 13:26:17', '2021-04-04 17:58:35');
+INSERT INTO `yc_online_video` VALUES (6, 3, '10.2', 'BLACKPINK镜面版 -AS IF IT\'S YOUR LAST.flv', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/BLACKPINK镜面版 -AS IF IT\'S YOUR LAST.flv', 'https://arrange.oss-cn-shenzhen.aliyuncs.com/5555.jpg', 1, 1, '梁晓明', 0, '2020-06-10 22:15:25', '2021-04-04 17:58:37');
+INSERT INTO `yc_online_video` VALUES (12, 2, '5', '微信图片_20210328125805.jpg', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', NULL, 1, '梁晓明', 1, '2021-04-04 21:35:48', NULL);
+INSERT INTO `yc_online_video` VALUES (13, 1, '7', '微信图片_20210328125805.jpg', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', NULL, 1, '梁晓明', 1, '2021-04-04 21:42:01', NULL);
+INSERT INTO `yc_online_video` VALUES (14, 1, '8', '微信图片_20210328125805.jpg', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', NULL, 1, '梁晓明', 1, '2021-04-04 21:44:11', NULL);
+INSERT INTO `yc_online_video` VALUES (15, 1, '9', '微信图片_20210328125805.jpg', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', NULL, 1, '梁晓明', 1, '2021-04-04 21:47:28', NULL);
+INSERT INTO `yc_online_video` VALUES (16, 6, '111', '微信图片_20210328125805.jpg', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', NULL, 1, '梁晓明', 0, '2021-04-04 21:57:02', NULL);
+INSERT INTO `yc_online_video` VALUES (17, 6, '2', '微信图片_20210328125805.jpg', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805.jpg', NULL, 1, '梁晓明', 0, '2021-04-04 21:59:14', NULL);
+INSERT INTO `yc_online_video` VALUES (18, 6, '11', '珠海迈科智能科技股份有限公司.mp4', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/珠海迈科智能科技股份有限公司.mp4', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805 (1).jpg', NULL, 1, '梁晓明', 1, '2021-04-04 22:50:26', NULL);
+INSERT INTO `yc_online_video` VALUES (19, 3, '222', '珠海迈科智能科技股份有限公司.mp4', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/珠海迈科智能科技股份有限公司.mp4', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/psc.jfif', NULL, 1, '梁晓明', 0, '2021-04-04 22:58:15', NULL);
+INSERT INTO `yc_online_video` VALUES (20, 10, '111', '珠海迈科智能科技股份有限公司.mp4', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/珠海迈科智能科技股份有限公司.mp4', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/psc.jfif', NULL, 1, '梁晓明', 0, '2021-04-04 23:14:51', NULL);
+INSERT INTO `yc_online_video` VALUES (21, 10, '33', '珠海迈科智能科技股份有限公司.mp4', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/珠海迈科智能科技股份有限公司.mp4', 'https://aliwo-xiaoxu-oos.oss-cn-beijing.aliyuncs.com/微信图片_20210328125805 (2).jpg', NULL, 1, '梁晓明', 0, '2021-04-05 11:49:31', NULL);
 
 -- ----------------------------
 -- Table structure for yc_student
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_student`;
 CREATE TABLE `yc_student`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '学生id',
-  `student_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学号，可以用于登录',
-  `username` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '昵称，可以用于登录',
-  `password` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
-  `realname` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '真实姓名',
-  `user_type` tinyint(1) NOT NULL DEFAULT 3 COMMENT '标记用户类型3',
-  `grade` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '年级',
-  `class_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所在班级',
-  `age` int(3) NULL DEFAULT NULL COMMENT '年龄',
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '当前住址',
-  `telephone` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
-  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
-  `avatar` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
-  `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '签名',
-  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除',
-  `status` tinyint(1) NULL DEFAULT 0 COMMENT '账号状态,0为正常，1为封禁',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 29 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生表' ROW_FORMAT = Dynamic;
+                               `id` int(0) NOT NULL AUTO_INCREMENT COMMENT '学生id',
+                               `student_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '学号，可以用于登录',
+                               `username` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '昵称，可以用于登录',
+                               `password` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
+                               `realname` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '真实姓名',
+                               `user_type` tinyint(1) NOT NULL DEFAULT 3 COMMENT '标记用户类型3',
+                               `grade` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '年级',
+                               `class_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所在班级',
+                               `age` int(0) NULL DEFAULT NULL COMMENT '年龄',
+                               `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '当前住址',
+                               `telephone` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
+                               `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '邮箱',
+                               `avatar` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
+                               `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '签名',
+                               `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除',
+                               `status` tinyint(1) NULL DEFAULT 0 COMMENT '账号状态,0为正常，1为封禁',
+                               `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+                               `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '学生表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_student
@@ -797,7 +848,7 @@ INSERT INTO `yc_student` VALUES (14, '2020035468', 'liangyike', '123456', '梁�
 INSERT INTO `yc_student` VALUES (15, '2020016788', 'xiewutong', '123456', '谢童鞋', 3, '高一', '20200104', 16, '湖南省衡阳市', '15177959816', 'course@guet.com', NULL, NULL, 0, 0, '2020-03-26 23:15:06', NULL);
 INSERT INTO `yc_student` VALUES (16, '2020024182', 'qintongxue', '123456', '覃同学', 3, '高二', '20200203', 17, '广西桂平市', '18565412563', 'course@guet.com', NULL, NULL, 0, 0, '2020-03-26 23:18:02', NULL);
 INSERT INTO `yc_student` VALUES (17, '2020028242', 'lian', '123456', '梁先生', 3, '高二', '20200201', 17, '广东中山', '17585968745', 'course@guet.com', NULL, NULL, 0, 0, '2020-03-26 23:20:29', '2020-05-02 21:44:19');
-INSERT INTO `yc_student` VALUES (18, '2020038300', 'jiangtongxue', '123456', '蒋同学', 3, '高三', '20200305', 18, '广东省佛山市', '13596857412', 'jiang@guet.com', NULL, NULL, 0, 0, '2020-03-26 23:25:11', '2020-04-06 14:49:22');
+INSERT INTO `yc_student` VALUES (18, '2020038300', 'jiangtongxue', '123456', '蒋同学', 3, '高三', '20200305', 18, '广东省佛山市', '13596857412', 'jiang@guet.com', NULL, NULL, 1, 0, '2020-03-26 23:25:11', '2020-04-06 14:49:22');
 INSERT INTO `yc_student` VALUES (19, '2020027623', 'ganxiansheng', '123456', '甘先生', 3, '高二', '20200205', 17, '广西百色', '17015789654', 'course@guet.com', NULL, NULL, 0, 0, '2020-03-26 23:26:20', NULL);
 INSERT INTO `yc_student` VALUES (20, '2020027807', '2020027623', '123456', '王总', 3, '高二', '20200205', 17, '上海市', '15678415241', 'course@guet.com', NULL, NULL, 0, 0, '2020-03-26 23:27:40', '2020-06-01 10:20:42');
 INSERT INTO `yc_student` VALUES (21, '2020022351', '小幸运', '123456', '陈奕迅', 3, '高二', '20200101', 18, '广东省珠海市金湾区', '15177959814', '12222@qq.com', NULL, NULL, 0, 0, '2020-05-20 09:11:25', '2021-02-09 07:10:31');
@@ -814,15 +865,15 @@ INSERT INTO `yc_student` VALUES (28, '2021028248', 'zwm', 'zwm123', '赵文苗',
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_teach_build_info`;
 CREATE TABLE `yc_teach_build_info`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id,教学楼信息表',
-  `teach_build_no` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教学楼编号',
-  `teach_build_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教学楼名称',
-  `teach_build_location` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教学楼位置',
-  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除 0 显示，1 删除',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 17 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '教学楼信息表' ROW_FORMAT = Dynamic;
+                                        `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id,教学楼信息表',
+                                        `teach_build_no` varchar(4) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教学楼编号',
+                                        `teach_build_name` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教学楼名称',
+                                        `teach_build_location` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教学楼位置',
+                                        `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除 0 显示，1 删除',
+                                        `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+                                        `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+                                        PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 16 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '教学楼信息表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_teach_build_info
@@ -849,30 +900,30 @@ INSERT INTO `yc_teach_build_info` VALUES (16, '19', 's', 's', 1, '2021-02-27 06:
 -- ----------------------------
 DROP TABLE IF EXISTS `yc_teacher`;
 CREATE TABLE `yc_teacher`  (
-  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'id，讲师表',
-  `teacher_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师编号',
-  `username` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '昵称（用户名）',
-  `password` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
-  `realname` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '真实姓名',
-  `user_type` tinyint(1) NOT NULL DEFAULT 2 COMMENT '用户类型',
-  `job_title` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职称',
-  `grade_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属年级',
-  `license` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '证件照(地址)',
-  `teach_subject` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教授科目',
-  `age` int(3) NULL DEFAULT NULL COMMENT '年龄',
-  `telephone` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
-  `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电子邮件',
-  `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
-  `avatar` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
-  `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述（签名）',
-  `power` tinyint(1) NULL DEFAULT 1 COMMENT '操作权限',
-  `piority` int(2) NULL DEFAULT NULL COMMENT '优先级',
-  `status` tinyint(1) NULL DEFAULT 0 COMMENT '账号状态',
-  `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除 0(默认)显示，1删除 ',
-  `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
-  `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
-  PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 47 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '教师表' ROW_FORMAT = Dynamic;
+                               `id` int(0) NOT NULL AUTO_INCREMENT COMMENT 'id，讲师表',
+                               `teacher_no` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '教师编号',
+                               `username` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '昵称（用户名）',
+                               `password` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '密码',
+                               `realname` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT '真实姓名',
+                               `user_type` tinyint(1) NOT NULL DEFAULT 2 COMMENT '用户类型',
+                               `job_title` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '职称',
+                               `grade_no` varchar(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '所属年级',
+                               `license` varchar(1000) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '证件照(地址)',
+                               `teach_subject` varchar(200) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '教授科目',
+                               `age` int(0) NULL DEFAULT NULL COMMENT '年龄',
+                               `telephone` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '联系电话',
+                               `email` varchar(50) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '电子邮件',
+                               `address` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '地址',
+                               `avatar` varchar(500) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '头像',
+                               `description` varchar(100) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL COMMENT '描述（签名）',
+                               `power` tinyint(1) NULL DEFAULT 1 COMMENT '操作权限',
+                               `piority` int(0) NULL DEFAULT NULL COMMENT '优先级',
+                               `status` tinyint(1) NULL DEFAULT 0 COMMENT '账号状态',
+                               `deleted` tinyint(1) NULL DEFAULT 0 COMMENT '逻辑删除 0(默认)显示，1删除 ',
+                               `create_time` datetime(0) NULL DEFAULT NULL COMMENT '创建时间',
+                               `update_time` datetime(0) NULL DEFAULT NULL COMMENT '更新时间',
+                               PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 46 CHARACTER SET = utf8 COLLATE = utf8_general_ci COMMENT = '教师表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of yc_teacher
