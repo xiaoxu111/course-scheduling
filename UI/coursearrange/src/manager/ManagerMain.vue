@@ -25,7 +25,7 @@
             <el-menu-item index="0">
               <template slot="title">
                 <router-link to="/systemdata" class="links">
-                  <i class="el-icon-setting"></i>系统数据
+                  <i class="el-icon-setting"></i>可视乎数据分析
                 </router-link>
               </template>
             </el-menu-item>

@@ -4,6 +4,7 @@ import com.aliwo.common.ServerResponse;
 import com.aliwo.entity.Doc;
 import com.aliwo.entity.request.DocsVO;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * package_name:com.aliwo.service
@@ -14,6 +15,9 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * Version: 1.0
  **/
 public interface DocService extends IService<Doc> {
+
+    // 上传文档
+    ServerResponse uploadDocs(MultipartFile file);
 
     ServerResponse addDcos(DocsVO docsVO);
 }

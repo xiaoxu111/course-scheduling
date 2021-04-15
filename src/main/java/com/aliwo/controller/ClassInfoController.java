@@ -87,6 +87,9 @@ public class ClassInfoController {
         List<ClassInfoVo> classInfoVOS = null;
         if (StringUtils.isEmpty(gradeNo)) {
             // 分页查询所有班级信息
+            if (page > 1){
+                page = (page - 1) * 10;
+            }
             classInfoVOS = classInfoDao.queryClassInfos(page, limit);
             int total = classInfoDao.count2();
             map.put("records", classInfoVOS);

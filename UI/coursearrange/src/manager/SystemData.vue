@@ -15,13 +15,13 @@ export default {
 
   mounted() {
     this.systemData()
-  
+
   },
   computed: {
 
   },
   methods: {
-    // 获取系统数据
+    // 可视化数据分析
     systemData() {
       this.$axios
         .get("http://localhost:8080/systemdata")
@@ -43,7 +43,7 @@ export default {
       let chart = this.$echarts.init(document.getElementById("chart"));
 
       chart.setOption({
-        title: { text: "系统数据" },
+        title: { text: "可视化数据分析" },
         tooltip: {
           trigger: "axis",
           axisPointer: {
@@ -104,7 +104,7 @@ export default {
   margin:0;
   padding:0;
   position:absolute;
-  width: 85%; 
+  width: 85%;
 	height: 80%;
 }
 </style>

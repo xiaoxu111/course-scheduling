@@ -8,15 +8,15 @@
     <div class="table">
       <el-table :data="docData" size="mini" :stripe="true">
         <el-table-column label="序号" type="index"></el-table-column>
-        <el-table-column prop="docName" label="文件名"></el-table-column>
+        <el-table-column prop="fileName" label="文件名"></el-table-column>
         <el-table-column prop="description" label="描述"></el-table-column>
         <el-table-column prop="toClassNo" label="接收班级"></el-table-column>
         <el-table-column prop="fromUserName" label="发布者"></el-table-column>
-        <!--        <el-table-column prop="expire" label="有效期(天)"></el-table-column>-->
+<!--        <el-table-column prop="clicks" label="下载次数"></el-table-column>-->
         <el-table-column prop="createTime" label="上传时间"></el-table-column>
-        <el-table-column prop="operation" label="操作" width="150px">
+        <el-table-column prop="operation" label="操作" width="252px">
           <template slot-scope="scope">
-            <!--<el-button type="text" size="small" @click="previewById(scope.$index, scope.row)">预览</el-button>-->
+            <el-button type="primary" size="small" @click="previewById(scope.$index, scope.row)">预览</el-button>
             <el-button type="primary" size="small" @click="downloadById(scope.$index, scope.row)">下载</el-button>
             <el-button type="danger" size="small" @click="deleteById(scope.$index, scope.row)">删除</el-button>
           </template>
@@ -192,6 +192,12 @@ export default {
     downloadById(index, row) {
       console.log(row.docUrl)
       window.location.href = row.docUrl
+    },
+    //预览
+    previewById(index, row) {
+      let url = row.docUrl;
+      console.log(row.docUrl)
+      window.open(row.docUrl,"_blank", "预览");
     },
 
     deleteById(index, row) {

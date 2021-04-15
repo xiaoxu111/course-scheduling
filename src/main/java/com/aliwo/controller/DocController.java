@@ -7,11 +7,13 @@ import com.aliwo.service.DocService;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.logging.log4j.util.Strings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 
@@ -135,6 +137,48 @@ public class DocController {
      */
     @PostMapping("/adddocs")
     public ServerResponse addDocs(@RequestBody DocsVO docsVO) {
+        // 检查上传的文档参数
+        ServerResponse serverResponse = this.checkUploadDocument(docsVO);
+        if (serverResponse != null) return serverResponse;
         return docService.addDcos(docsVO);
+    }
+
+    /**
+     * 上传DOC文档，只负责上传并返回文件的url
+     * @param file
+     * @return
+     */
+    @PostMapping("/uploaddocs")
+    public ServerResponse uploadDocs(MultipartFile file) {
+        if (null == file) {
+            return ServerResponse.ofError("请选择要上传的文档！！！");
+        }
+        return docService.uploadDocs(file);
+    }
+
+    /**
+     * 检查上传的文档参数
+     * @author xuyayuan
+     * @date 2021/4/5 20:35
+     * @param docsVO
+     * @return com.aliwo.common.ServerResponse
+     */
+    private ServerResponse checkUploadDocument(DocsVO docsVO) {
+        if (StringUtils.isEmpty(docsVO.getDocUrl())) {
+            return ServerResponse.ofError("请上传文档");
+        }
+        if (StringUtils.isEmpty(docsVO.getDocName())) {
+            return ServerResponse.ofError("请上传文档");
+        }
+        if (StringUtils.isEmpty(docsVO.getFileName())) {
+            return ServerResponse.ofError("请填写文件名");
+        }
+        if (StringUtils.isEmpty(docsVO.getToClassNo())) {
+            return ServerResponse.ofError("请填写推送班级编号");
+        }
+        if (null == docsVO.getExpire()) {
+            return ServerResponse.ofError("请填写过期时间");
+        }
+        return null;
     }
 }
