@@ -3,6 +3,7 @@ package com.aliwo.entity;
 import com.baomidou.mybatisplus.annotation.*;
 import com.baomidou.mybatisplus.extension.activerecord.Model;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.databind.annotation.JsonSerialize;
 import com.fasterxml.jackson.datatype.jsr310.ser.LocalDateTimeSerializer;
 import lombok.AllArgsConstructor;
@@ -43,7 +44,9 @@ public class Student extends Model<Student> {
 
     /**
      * 密码
+     * @JsonIgnore 指定密码不返回
      */
+    @JsonIgnore
     private String password;
 
     /**
@@ -112,7 +115,7 @@ public class Student extends Model<Student> {
      */
     @TableField(fill = FieldFill.INSERT)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS", locale = "zh", timezone = "GMT+8")
     private LocalDateTime createTime;
 
     /**
@@ -120,7 +123,7 @@ public class Student extends Model<Student> {
      */
     @TableField(fill = FieldFill.INSERT_UPDATE)
     @JsonSerialize(using = LocalDateTimeSerializer.class)
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS")
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss.SSS", locale = "zh", timezone = "GMT+8")
     private LocalDateTime updateTime;
 
     @Override

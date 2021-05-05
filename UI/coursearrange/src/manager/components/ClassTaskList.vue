@@ -30,6 +30,7 @@
           >
             <el-button style="margin-left: 10px;" slot="trigger" size="small" type="primary">从Excel导入<i
               class="el-icon-upload2 el-icon--right"></i></el-button>
+            <el-button class="add-button" size="small" type="primary" @click="addClassTask()">手动添加</el-button>
             <!--<el-button style="margin-left: 10px;" size="small" type="success" :loading="loading" @click="submitUpload">上传到服务器<i class="el-icon-upload el-icon&#45;&#45;right"></i></el-button>-->
             <!-- 下载模板 <a class="atag" href="http://localhost:8080/download">-->
             <el-button class="add-button" size="small" type="primary" @click="downloadTemplate()">
@@ -70,7 +71,7 @@
 
       <el-table-column prop="operation" label="操作" width="260px">
         <template slot-scope="scope">
-          <el-button class="add-button" size="small" type="primary" @click="addClassTask()">手动添加</el-button>
+<!--          <el-button class="add-button" size="small" type="primary" @click="addClassTask()">手动添加</el-button>-->
           <el-button type="primary" size="mini" @click="editById(scope.$index, scope.row)">编辑</el-button>
           <el-button type="danger" size="mini" @click="deleteById(scope.$index, scope.row)">删除</el-button>
         </template>
@@ -78,7 +79,7 @@
     </el-table>
 
     <!-- 弹出表单添加讲师 -->
-    <el-dialog title="添加任务(参照模板填写)" :visible.sync="visible">
+    <el-dialog title="添加任务  (红色星标注的必填，参照模板填写！)" :visible.sync="visible">
       <el-form :model="addClassTaskForm" label-position="left" label-width="80px" :rules="addClassTaskRules">
         <el-form-item label="学期" prop="semester">
           <!--          <el-input v-model="addClassTaskForm.semester" autocomplete="off"
@@ -522,7 +523,7 @@ export default {
 
 .semester-select-1 {
   // vue中下拉框长度的设置
-  width: 825px !important;
+  width: 1025px !important;
   margin-bottom: 10px;
 }
 

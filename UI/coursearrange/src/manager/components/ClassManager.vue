@@ -25,7 +25,7 @@
         <el-table-column prop="realname" label="班主任"></el-table-column>
         <el-table-column prop="num" label="学生人数"></el-table-column>
 
-        <el-table-column prop="operation" label="操作" width="150px">
+        <el-table-column prop="operation" label="操作" width="260px">
           <template slot-scope="scope">
             <el-button type="danger" size="mini" @click="deleteById(scope.$index, scope.row)">删除</el-button>
             <el-button type="primary" size="mini" @click="editById(scope.$index, scope.row)">编辑</el-button>
