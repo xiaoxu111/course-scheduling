@@ -3,6 +3,7 @@ package com.aliwo.dao;
 import com.aliwo.entity.Student;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 /**
  * package_name:com.aliwo.dao
@@ -30,4 +31,7 @@ public interface StudentDao extends BaseMapper<Student> {
      */
 
     Student studentLogin(@Param(value = "account") String username, @Param(value = "password") String password);
+
+    @Select("select count(*) from yc_student where date(create_time) = #{yesday}")
+    int studentReg(@Param("yesday") String yesday);
 }

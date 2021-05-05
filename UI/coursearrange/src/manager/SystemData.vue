@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import 'zrender/lib/svg/svg';
 export default {
   name: "SystemData",
   data() {
@@ -24,7 +25,7 @@ export default {
     // 可视化数据分析
     systemData() {
       this.$axios
-        .get("http://localhost:8080/systemdata")
+        .post("http://localhost:8080/systemdata")
         .then(res => {
           if (res.data.code == 0) {
             let ret = res.data.data
@@ -37,10 +38,11 @@ export default {
         .catch(error => {});
     },
 
+
     // 画图
     draw(sys) {
 
-      let chart = this.$echarts.init(document.getElementById("chart"));
+      let chart = this.$echarts.init(document.getElementById("chart"),null, {renderer: 'canvas'});
 
       chart.setOption({
         title: { text: "可视化数据分析" },
@@ -58,10 +60,31 @@ export default {
           bottom: "3%",
           containLabel: true
         },
+
+        toolbox: {
+          show: true,
+          feature: {
+            dataZoom: {
+              yAxisIndex: "none"
+            },
+            dataView: {
+              readOnly: true
+            },
+            magicType: {
+              type: ["line", "bar"]
+            },
+            restore: {},
+            saveAsImage: {}
+          },
+          orient: "horizontal",
+          itemSize: 25,
+          itemGap: 15,
+          showTitle: true
+        },
         xAxis: [
           {
             type: "category",
-            data: ["讲师", "学生", "班级", "教室", "教学楼", "教材", "文档", "网课", "题库", "排课任务", "新增学生", "新增讲师"],
+            data: ["讲师", "学生", "班级", "教室", "教学楼", "教材", "文档", "网课", "排课任务", "新增学生", "新增讲师"],
             axisTick: {
               alignWithLabel: true
             }
@@ -86,7 +109,6 @@ export default {
               this.sysData.courses,
               this.sysData.docs,
               this.sysData.onlineCourse,
-              this.sysData.exercises,
               this.sysData.classtasks,
               this.sysData.studentReg,
               this.sysData.teacherReg,
