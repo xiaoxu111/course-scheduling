@@ -447,12 +447,15 @@ export default {
       this.visibleModifyVideoForm = true;
     },
     // 提交更新视频信息
-    commit() {
-      // let modifyData = this.editFormData
-      this.modifyTeacher(this.editFormData);
+    commit(){
+      this.modifyCourseInfo(this.editFormData);
     },
+    // commit() {
+      // let modifyData = this.editFormData
+      // this.modifyTeacher(this.editFormData);
+    // },
     // 删除视频
-    handleVideoDelete(row) {
+    handleVideoDelete(row) {9
       this.$axios
         .delete("http://localhost:8080/onlinevideo/delete/" + row.id)
         .then(r => {

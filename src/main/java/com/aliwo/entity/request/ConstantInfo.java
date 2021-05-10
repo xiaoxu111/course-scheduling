@@ -37,12 +37,12 @@ public class ConstantInfo {
     /**
      * 课程属性编号 1位
      */
-    public static final String COURSE_ATTR = "courseAttr";
+    public static final String COURSE_ATTR = "course_attr";
 
     /**
      * 教室编号 6位
      */
-    public static final String CLASSROOM_NO = "classroom_no";
+    public static final String CLASS_ROOM_NO = "class_room_no";
 
     /**
      * 上课时间2位
@@ -55,7 +55,7 @@ public class ConstantInfo {
     public static final String SEMESTER = "semester";
 
     /**
-     * 默认课程的编码
+     * 默认课程的编码（不固定上课时间）
      */
     public static final String DEAULT_CLASS_TIME = "00";
 
@@ -72,7 +72,7 @@ public class ConstantInfo {
     /**
      * 实验课
      */
-    public static final String EXPERIMENT_COURSE = "02";
+    public static final String EXPERIMENT_COURSE = "03";
 
     // 体育课
     public static final String PHYSICAL_COURSE = "04";

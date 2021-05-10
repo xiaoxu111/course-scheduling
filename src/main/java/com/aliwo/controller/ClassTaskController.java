@@ -309,4 +309,15 @@ public class ClassTaskController {
         }
         return ServerResponse.ofSuccess();
     }
+
+    /**
+     * 排课算法接口，传入学期开始去查对应学期的开课任务，进行排课，排完课程后添加到course_plan表
+     *
+     * @param semester
+     * @return
+     */
+    @RequestMapping(value = "/arrange/{semester}", method = RequestMethod.POST)
+    public ServerResponse arrange(@PathVariable("semester") String semester) {
+        return classTaskService.classScheduling(semester);
+    }
 }

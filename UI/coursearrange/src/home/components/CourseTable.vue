@@ -107,6 +107,7 @@ export default {
         .get("http://localhost:8080/courseplan/" + this.value3)
         .then(res => {
           console.log(res);
+          console.log("message: " + res.data.message);
           if (res.data.code == 0){
             let courseData = res.data.data;
             let level = 0;
@@ -132,8 +133,10 @@ export default {
               }
             }
             this.$message({ message: res.data.message , type: "success" })
-          }else {
-            this.$message.error("失败")
+          }
+          // 弹出失败提示
+          if (res.data.code == 1) {
+            this.$message.error(res.data.message);
           }
         })
       .catch(error => {

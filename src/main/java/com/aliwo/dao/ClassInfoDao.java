@@ -4,6 +4,7 @@ import com.aliwo.entity.ClassInfo;
 import com.aliwo.entity.response.ClassInfoVo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -44,5 +45,9 @@ public interface ClassInfoDao extends BaseMapper<ClassInfo> {
      * @return
      */
     int count1(@Param("gradeNo")String gradeNo);
+
+    // 获得班级的人数
+    @Select("select num from yc_class_info where class_no = #{classNo}")
+    int selectStuNum(@Param("classNo") String classNo);
 
 }

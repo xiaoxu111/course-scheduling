@@ -157,30 +157,69 @@ export default {
       this.classTableData.courses.map((item, index)=>{
         this.classTableData.courses[index].splice(0,this.classTableData.courses[index].length)
       })
+      // this.$axios
+      //   .get("http://localhost:8080/courseplan/" + this.value3)
+      //   .then(res => {
+      //     console.log(res)
+      //     let courseData = res.data.data;
+      //     let level = 0;
+      //     let times = 0;
+      //     for (let index = 0; index < courseData.length; index++) {
+      //       times = times + 1;
+      //       const item = courseData[index];
+      //       if(parseInt(item.classTime) != times){
+      //         this.classTableData.courses[level].push("");
+      //         index = index - 1;
+      //       }
+      //       else{
+      //
+      //         this.classTableData.courses[level].push(item.teacher.realname + "-" + item.courseInfo.courseName + "(" + item.classRoomNo + ")");
+      //       }
+      //       if((times % 5) == 0){
+      //         level = level + 1;
+      //       }
+      //     }
+      //     this.$message({message:'查询成功', type: 'success'})
+      //   })
       this.$axios
         .get("http://localhost:8080/courseplan/" + this.value3)
         .then(res => {
-          console.log(res)
-          let courseData = res.data.data;
-          let level = 0;
-          let times = 0;
-          for (let index = 0; index < courseData.length; index++) {
-            times = times + 1;
-            const item = courseData[index];
-            if(parseInt(item.classTime) != times){
-              this.classTableData.courses[level].push("");
-              index = index - 1;
+          console.log(res);
+          console.log("message: " + res.data.message);
+          if (res.data.code == 0){
+            let courseData = res.data.data;
+            let level = 0;
+            let times = 0;
+            for (let index = 0; index < courseData.length; index++) {
+              times = times + 1;
+              const item = courseData[index];
+              if (parseInt(item.classTime) != times) {
+                this.classTableData.courses[level].push("");
+                index = index - 1;
+              } else {
+                this.classTableData.courses[level].push(
+                  item.teacher.realname +
+                  "-" +
+                  item.courseInfo.courseName +
+                  "(" +
+                  item.classRoomNo +
+                  ")"
+                );
+              }
+              if (times % 5 == 0) {
+                level = level + 1;
+              }
             }
-            else{
-
-              this.classTableData.courses[level].push(item.teacher.realname + "-" + item.courseInfo.courseName + "(" + item.classRoomNo + ")");
-            }
-            if((times % 5) == 0){
-              level = level + 1;
-            }
+            this.$message({ message: res.data.message , type: "success" })
           }
-          this.$message({message:'查询成功', type: 'success'})
+          // 弹出失败提示
+          if (res.data.code == 1) {
+            this.$message.error(res.data.message);
+          }
         })
+        .catch(error => {
+          this.$message.error("失败")
+        });
     },
 
     /**
